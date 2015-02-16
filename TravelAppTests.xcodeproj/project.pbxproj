@@ -14,6 +14,12 @@
 		14074F4E1A76BA5E00A771E8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14074F4D1A76BA5E00A771E8 /* Images.xcassets */; };
 		14074F511A76BA5E00A771E8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14074F4F1A76BA5E00A771E8 /* LaunchScreen.xib */; };
 		14074F5D1A76BA5E00A771E8 /* TravelAppTestsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 14074F5C1A76BA5E00A771E8 /* TravelAppTestsTests.m */; };
+		14074F681A76BAF700A771E8 /* BDBTravelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 14074F671A76BAF700A771E8 /* BDBTravelModel.m */; };
+		14074F6D1A76BBB900A771E8 /* BDBTravelPlaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 14074F6C1A76BBB900A771E8 /* BDBTravelPlaces.m */; };
+		14074F6F1A76F15700A771E8 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14074F6E1A76F15700A771E8 /* Entitlements.plist */; };
+		14775D961A83E82C00CF9246 /* BDBAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 14775D951A83E82C00CF9246 /* BDBAnnotation.m */; };
+		14775E041A845F0000CF9246 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14775E031A845F0000CF9246 /* MapKit.framework */; };
+		14775E061A845F0900CF9246 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14775E051A845F0900CF9246 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +46,15 @@
 		14074F561A76BA5E00A771E8 /* TravelAppTestsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravelAppTestsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		14074F5B1A76BA5E00A771E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14074F5C1A76BA5E00A771E8 /* TravelAppTestsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TravelAppTestsTests.m; sourceTree = "<group>"; };
+		14074F661A76BAF700A771E8 /* BDBTravelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBTravelModel.h; sourceTree = "<group>"; };
+		14074F671A76BAF700A771E8 /* BDBTravelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBTravelModel.m; sourceTree = "<group>"; };
+		14074F6B1A76BBB900A771E8 /* BDBTravelPlaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBTravelPlaces.h; sourceTree = "<group>"; };
+		14074F6C1A76BBB900A771E8 /* BDBTravelPlaces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBTravelPlaces.m; sourceTree = "<group>"; };
+		14074F6E1A76F15700A771E8 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		14775D941A83E82C00CF9246 /* BDBAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBAnnotation.h; sourceTree = "<group>"; };
+		14775D951A83E82C00CF9246 /* BDBAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBAnnotation.m; sourceTree = "<group>"; };
+		14775E031A845F0000CF9246 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		14775E051A845F0900CF9246 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +62,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14775E061A845F0900CF9246 /* CoreLocation.framework in Frameworks */,
+				14775E041A845F0000CF9246 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +80,9 @@
 		14074F341A76BA5E00A771E8 = {
 			isa = PBXGroup;
 			children = (
+				14775E051A845F0900CF9246 /* CoreLocation.framework */,
+				14775E031A845F0000CF9246 /* MapKit.framework */,
+				14074F6E1A76F15700A771E8 /* Entitlements.plist */,
 				14074F3F1A76BA5E00A771E8 /* TravelAppTests */,
 				14074F591A76BA5E00A771E8 /* TravelAppTestsTests */,
 				14074F3E1A76BA5E00A771E8 /* Products */,
@@ -83,8 +103,8 @@
 			children = (
 				14074F441A76BA5E00A771E8 /* AppDelegate.h */,
 				14074F451A76BA5E00A771E8 /* AppDelegate.m */,
-				14074F471A76BA5E00A771E8 /* ViewController.h */,
-				14074F481A76BA5E00A771E8 /* ViewController.m */,
+				14074F691A76BB0100A771E8 /* Models */,
+				14074F6A1A76BB0800A771E8 /* Controllers */,
 				14074F4A1A76BA5E00A771E8 /* Main.storyboard */,
 				14074F4D1A76BA5E00A771E8 /* Images.xcassets */,
 				14074F4F1A76BA5E00A771E8 /* LaunchScreen.xib */,
@@ -117,6 +137,28 @@
 				14074F5B1A76BA5E00A771E8 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		14074F691A76BB0100A771E8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				14074F661A76BAF700A771E8 /* BDBTravelModel.h */,
+				14074F671A76BAF700A771E8 /* BDBTravelModel.m */,
+				14074F6B1A76BBB900A771E8 /* BDBTravelPlaces.h */,
+				14074F6C1A76BBB900A771E8 /* BDBTravelPlaces.m */,
+				14775D941A83E82C00CF9246 /* BDBAnnotation.h */,
+				14775D951A83E82C00CF9246 /* BDBAnnotation.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		14074F6A1A76BB0800A771E8 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				14074F471A76BA5E00A771E8 /* ViewController.h */,
+				14074F481A76BA5E00A771E8 /* ViewController.m */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14074F6F1A76F15700A771E8 /* Entitlements.plist in Resources */,
 				14074F4C1A76BA5E00A771E8 /* Main.storyboard in Resources */,
 				14074F511A76BA5E00A771E8 /* LaunchScreen.xib in Resources */,
 				14074F4E1A76BA5E00A771E8 /* Images.xcassets in Resources */,
@@ -220,7 +263,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				14074F491A76BA5E00A771E8 /* ViewController.m in Sources */,
+				14775D961A83E82C00CF9246 /* BDBAnnotation.m in Sources */,
 				14074F461A76BA5E00A771E8 /* AppDelegate.m in Sources */,
+				14074F681A76BAF700A771E8 /* BDBTravelModel.m in Sources */,
+				14074F6D1A76BBB900A771E8 /* BDBTravelPlaces.m in Sources */,
 				14074F431A76BA5E00A771E8 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,7 +326,10 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = Entitlements.plist;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "-";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -322,7 +371,10 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = Entitlements.plist;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "-";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -345,7 +397,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = Entitlements.plist;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = TravelAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -355,7 +411,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = TravelAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -414,6 +473,7 @@
 				14074F621A76BA5E00A771E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		14074F631A76BA5E00A771E8 /* Build configuration list for PBXNativeTarget "TravelAppTestsTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +482,7 @@
 				14074F651A76BA5E00A771E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
