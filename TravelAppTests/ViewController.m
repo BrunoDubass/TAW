@@ -10,6 +10,26 @@
 #import "BDBTravelPlaces.h"
 #import "BDBTravelModel.h"
 #import "BDBAnnotation.h"
+#import "BDBActions.h"
+#import "BDBAllRoutes.h"
+#import "BDBAnnotation.h"
+#import "BDBFlightCodeShare.h"
+#import "BDBFlightHop.h"
+#import "BDBFlightItinerary.h"
+#import "BDBFlightLeg.h"
+#import "BDBFlightSegment.h"
+#import "BDBIndicativePrice.h"
+#import "BDBRoute.h"
+#import "BDBStop.h"
+#import "BDBTransitAgency.h"
+#import "BDBTransitHop.h"
+#import "BDBTransitItinerary.h"
+#import "BDBTransitLeg.h"
+#import "BDBTransitLine.h"
+#import "BDBTransitSegment.h"
+#import "BDBTravelModel.h"
+#import "BDBWalkCarSegment.h"
+
 
 
 @interface ViewController ()
@@ -63,6 +83,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - CONVERSIONS
+
+//GOOGLE MAPS COORDS A APPLE MAPS COORDS
 
 - (MKPolyline *)polylineWithEncodedString:(NSString *)encodedString {
     const char *bytes = [encodedString UTF8String];
@@ -119,6 +143,18 @@
     
     return polyline;
 }
+
+//GPSSTRING TO CLLOCATION2D
+
+-(void)convertGPSStringToCLLocation2d:(NSString*)pos{
+    
+    NSRange coma = [pos rangeOfString:@","];
+    int comaPos = (int) coma.location;
+    
+    self.latitude = [pos substringWithRange:NSMakeRange(0, comaPos)];
+    self.longitude = [pos substringWithRange:NSMakeRange(comaPos+1, [pos length]-(comaPos+1))];
+}
+
 
 
 - (IBAction)search:(id)sender {
@@ -337,6 +373,11 @@
     
 }
 
+-(void)getDataFromJSON:(NSDictionary*)JSONDic{
+    
+    
+}
+
 #pragma mark - TABLEVIEW DELEGATE & DATA SOURCE
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -437,14 +478,6 @@
     }
 }
 
--(void)convertGPSStringToCLLocation2d:(NSString*)pos{
-    
-    NSRange coma = [pos rangeOfString:@","];
-    int comaPos = coma.location;
-    
-    self.latitude = [pos substringWithRange:NSMakeRange(0, comaPos)];
-    self.longitude = [pos substringWithRange:NSMakeRange(comaPos+1, [pos length]-(comaPos+1))];
-}
 
 #pragma mark - MAP DELEGATE
 

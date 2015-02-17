@@ -17,6 +17,23 @@
 		14074F681A76BAF700A771E8 /* BDBTravelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 14074F671A76BAF700A771E8 /* BDBTravelModel.m */; };
 		14074F6D1A76BBB900A771E8 /* BDBTravelPlaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 14074F6C1A76BBB900A771E8 /* BDBTravelPlaces.m */; };
 		14074F6F1A76F15700A771E8 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14074F6E1A76F15700A771E8 /* Entitlements.plist */; };
+		144CCDEC1A92760B00B3938D /* BDBRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCDEB1A92760B00B3938D /* BDBRoute.m */; };
+		144CCDEF1A92761900B3938D /* BDBStop.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCDEE1A92761900B3938D /* BDBStop.m */; };
+		144CCDF21A92762600B3938D /* BDBWalkCarSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCDF11A92762600B3938D /* BDBWalkCarSegment.m */; };
+		144CCDF51A92763800B3938D /* BDBTransitSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCDF41A92763800B3938D /* BDBTransitSegment.m */; };
+		144CCDF81A92765300B3938D /* BDBTransitItinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCDF71A92765300B3938D /* BDBTransitItinerary.m */; };
+		144CCDFB1A92766100B3938D /* BDBTransitLeg.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCDFA1A92766100B3938D /* BDBTransitLeg.m */; };
+		144CCDFE1A92767000B3938D /* BDBTransitHop.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCDFD1A92767000B3938D /* BDBTransitHop.m */; };
+		144CCE011A92767E00B3938D /* BDBTransitLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCE001A92767E00B3938D /* BDBTransitLine.m */; };
+		144CCE041A92768C00B3938D /* BDBFlightSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCE031A92768C00B3938D /* BDBFlightSegment.m */; };
+		144CCE071A92769F00B3938D /* BDBFlightItinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCE061A92769F00B3938D /* BDBFlightItinerary.m */; };
+		144CCE0A1A9276AD00B3938D /* BDBFlightLeg.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCE091A9276AD00B3938D /* BDBFlightLeg.m */; };
+		144CCE0D1A9276ED00B3938D /* BDBFlightHop.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCE0C1A9276ED00B3938D /* BDBFlightHop.m */; };
+		144CCE101A9276F900B3938D /* BDBFlightCodeShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCE0F1A9276F900B3938D /* BDBFlightCodeShare.m */; };
+		144CCE131A92771A00B3938D /* BDBIndicativePrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCE121A92771A00B3938D /* BDBIndicativePrice.m */; };
+		144CCE161A92793100B3938D /* BDBTransitAgency.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCE151A92793100B3938D /* BDBTransitAgency.m */; };
+		144CCE191A92793F00B3938D /* BDBActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCE181A92793F00B3938D /* BDBActions.m */; };
+		144CCE1C1A927C6600B3938D /* BDBAllRoutes.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCE1B1A927C6600B3938D /* BDBAllRoutes.m */; };
 		14775D961A83E82C00CF9246 /* BDBAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 14775D951A83E82C00CF9246 /* BDBAnnotation.m */; };
 		14775E041A845F0000CF9246 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14775E031A845F0000CF9246 /* MapKit.framework */; };
 		14775E061A845F0900CF9246 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14775E051A845F0900CF9246 /* CoreLocation.framework */; };
@@ -51,6 +68,40 @@
 		14074F6B1A76BBB900A771E8 /* BDBTravelPlaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBTravelPlaces.h; sourceTree = "<group>"; };
 		14074F6C1A76BBB900A771E8 /* BDBTravelPlaces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBTravelPlaces.m; sourceTree = "<group>"; };
 		14074F6E1A76F15700A771E8 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		144CCDEA1A92760B00B3938D /* BDBRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBRoute.h; sourceTree = "<group>"; };
+		144CCDEB1A92760B00B3938D /* BDBRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBRoute.m; sourceTree = "<group>"; };
+		144CCDED1A92761900B3938D /* BDBStop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBStop.h; sourceTree = "<group>"; };
+		144CCDEE1A92761900B3938D /* BDBStop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBStop.m; sourceTree = "<group>"; };
+		144CCDF01A92762600B3938D /* BDBWalkCarSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBWalkCarSegment.h; sourceTree = "<group>"; };
+		144CCDF11A92762600B3938D /* BDBWalkCarSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBWalkCarSegment.m; sourceTree = "<group>"; };
+		144CCDF31A92763800B3938D /* BDBTransitSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBTransitSegment.h; sourceTree = "<group>"; };
+		144CCDF41A92763800B3938D /* BDBTransitSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBTransitSegment.m; sourceTree = "<group>"; };
+		144CCDF61A92765300B3938D /* BDBTransitItinerary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBTransitItinerary.h; sourceTree = "<group>"; };
+		144CCDF71A92765300B3938D /* BDBTransitItinerary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBTransitItinerary.m; sourceTree = "<group>"; };
+		144CCDF91A92766100B3938D /* BDBTransitLeg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBTransitLeg.h; sourceTree = "<group>"; };
+		144CCDFA1A92766100B3938D /* BDBTransitLeg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBTransitLeg.m; sourceTree = "<group>"; };
+		144CCDFC1A92767000B3938D /* BDBTransitHop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBTransitHop.h; sourceTree = "<group>"; };
+		144CCDFD1A92767000B3938D /* BDBTransitHop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBTransitHop.m; sourceTree = "<group>"; };
+		144CCDFF1A92767E00B3938D /* BDBTransitLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBTransitLine.h; sourceTree = "<group>"; };
+		144CCE001A92767E00B3938D /* BDBTransitLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBTransitLine.m; sourceTree = "<group>"; };
+		144CCE021A92768C00B3938D /* BDBFlightSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBFlightSegment.h; sourceTree = "<group>"; };
+		144CCE031A92768C00B3938D /* BDBFlightSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBFlightSegment.m; sourceTree = "<group>"; };
+		144CCE051A92769F00B3938D /* BDBFlightItinerary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBFlightItinerary.h; sourceTree = "<group>"; };
+		144CCE061A92769F00B3938D /* BDBFlightItinerary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBFlightItinerary.m; sourceTree = "<group>"; };
+		144CCE081A9276AD00B3938D /* BDBFlightLeg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBFlightLeg.h; sourceTree = "<group>"; };
+		144CCE091A9276AD00B3938D /* BDBFlightLeg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBFlightLeg.m; sourceTree = "<group>"; };
+		144CCE0B1A9276ED00B3938D /* BDBFlightHop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBFlightHop.h; sourceTree = "<group>"; };
+		144CCE0C1A9276ED00B3938D /* BDBFlightHop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBFlightHop.m; sourceTree = "<group>"; };
+		144CCE0E1A9276F900B3938D /* BDBFlightCodeShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBFlightCodeShare.h; sourceTree = "<group>"; };
+		144CCE0F1A9276F900B3938D /* BDBFlightCodeShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBFlightCodeShare.m; sourceTree = "<group>"; };
+		144CCE111A92771A00B3938D /* BDBIndicativePrice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBIndicativePrice.h; sourceTree = "<group>"; };
+		144CCE121A92771A00B3938D /* BDBIndicativePrice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBIndicativePrice.m; sourceTree = "<group>"; };
+		144CCE141A92793100B3938D /* BDBTransitAgency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBTransitAgency.h; sourceTree = "<group>"; };
+		144CCE151A92793100B3938D /* BDBTransitAgency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBTransitAgency.m; sourceTree = "<group>"; };
+		144CCE171A92793F00B3938D /* BDBActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBActions.h; sourceTree = "<group>"; };
+		144CCE181A92793F00B3938D /* BDBActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBActions.m; sourceTree = "<group>"; };
+		144CCE1A1A927C6600B3938D /* BDBAllRoutes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBAllRoutes.h; sourceTree = "<group>"; };
+		144CCE1B1A927C6600B3938D /* BDBAllRoutes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBAllRoutes.m; sourceTree = "<group>"; };
 		14775D941A83E82C00CF9246 /* BDBAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBAnnotation.h; sourceTree = "<group>"; };
 		14775D951A83E82C00CF9246 /* BDBAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBAnnotation.m; sourceTree = "<group>"; };
 		14775E031A845F0000CF9246 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -142,12 +193,41 @@
 		14074F691A76BB0100A771E8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				14074F661A76BAF700A771E8 /* BDBTravelModel.h */,
-				14074F671A76BAF700A771E8 /* BDBTravelModel.m */,
-				14074F6B1A76BBB900A771E8 /* BDBTravelPlaces.h */,
-				14074F6C1A76BBB900A771E8 /* BDBTravelPlaces.m */,
-				14775D941A83E82C00CF9246 /* BDBAnnotation.h */,
-				14775D951A83E82C00CF9246 /* BDBAnnotation.m */,
+				144CCE1A1A927C6600B3938D /* BDBAllRoutes.h */,
+				144CCE1B1A927C6600B3938D /* BDBAllRoutes.m */,
+				144CCDE91A9275F200B3938D /* OLD_MODEL */,
+				144CCDEA1A92760B00B3938D /* BDBRoute.h */,
+				144CCDEB1A92760B00B3938D /* BDBRoute.m */,
+				144CCDED1A92761900B3938D /* BDBStop.h */,
+				144CCDEE1A92761900B3938D /* BDBStop.m */,
+				144CCDF01A92762600B3938D /* BDBWalkCarSegment.h */,
+				144CCDF11A92762600B3938D /* BDBWalkCarSegment.m */,
+				144CCDF31A92763800B3938D /* BDBTransitSegment.h */,
+				144CCDF41A92763800B3938D /* BDBTransitSegment.m */,
+				144CCDF61A92765300B3938D /* BDBTransitItinerary.h */,
+				144CCDF71A92765300B3938D /* BDBTransitItinerary.m */,
+				144CCDF91A92766100B3938D /* BDBTransitLeg.h */,
+				144CCDFA1A92766100B3938D /* BDBTransitLeg.m */,
+				144CCDFC1A92767000B3938D /* BDBTransitHop.h */,
+				144CCDFD1A92767000B3938D /* BDBTransitHop.m */,
+				144CCDFF1A92767E00B3938D /* BDBTransitLine.h */,
+				144CCE001A92767E00B3938D /* BDBTransitLine.m */,
+				144CCE021A92768C00B3938D /* BDBFlightSegment.h */,
+				144CCE031A92768C00B3938D /* BDBFlightSegment.m */,
+				144CCE051A92769F00B3938D /* BDBFlightItinerary.h */,
+				144CCE061A92769F00B3938D /* BDBFlightItinerary.m */,
+				144CCE081A9276AD00B3938D /* BDBFlightLeg.h */,
+				144CCE091A9276AD00B3938D /* BDBFlightLeg.m */,
+				144CCE0B1A9276ED00B3938D /* BDBFlightHop.h */,
+				144CCE0C1A9276ED00B3938D /* BDBFlightHop.m */,
+				144CCE0E1A9276F900B3938D /* BDBFlightCodeShare.h */,
+				144CCE0F1A9276F900B3938D /* BDBFlightCodeShare.m */,
+				144CCE111A92771A00B3938D /* BDBIndicativePrice.h */,
+				144CCE121A92771A00B3938D /* BDBIndicativePrice.m */,
+				144CCE141A92793100B3938D /* BDBTransitAgency.h */,
+				144CCE151A92793100B3938D /* BDBTransitAgency.m */,
+				144CCE171A92793F00B3938D /* BDBActions.h */,
+				144CCE181A92793F00B3938D /* BDBActions.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -159,6 +239,19 @@
 				14074F481A76BA5E00A771E8 /* ViewController.m */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		144CCDE91A9275F200B3938D /* OLD_MODEL */ = {
+			isa = PBXGroup;
+			children = (
+				14074F661A76BAF700A771E8 /* BDBTravelModel.h */,
+				14074F671A76BAF700A771E8 /* BDBTravelModel.m */,
+				14074F6B1A76BBB900A771E8 /* BDBTravelPlaces.h */,
+				14074F6C1A76BBB900A771E8 /* BDBTravelPlaces.m */,
+				14775D941A83E82C00CF9246 /* BDBAnnotation.h */,
+				14775D951A83E82C00CF9246 /* BDBAnnotation.m */,
+			);
+			name = OLD_MODEL;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,12 +355,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				144CCDF81A92765300B3938D /* BDBTransitItinerary.m in Sources */,
 				14074F491A76BA5E00A771E8 /* ViewController.m in Sources */,
+				144CCE0D1A9276ED00B3938D /* BDBFlightHop.m in Sources */,
+				144CCE0A1A9276AD00B3938D /* BDBFlightLeg.m in Sources */,
+				144CCE1C1A927C6600B3938D /* BDBAllRoutes.m in Sources */,
+				144CCE101A9276F900B3938D /* BDBFlightCodeShare.m in Sources */,
+				144CCE011A92767E00B3938D /* BDBTransitLine.m in Sources */,
 				14775D961A83E82C00CF9246 /* BDBAnnotation.m in Sources */,
+				144CCDFB1A92766100B3938D /* BDBTransitLeg.m in Sources */,
+				144CCDFE1A92767000B3938D /* BDBTransitHop.m in Sources */,
+				144CCE041A92768C00B3938D /* BDBFlightSegment.m in Sources */,
+				144CCE161A92793100B3938D /* BDBTransitAgency.m in Sources */,
+				144CCE131A92771A00B3938D /* BDBIndicativePrice.m in Sources */,
+				144CCDEF1A92761900B3938D /* BDBStop.m in Sources */,
 				14074F461A76BA5E00A771E8 /* AppDelegate.m in Sources */,
+				144CCE191A92793F00B3938D /* BDBActions.m in Sources */,
 				14074F681A76BAF700A771E8 /* BDBTravelModel.m in Sources */,
 				14074F6D1A76BBB900A771E8 /* BDBTravelPlaces.m in Sources */,
 				14074F431A76BA5E00A771E8 /* main.m in Sources */,
+				144CCE071A92769F00B3938D /* BDBFlightItinerary.m in Sources */,
+				144CCDF21A92762600B3938D /* BDBWalkCarSegment.m in Sources */,
+				144CCDF51A92763800B3938D /* BDBTransitSegment.m in Sources */,
+				144CCDEC1A92760B00B3938D /* BDBRoute.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
