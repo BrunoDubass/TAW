@@ -10,8 +10,7 @@
 
 @interface BDBAllRoutes : NSObject
 
-@property (strong, nonatomic)NSArray *routes;
+@property (strong, nonatomic)NSMutableArray *routes;
 
--(id)initWithRoutes:(NSArray*)aRoutes;
 
 @end

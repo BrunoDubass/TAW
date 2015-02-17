@@ -48,5 +48,7 @@
 - (IBAction)destinationAutoComplete:(id)sender;
 -(void)convertGPSStringToCLLocation2d:(NSString*)pos;
 
+-(void)getDataFromJSON:(NSDictionary*)JSONDic;
+
 @end
 

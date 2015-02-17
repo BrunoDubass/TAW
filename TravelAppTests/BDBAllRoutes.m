@@ -10,11 +10,11 @@
 
 @implementation BDBAllRoutes
 
--(id)initWithRoutes:(NSArray*)aRoutes{
+-(id)init{
     
     if (self = [super init]) {
         
-        _routes = aRoutes;
+        _routes = [[NSMutableArray alloc]init];
     }
     return self;
 }
