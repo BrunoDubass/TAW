@@ -12,6 +12,7 @@
 @interface BDBWalkCarSegment : NSObject
 
 @property (copy, nonatomic)NSString *kind;
+@property (copy, nonatomic)NSString *subKind;
 @property (copy, nonatomic)NSString *vehicle;
 @property (nonatomic)BOOL isMajor;
 @property (nonatomic)BOOL isImperial;
@@ -25,6 +26,7 @@
 @property (copy, nonatomic)NSString *path;
 
 -(id)initWithKind:(NSString*)aKind
+          subKind:(NSString*)aSubKind
           vehicle:(NSString*)aVehicle
           isMajor:(BOOL)aIsMajor
        isImperial:(BOOL)aIsImperial

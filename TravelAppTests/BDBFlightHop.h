@@ -21,7 +21,7 @@
 @property (copy, nonatomic)NSString *airline;
 @property (nonatomic)float duration;
 @property (copy, nonatomic)NSString *aircraft;
-@property (strong, nonatomic)BDBFlightCodeShare *codeShare;
+@property (strong, nonatomic)NSArray *codeShare;
 @property (nonatomic)NSUInteger dayChange;
 @property (nonatomic)float iDuration;
 @property (nonatomic)NSUInteger iDayChange;
@@ -36,7 +36,7 @@
            airline:(NSString*)aAirline
           duration:(float)aDuration
           aircraft:(NSString*)aAircraft
-         codeShare:(BDBFlightCodeShare*)aCodeShare
+         codeShare:(NSArray*)aCodeShare
          dayChange:(NSUInteger)aDayChange
          iDuration:(float)aIduration
         iDayChange:(NSUInteger)aIDayChange;

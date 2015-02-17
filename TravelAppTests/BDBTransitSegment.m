@@ -22,7 +22,7 @@
             tName:(NSString*)aTName
              tPos:(NSString*)aTPos
   indicativePrice:(BDBIndicativePrice*)aIndicativePrice
-      itineraries:(BDBTransitItinerary*)aItineraries
+      itineraries:(NSArray*)aItineraries
              path:(NSString*)aPath
             stops:(NSArray*)aStops{
     

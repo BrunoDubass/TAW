@@ -24,7 +24,7 @@
 @property (copy, nonatomic)NSString *tName;
 @property (copy, nonatomic)NSString *tPos;
 @property (strong, nonatomic)BDBIndicativePrice *indicativePrice;
-@property (strong, nonatomic)BDBTransitItinerary *itineraries;
+@property (strong, nonatomic)NSArray *itineraries;
 @property (copy, nonatomic)NSString *path;
 @property (strong, nonatomic)NSArray *stops;
 
@@ -40,7 +40,7 @@
             tName:(NSString*)aTName
              tPos:(NSString*)aTPos
   indicativePrice:(BDBIndicativePrice*)aIndicativePrice
-      itineraries:(BDBTransitItinerary*)aItineraries
+      itineraries:(NSArray*)aItineraries
              path:(NSString*)aPath
             stops:(NSArray*)aStops;
 

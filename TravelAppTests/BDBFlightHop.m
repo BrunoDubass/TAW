@@ -20,7 +20,7 @@
            airline:(NSString*)aAirline
           duration:(float)aDuration
           aircraft:(NSString*)aAircraft
-         codeShare:(BDBFlightCodeShare*)aCodeShare
+         codeShare:(NSArray*)aCodeShare
          dayChange:(NSUInteger)aDayChange
          iDuration:(float)aIduration
         iDayChange:(NSUInteger)aIDayChange{

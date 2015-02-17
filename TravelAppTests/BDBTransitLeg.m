@@ -10,10 +10,13 @@
 
 @implementation BDBTransitLeg
 
--(id)initWithUrl:(NSURL*)aUrl transitHop:(NSArray*)aTransitHop{
+-(id)initWithUrl:(NSURL*)aUrl
+            host:(NSString*)aHost
+      transitHop:(NSArray*)aTransitHop{
     
     if (self = [super init]) {
         _url = aUrl;
+        _host = aHost;
         _transitHop = aTransitHop;
     }    
     return self;

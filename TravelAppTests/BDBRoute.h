@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BDBIndicativePrice.h"
 
 @interface BDBRoute : NSObject
 
@@ -15,11 +16,13 @@
 @property (nonatomic)float duration;
 @property (strong, nonatomic)NSArray *stops;
 @property (strong, nonatomic)NSArray *segments;
+@property (strong, nonatomic)BDBIndicativePrice *indicativePrice;
 
 -(id)initWithName:(NSString*)aName
          distance:(float) aDistance
          duration:(float) aDuration
             stops:(NSArray*)aStops
-         segments:(NSArray*)aSegments;
+         segments:(NSArray*)aSegments
+  indicativePrice:(BDBIndicativePrice*)aIndicativePrice;
 
 @end

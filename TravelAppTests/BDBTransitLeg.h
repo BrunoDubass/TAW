@@ -11,9 +11,11 @@
 @interface BDBTransitLeg : NSObject
 
 @property (strong, nonatomic)NSURL *url;
+@property (copy, nonatomic)NSString *host;
 @property (strong, nonatomic)NSArray *transitHop;
 
 -(id)initWithUrl:(NSURL*)aUrl
+            host:(NSString*)aHost
       transitHop:(NSArray*)aTransitHop;
 
 @end

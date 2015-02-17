@@ -14,7 +14,8 @@
          distance:(float) aDistance
          duration:(float) aDuration
             stops:(NSArray*)aStops
-         segments:(NSArray*)aSegments{
+         segments:(NSArray*)aSegments
+  indicativePrice:(BDBIndicativePrice *)aIndicativePrice{
     
     if (self = [super init]) {
         
@@ -23,6 +24,7 @@
         _duration = aDuration;
         _stops = aStops;
         _segments = aSegments;
+        _indicativePrice = aIndicativePrice;
     }
     return self;
 }

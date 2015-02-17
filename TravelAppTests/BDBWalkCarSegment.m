@@ -11,6 +11,7 @@
 @implementation BDBWalkCarSegment
 
 -(id)initWithKind:(NSString*)aKind
+          subKind:(NSString*)aSubKind
           vehicle:(NSString*)aVehicle
           isMajor:(BOOL)aIsMajor
        isImperial:(BOOL)aIsImperial
@@ -25,6 +26,7 @@
     
     if (self = [super init]) {
         _kind = aKind;
+        _subKind = aSubKind;
         _vehicle = aVehicle;
         _isMajor = aIsMajor;
         _isImperial = aIsImperial;
