@@ -11,6 +11,7 @@
 @import MapKit;
 @import CoreLocation;
 @class BDBAnnotation;
+@class BDBAllRoutes;
 
 @interface ViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, MKMapViewDelegate, CLLocationManagerDelegate>
 
@@ -39,6 +40,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *originTableView;
 @property (weak, nonatomic) IBOutlet UITableView *destinationTableView;
 
+
+
+@property (strong, nonatomic) BDBAllRoutes   *allRoutes;
 
 - (MKPolyline *)polylineWithEncodedString:(NSString *)encodedString;
 

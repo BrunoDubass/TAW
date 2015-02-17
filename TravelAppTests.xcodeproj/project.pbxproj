@@ -17,6 +17,7 @@
 		14074F681A76BAF700A771E8 /* BDBTravelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 14074F671A76BAF700A771E8 /* BDBTravelModel.m */; };
 		14074F6D1A76BBB900A771E8 /* BDBTravelPlaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 14074F6C1A76BBB900A771E8 /* BDBTravelPlaces.m */; };
 		14074F6F1A76F15700A771E8 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14074F6E1A76F15700A771E8 /* Entitlements.plist */; };
+		141DA2351A93C303005240EA /* BDBRoutesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 141DA2341A93C303005240EA /* BDBRoutesTableViewController.m */; };
 		144CCDEC1A92760B00B3938D /* BDBRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCDEB1A92760B00B3938D /* BDBRoute.m */; };
 		144CCDEF1A92761900B3938D /* BDBStop.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCDEE1A92761900B3938D /* BDBStop.m */; };
 		144CCDF21A92762600B3938D /* BDBWalkCarSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 144CCDF11A92762600B3938D /* BDBWalkCarSegment.m */; };
@@ -68,6 +69,8 @@
 		14074F6B1A76BBB900A771E8 /* BDBTravelPlaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBTravelPlaces.h; sourceTree = "<group>"; };
 		14074F6C1A76BBB900A771E8 /* BDBTravelPlaces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBTravelPlaces.m; sourceTree = "<group>"; };
 		14074F6E1A76F15700A771E8 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		141DA2331A93C303005240EA /* BDBRoutesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBRoutesTableViewController.h; sourceTree = "<group>"; };
+		141DA2341A93C303005240EA /* BDBRoutesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBRoutesTableViewController.m; sourceTree = "<group>"; };
 		144CCDEA1A92760B00B3938D /* BDBRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBRoute.h; sourceTree = "<group>"; };
 		144CCDEB1A92760B00B3938D /* BDBRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBRoute.m; sourceTree = "<group>"; };
 		144CCDED1A92761900B3938D /* BDBStop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBStop.h; sourceTree = "<group>"; };
@@ -237,6 +240,8 @@
 			children = (
 				14074F471A76BA5E00A771E8 /* ViewController.h */,
 				14074F481A76BA5E00A771E8 /* ViewController.m */,
+				141DA2331A93C303005240EA /* BDBRoutesTableViewController.h */,
+				141DA2341A93C303005240EA /* BDBRoutesTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -365,6 +370,7 @@
 				14775D961A83E82C00CF9246 /* BDBAnnotation.m in Sources */,
 				144CCDFB1A92766100B3938D /* BDBTransitLeg.m in Sources */,
 				144CCDFE1A92767000B3938D /* BDBTransitHop.m in Sources */,
+				141DA2351A93C303005240EA /* BDBRoutesTableViewController.m in Sources */,
 				144CCE041A92768C00B3938D /* BDBFlightSegment.m in Sources */,
 				144CCE161A92793100B3938D /* BDBTransitAgency.m in Sources */,
 				144CCE131A92771A00B3938D /* BDBIndicativePrice.m in Sources */,
