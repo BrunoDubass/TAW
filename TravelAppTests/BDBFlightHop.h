@@ -19,7 +19,7 @@
 @property (nonatomic)float tTime;
 @property (copy, nonatomic)NSString *flight;
 @property (copy, nonatomic)NSString *airline;
-@property (nonatomic)float duration;
+@property (nonatomic)float timeTrip;
 @property (copy, nonatomic)NSString *aircraft;
 @property (strong, nonatomic)NSArray *codeShare;
 @property (nonatomic)NSUInteger dayChange;
@@ -34,7 +34,7 @@
              tTime:(float)aTTime
             flight:(NSString*)aFlight
            airline:(NSString*)aAirline
-          duration:(float)aDuration
+          timeTrip:(float)aDuration
           aircraft:(NSString*)aAircraft
          codeShare:(NSArray*)aCodeShare
          dayChange:(NSUInteger)aDayChange

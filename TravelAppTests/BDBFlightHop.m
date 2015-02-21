@@ -18,7 +18,7 @@
              tTime:(float)aTTime
             flight:(NSString*)aFlight
            airline:(NSString*)aAirline
-          duration:(float)aDuration
+          timeTrip:(float)aDuration
           aircraft:(NSString*)aAircraft
          codeShare:(NSArray*)aCodeShare
          dayChange:(NSUInteger)aDayChange
@@ -34,7 +34,7 @@
         _tTime = aTTime;
         _flight = aFlight;
         _airline = aAirline;
-        _duration = aDuration;
+        _timeTrip = aDuration;
         _aircraft = aAircraft;
         _codeShare = aCodeShare;
         _dayChange = aDayChange;

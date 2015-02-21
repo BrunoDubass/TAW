@@ -10,7 +10,7 @@
 #import "ViewController.h"
 @interface BDBRoutesTableViewController : UITableViewController
 
-@property (strong, nonatomic)NSArray *routesTable;
+@property (strong, nonatomic)NSArray *routesTableRoute;
 
 
 

@@ -15,7 +15,7 @@
              tName:(NSString*)aTName
               tPos:(NSString*)aTPos
          frecuency:(float)aFrecuency
-          duration:(float)aDuration
+          timeTrip:(float)aDuration
    indicativePrice:(BDBIndicativePrice*)aIndicativePrice
              lines:(NSArray*)aLines
           agencies:(NSArray*)aAgencies{
@@ -26,7 +26,7 @@
         _tName = aTName;
         _tPos = aTPos;
         _frecuency = aFrecuency;
-        _duration = aDuration;
+        _timeTrip = aDuration;
         _indicativePrice = aIndicativePrice;
         _lines = aLines;
         _agencies = aAgencies;

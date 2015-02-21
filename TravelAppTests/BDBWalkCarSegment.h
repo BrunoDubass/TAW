@@ -17,7 +17,7 @@
 @property (nonatomic)BOOL isMajor;
 @property (nonatomic)BOOL isImperial;
 @property (nonatomic)float distance;
-@property (nonatomic)float duration;
+@property (nonatomic)float timeTrip;
 @property (copy, nonatomic)NSString *sName;
 @property (copy, nonatomic)NSString *sPos;
 @property (copy, nonatomic)NSString *tName;
@@ -31,7 +31,7 @@
           isMajor:(BOOL)aIsMajor
        isImperial:(BOOL)aIsImperial
          distance:(float)aDistance
-         duration:(float)aDuration
+         timeTrip:(float)aDuration
             sName:(NSString*)aSName
              sPos:(NSString*)aSPos
             tName:(NSString*)aTName

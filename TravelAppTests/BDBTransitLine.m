@@ -15,7 +15,7 @@
              code:(NSString*)aCode
            agency:(NSString*)aAgency
         frecuency:(float)aFrecuency
-         duration:(float)aDuration
+         timeTrip:(float)aDuration
              days:(float)aDays{
     
     if (self = [super init]) {
@@ -24,7 +24,7 @@
         _code = aCode;
         _agency = aAgency;
         _frecuency = aFrecuency;
-        _duration = aDuration;
+        _timeTrip = aDuration;
         _days = aDays;
     }
     return self;

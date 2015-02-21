@@ -13,14 +13,14 @@
 
 @property (copy, nonatomic)NSString *name;
 @property (nonatomic)float distance;
-@property (nonatomic)float duration;
+@property (nonatomic)float timeTrip;
 @property (strong, nonatomic)NSArray *stops;
 @property (strong, nonatomic)NSArray *segments;
 @property (strong, nonatomic)BDBIndicativePrice *indicativePrice;
 
 -(id)initWithName:(NSString*)aName
          distance:(float) aDistance
-         duration:(float) aDuration
+         timeTrip:(float) aDuration
             stops:(NSArray*)aStops
          segments:(NSArray*)aSegments
   indicativePrice:(BDBIndicativePrice*)aIndicativePrice;

@@ -12,7 +12,7 @@
 
 -(id)initWithName:(NSString*)aName
          distance:(float) aDistance
-         duration:(float) aDuration
+         timeTrip:(float) aDuration
             stops:(NSArray*)aStops
          segments:(NSArray*)aSegments
   indicativePrice:(BDBIndicativePrice *)aIndicativePrice{
@@ -21,7 +21,7 @@
         
         _name = aName;
         _distance = aDistance;
-        _duration = aDuration;
+        _timeTrip = aDuration;
         _stops = aStops;
         _segments = aSegments;
         _indicativePrice = aIndicativePrice;

@@ -16,7 +16,7 @@
           isMajor:(BOOL)aIsMajor
        isImperial:(BOOL)aIsImperial
          distance:(float)aDistance
-         duration:(float)aDuration
+         timeTrip:(float)aDuration
             sName:(NSString*)aSName
              sPos:(NSString*)aSPos
             tName:(NSString*)aTName
@@ -31,7 +31,7 @@
         _isMajor = aIsMajor;
         _isImperial = aIsImperial;
         _distance = aDistance;
-        _duration = aDuration;
+        _timeTrip = aDuration;
         _sName = aSName;
         _sPos = aSPos;
         _tName = aTName;

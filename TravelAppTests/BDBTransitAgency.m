@@ -12,14 +12,14 @@
 
 -(id)initWithAgency:(NSString*)aAgency
           frecuency:(NSUInteger)aFrecuency
-           duration:(NSUInteger)aDuration
+           timeTrip:(NSUInteger)aDuration
             actions:(NSArray*)aActions{
     
     if (self = [super init]) {
         
         _agency = aAgency;
         _frecuency = aFrecuency;
-        _duration = aDuration;
+        _timeTrip = aDuration;
         _actions = aActions;
     }
     return self;

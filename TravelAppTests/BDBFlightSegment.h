@@ -14,7 +14,7 @@
 @property (copy, nonatomic)NSString *kind;
 @property (nonatomic)BOOL isMajor;
 @property (nonatomic)float distance;
-@property (nonatomic)float duration;
+@property (nonatomic)float timeTrip;
 @property (nonatomic)float transferDuration;
 @property (copy, nonatomic)NSString *sCode;
 @property (copy, nonatomic)NSString *tCode;
@@ -24,7 +24,7 @@
 -(id)initWithKind:(NSString*)aKind
           isMajor:(BOOL)aIsMajor
          distance:(float)aDistance
-         duration:(float)aDuration
+         timeTrip:(float)aDuration
  transferDuration:(float)aTransferDuration
             sCode:(NSString*)aSCode
             tCode:(NSString*)aTCode

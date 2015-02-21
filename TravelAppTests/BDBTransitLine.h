@@ -15,7 +15,7 @@
 @property (copy, nonatomic)NSString *code;
 @property (copy, nonatomic)NSString *agency;
 @property (nonatomic)float frecuency;
-@property (nonatomic)float duration;
+@property (nonatomic)float timeTrip;
 @property (nonatomic)float days;
 
 -(id)initWithName:(NSString*)aName
@@ -23,7 +23,7 @@
              code:(NSString*)aCode
            agency:(NSString*)aAgency
         frecuency:(float)aFrecuency
-         duration:(float)aDuration
+         timeTrip:(float)aDuration
              days:(float)aDays;
 
 @end

@@ -12,12 +12,12 @@
 
 @property (copy, nonatomic)NSString *agency;
 @property (nonatomic)NSUInteger frecuency;
-@property (nonatomic)NSUInteger duration;
+@property (nonatomic)NSUInteger timeTrip;
 @property (strong, nonatomic)NSArray *actions;
 
 -(id)initWithAgency:(NSString*)aAgency
           frecuency:(NSUInteger)aFrecuency
-           duration:(NSUInteger)aDuration
+           timeTrip:(NSUInteger)aDuration
             actions:(NSArray*)aActions;
 
 @end

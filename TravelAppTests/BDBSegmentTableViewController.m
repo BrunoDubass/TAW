@@ -1,22 +1,27 @@
 //
-//  BDBRoutesTableViewController.m
+//  BDBSegmentTableViewController.m
 //  TravelAppTests
 //
-//  Created by Bruno Domínguez on 17/02/15.
+//  Created by Bruno Domínguez on 18/02/15.
 //  Copyright (c) 2015 brunodominguez. All rights reserved.
 //
 
-#import "BDBRoutesTableViewController.h"
-#import "BDBRoute.h"
 #import "BDBSegmentTableViewController.h"
+#import "BDBRoute.h"
+#import "BDBStop.h"
+#import "BDBFlightSegment.h"
+#import "BDBFlightItinerary.h"
+#import "BDBWalkCarSegment.h"
+#import "BDBTransitSegment.h"
+#import "BDBFlightLeg.h"
 
-@interface BDBRoutesTableViewController ()
-
-@property (nonatomic)NSInteger index;
+@interface BDBSegmentTableViewController ()
 
 @end
 
-@implementation BDBRoutesTableViewController
+@implementation BDBSegmentTableViewController
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,49 +38,79 @@
     // Dispose of any resources that can be recreated.
 }
 
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
     // Return the number of sections.
-    return 1;
+    //[[self.routesTable[self.index]stops]count]
+    return [[self.routesTableSegment[self.index]stops]count];
+}
+
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    
+    NSArray *stop = [[self.routesTableSegment objectAtIndex:self.index ] stops];
+    return [[stop objectAtIndex:section]name];
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    //section-=1;
 
     // Return the number of rows in the section.
-    return self.routesTableRoute.count;
+        
+    BDBRoute *selectedRoute = [self.routesTableSegment objectAtIndex:self.index];
+    
+    if (section == [[[self.routesTableSegment objectAtIndex:self.index]stops]count]-1) {
+        return 0;
+    }
+    
+    if ([[[selectedRoute segments]objectAtIndex:section]isKindOfClass:[BDBWalkCarSegment class]]) {
+        return 1;
+    }else if ([[[selectedRoute segments]objectAtIndex:section]isKindOfClass:[BDBTransitSegment class]]){
+        return 1;
+    }else{
+        return 1;
+    
+    }
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *cellId = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
-    if (cell == nil) {
+    if(!cell){
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
     }
-    BDBRoute *route = self.routesTableRoute[indexPath.row];
     
-    cell.textLabel.text = [route name];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f horas - %.3f kilómetros - %.2f eur",(route.timeTrip/60), route.distance, [[route indicativePrice]price]];
+    id seg = [[self.routesTableSegment[self.index]segments]objectAtIndex:indexPath.section];
     
-    // Configure the cell...
     
-    return cell;
-}
+    
+    if ([[seg kind]isEqualToString:@"walk"]||[[seg kind]isEqualToString:@"car"]) {
+        
+        cell.textLabel.text = [NSString stringWithFormat:@"%.2f horas   %.2f km   %@   %@ - %@   Precio: %.2f eur", [seg timeTrip]/60, [seg distance], [seg vehicle], [seg sName], [seg tName], [[seg indicativePrice]price]];
+        return cell;
+        
+    }else if([[seg kind]isEqualToString:@"train"]||[[seg kind]isEqualToString:@"bus"]||[[seg kind]isEqualToString:@"ferry"]){
+        
+        //NSArray *stops = [[[self.routesTableSegment[self.index]segments]objectAtIndex:indexPath.section]stops];
+        
+            cell.textLabel.text = [NSString stringWithFormat:@"%.2f horas   %.2f km   %@ - %@   Precio: %.2f eur", [seg timeTrip]/60, [seg distance], [seg sName], [seg tName], [[seg indicativePrice]price]];
+            
+      
+        return cell;
+        
+    }else{
+        
+        
+        cell.textLabel.text = [NSString stringWithFormat:@"%.2f horas   %.2f km   %@ - %@   Precio: %.2f eur", [seg timeTrip]/60, [seg distance], [seg sCode], [seg tCode], [[seg indicativePrice]price]];
+        
+        return cell;
+    }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    BDBSegmentTableViewController *sVC = [[BDBSegmentTableViewController alloc]init];
-    
-    sVC.routesTableSegment = [[NSArray alloc]init];
-    
-    sVC.index = tableView.indexPathForSelectedRow.row;
-    sVC.routesTableSegment = _routesTableRoute;
-    [self.navigationController pushViewController:sVC animated:YES];
     
 }
 
@@ -114,20 +149,14 @@
 }
 */
 
-
+/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    // Get the new view controller using [segue destinationViewController].
-//    // Pass the selected object to the new view controller.
-//    
-//    if ([segue.identifier isEqualToString:@"segment"]) {
-//        BDBSegmentTableViewController *sVC = [segue destinationViewController];
-//        
-//        sVC.routesTableSegment = [NSArray arrayWithArray:self.routesTableRoute];
-//    }
-//}
-//
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

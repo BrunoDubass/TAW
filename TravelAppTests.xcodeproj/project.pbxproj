@@ -38,6 +38,7 @@
 		14775D961A83E82C00CF9246 /* BDBAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 14775D951A83E82C00CF9246 /* BDBAnnotation.m */; };
 		14775E041A845F0000CF9246 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14775E031A845F0000CF9246 /* MapKit.framework */; };
 		14775E061A845F0900CF9246 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14775E051A845F0900CF9246 /* CoreLocation.framework */; };
+		14B217C91A94984D00CCCE42 /* BDBSegmentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B217C81A94984D00CCCE42 /* BDBSegmentTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,8 @@
 		14775D951A83E82C00CF9246 /* BDBAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBAnnotation.m; sourceTree = "<group>"; };
 		14775E031A845F0000CF9246 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		14775E051A845F0900CF9246 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		14B217C71A94984D00CCCE42 /* BDBSegmentTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBSegmentTableViewController.h; sourceTree = "<group>"; };
+		14B217C81A94984D00CCCE42 /* BDBSegmentTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBSegmentTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +245,8 @@
 				14074F481A76BA5E00A771E8 /* ViewController.m */,
 				141DA2331A93C303005240EA /* BDBRoutesTableViewController.h */,
 				141DA2341A93C303005240EA /* BDBRoutesTableViewController.m */,
+				14B217C71A94984D00CCCE42 /* BDBSegmentTableViewController.h */,
+				14B217C81A94984D00CCCE42 /* BDBSegmentTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -374,6 +379,7 @@
 				144CCE041A92768C00B3938D /* BDBFlightSegment.m in Sources */,
 				144CCE161A92793100B3938D /* BDBTransitAgency.m in Sources */,
 				144CCE131A92771A00B3938D /* BDBIndicativePrice.m in Sources */,
+				14B217C91A94984D00CCCE42 /* BDBSegmentTableViewController.m in Sources */,
 				144CCDEF1A92761900B3938D /* BDBStop.m in Sources */,
 				14074F461A76BA5E00A771E8 /* AppDelegate.m in Sources */,
 				144CCE191A92793F00B3938D /* BDBActions.m in Sources */,

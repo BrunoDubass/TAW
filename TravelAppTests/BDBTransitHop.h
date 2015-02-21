@@ -16,7 +16,7 @@
 @property (copy, nonatomic)NSString *tName;
 @property (copy, nonatomic)NSString *tPos;
 @property (nonatomic)float frecuency;
-@property (nonatomic)float duration;
+@property (nonatomic)float timeTrip;
 @property (strong, nonatomic)BDBIndicativePrice *indicativePrice;
 @property (strong, nonatomic)NSArray *lines;
 @property (strong, nonatomic)NSArray *agencies;
@@ -26,7 +26,7 @@
              tName:(NSString*)aTName
               tPos:(NSString*)aTPos
          frecuency:(float)aFrecuency
-          duration:(float)aDuration
+          timeTrip:(float)aDuration
    indicativePrice:(BDBIndicativePrice*)aIndicativePrice
              lines:(NSArray*)aLines
           agencies:(NSArray*)aAgencies;

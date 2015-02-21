@@ -17,7 +17,7 @@
     nativeCurrency:(NSString*)aNativeCurrency{
     
     if (self = [super init]) {
-        _price = aPrice;
+        _price = aPrice*0.876;
         _currency = aCurrency;
         _isFreeTransfer = aIsFreeTransfer;
         _nativePrice = aNativePrice;

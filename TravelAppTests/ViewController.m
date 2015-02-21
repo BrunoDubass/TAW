@@ -58,343 +58,360 @@
     
     [self.allRoutes.routes removeAllObjects];
     
-    for (int i = 0; i<[[JSONDic objectForKey:@"routes"]count]; i++) {
-        
-        NSDictionary *dicRoute        = [[JSONDic objectForKey:@"routes"]objectAtIndex:i];
-        NSMutableArray *stopsForRoute = [[NSMutableArray alloc]init];
-        NSMutableArray *segments      = [[NSMutableArray alloc]init];
-        
-        
-        
-        
-        
+    
+    
+    //ROUTES
+    NSArray *route = [JSONDic objectForKey:@"routes"];
+    
+    
+    [route enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
         //STOPS
+        NSArray *stops = [[route objectAtIndex:idx ] objectForKey:@"stops"];
+        NSMutableArray *stopsMutable = [[NSMutableArray alloc]init];
         
-        for (int j = 0; j<[[dicRoute objectForKey:@"stops"]count]; j++) {
+        [stops enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             
-            BDBStop *stop = [[BDBStop alloc]initWithKind:[[[dicRoute objectForKey:@"stops"]objectAtIndex:j]objectForKey:@"kind"]
-                                                    name:[[[dicRoute objectForKey:@"stops"]objectAtIndex:j]objectForKey:@"name"]
-                                                     pos:[[[dicRoute objectForKey:@"stops"]objectAtIndex:j]objectForKey:@"pos"]
-                                                    code:[[[dicRoute objectForKey:@"stops"]objectAtIndex:j]objectForKey:@"code"]
-                                             countryCode:[[[dicRoute objectForKey:@"stops"]objectAtIndex:j]objectForKey:@"countryCode"]
-                                              regionCode:[[[dicRoute objectForKey:@"stops"]objectAtIndex:j]objectForKey:@"regionCode"]
-                                                timeZone:[[[dicRoute objectForKey:@"stops"]objectAtIndex:j]objectForKey:@"timeZone"]];
+            BDBStop *stp = [[BDBStop alloc]initWithKind:[obj objectForKey:@"kind"]
+                                                   name:[obj objectForKey:@"name"]
+                                                    pos:[obj objectForKey:@"pos"]
+                                                   code:[obj objectForKey:@"code"]
+                                            countryCode:[obj objectForKey:@"countryCode"]
+                                             regionCode:[obj objectForKey:@"regionCode"]
+                                               timeZone:[obj objectForKey:@"timeZone"]];
             
-            [stopsForRoute addObject:stop];
-        }
-        
-        
-        
+            [stopsMutable addObject:stp];
+            
+        }]; //END STOPS
         
         //SEGMENTS
+        NSArray *segments = [[route objectAtIndex:idx] objectForKey:@"segments"];
+        NSMutableArray *segmentsMutable = [[NSMutableArray alloc]init];
         
-        
-        
-        
-        for (int k=0; k<[[dicRoute objectForKey:@"segments"]count]; k++) {
+        [segments enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             
-            NSDictionary *seg = [[dicRoute objectForKey:@"segments"]objectAtIndex:k];
-            NSString *kind    = [seg objectForKey:@"kind"];
-            NSMutableArray *itinerariesSegment;
-            NSMutableArray *stopsSegment;
+            //WALK CAR SEGMENT
+            if ([[obj objectForKey:@"kind"]isEqualToString:@"walk"]||[[obj objectForKey:@"kind"]isEqualToString:@"car"]) {
+                
+                BDBIndicativePrice *indicativePrice = [[BDBIndicativePrice alloc]initWithPrice:[[[obj objectForKey:@"indicativePrice"]objectForKey:@"price"]floatValue]
+                                                                                      currency:[[obj objectForKey:@"indicativePrice"]objectForKey:@"currency"]
+                                                                                isFreeTransfer:[[[obj objectForKey:@"indicativePrice"]objectForKey:@"isFreeTransfer"]boolValue]
+                                                                                   nativePrice:[[[obj objectForKey:@"indicativePrice"]objectForKey:@"nativePrice"]floatValue]
+                                                                                nativeCurrency:[[obj objectForKey:@"indicativePrice"]objectForKey:@"nativeCurrency"]];
+                
+                BDBWalkCarSegment *walkSegment = [[BDBWalkCarSegment alloc]initWithKind:[obj objectForKey:@"kind"]
+                                                                                subKind:[obj objectForKey:@"subKind"]
+                                                                                vehicle:[obj objectForKey:@"vehicle"]
+                                                                                isMajor:[[obj objectForKey:@"isMajor"]boolValue]
+                                                                             isImperial:[[obj objectForKey:@"isImperial"]boolValue]
+                                                                               distance:[[obj objectForKey:@"distance"]floatValue]
+                                                                               timeTrip:[[obj objectForKey:@"duration"]floatValue]
+                                                                                  sName:[obj objectForKey:@"sName"]
+                                                                                   sPos:[obj objectForKey:@"sPos"]
+                                                                                  tName:[obj objectForKey:@"tName"]
+                                                                                   tPos:[obj objectForKey:@"tPos"]
+                                                                        indicativePrice:indicativePrice
+                                                                                   path:[obj objectForKey:@"path"]];
+                
+                [segmentsMutable addObject:walkSegment];
             
-            BDBIndicativePrice *priceSeg = [[BDBIndicativePrice alloc]initWithPrice:[[[seg objectForKey:@"indicativePrice"]objectForKey:@"price"]floatValue]
-                                                                           currency:[[seg objectForKey:@"indicativePrice"]objectForKey:@"currency"]
-                                                                     isFreeTransfer:[[[seg objectForKey:@"indicativePrice"]objectForKey:@"isFreeTransfer"] boolValue]
-                                                                        nativePrice:[[[seg objectForKey:@"indicativePrice"]objectForKey:@"nativePrice"]floatValue]
-                                                                     nativeCurrency:[[seg objectForKey:@"indicativePrice"]objectForKey:@"nativeCurrency"]];
             
+            //TRANSIT SEGMENT
+       }else if ([[obj objectForKey:@"kind"]isEqualToString:@"train"]||[[obj objectForKey:@"kind"]isEqualToString:@"bus"]||[[obj objectForKey:@"kind"]isEqualToString:@"ferry"]){
             
-            
-            //     W   A  L  K
-            
-            
-            
-            if ([kind isEqualToString:@"walk"]||[kind isEqualToString:@"car"]) {
                 
-                BDBWalkCarSegment *walk = [[BDBWalkCarSegment alloc]initWithKind:kind
-                                                                         subKind: [seg objectForKey:@"subKind"]
-                                                                         vehicle:[seg objectForKey:@"vehicle"]
-                                                                         isMajor:[[seg objectForKey:@"isMajor"]boolValue]
-                                                                      isImperial:[[seg objectForKey:@"isImperial"]boolValue]
-                                                                        distance:[[seg objectForKey:@"distance"]floatValue]
-                                                                        duration:[[seg objectForKey:@"duration"]floatValue]
-                                                                           sName:[seg objectForKey:@"sName"]
-                                                                            sPos:[seg objectForKey:@"sPos"]
-                                                                           tName:[seg objectForKey:@"tName"]
-                                                                            tPos:[seg objectForKey:@"tPos"]
-                                                                 indicativePrice:priceSeg
-                                                                            path:[seg objectForKey:@"path"]];
-                
-                
-                [segments addObject:walk];
-                
-                
-                
-            //   T  R  A  I  N
-                
-                
-                                           
-            }else if ([kind isEqualToString:@"train"]||[kind isEqualToString:@"bus"]||[kind isEqualToString:@"ferry"]){
-                
-                //ITINERARIOS
-                
-                NSMutableArray *legs = [[NSMutableArray alloc]init];
-                
-                for (int l=0; l<[[seg objectForKey:@"itineraries"]count]; l++) {
-                    
-                    NSDictionary *legsIti = [[seg objectForKey:@"itineraries"]objectAtIndex:l];
-                    
-                    for (int m=0; m<[[legsIti objectForKey:@"legs"]count]; m++) {
-                        
-                        //HOPS
-                        
-                        NSMutableArray *hopsIti = [[NSMutableArray alloc]init];
-                        
-                        for (int n=0; n<[[legsIti objectForKey:@"hops"]count] ; n++) {
-                            
-                            NSDictionary *dicHop = [[legsIti objectForKey:@"hops"]objectAtIndex:n];
-                            
-    BDBIndicativePrice *indicativePriceHop = [[BDBIndicativePrice alloc]initWithPrice:[[[dicHop objectForKey:@"indicativePrice"]objectForKey:@"price"]floatValue]
-                                                                             currency:[[dicHop objectForKey:@"indicativePrice"]objectForKey:@"currency"]
-                                                                       isFreeTransfer:[[[dicHop objectForKey:@"indicativePrice"]objectForKey:@"isFreeTransfer"]boolValue]
-                                                                          nativePrice:[[[dicHop objectForKey:@"indicativePrice"]objectForKey:@"nativePrice"]floatValue]
-                                                                       nativeCurrency:[[dicHop objectForKey:@"indicativePrice"]objectForKey:@"nativeCurrency"]];
-                            
-                            NSMutableArray *hopLines;
-                            
-                            //HOP LINES
-                            
-                            for (int o=0; o<[[dicHop objectForKey:@"lines"]count]; o++) {
-    BDBTransitLine *transitLine = [[BDBTransitLine alloc]initWithName:[[[dicHop objectForKey:@"lines"]objectAtIndex:o]objectForKey:@"name"]
-                                                              vehicle:[[[dicHop objectForKey:@"lines"]objectAtIndex:o]objectForKey:@"vehicle"]
-                                                                 code:[[[dicHop objectForKey:@"lines"]objectAtIndex:o]objectForKey:@"code"]
-                                                               agency:[[[dicHop objectForKey:@"lines"]objectAtIndex:o]objectForKey:@"agency"]
-                                                            frecuency:[[[[dicHop objectForKey:@"lines"]objectAtIndex:o]objectForKey:@"frequency"]floatValue]
-                                                             duration:[[[[dicHop objectForKey:@"lines"]objectAtIndex:o]objectForKey:@"duration"]floatValue]
-                                                                 days:[[[[dicHop objectForKey:@"lines"]objectAtIndex:o]objectForKey:@"days"]floatValue]];
-                                
-                            [hopLines addObject:transitLine];
-                            
-                            }
-                            
-                            //HOP AGENCIES
-                            
-                            NSMutableArray *hopAgencies;
-                            NSMutableArray *agenciesActions;
-                            
-                            for (int p=0; p<[[dicHop objectForKey:@"agencies"]count]; p++) {
-                                
-                                
-                                
-                                for (int q=0; q<[[[[dicHop objectForKey:@"agencies"]objectAtIndex:p]objectForKey:@"actions"]count]; q++) {
-                                    
-                                    NSDictionary *actionDic = [[[[dicHop objectForKey:@"agencies"]objectAtIndex:p]objectForKey:@"actions"]objectAtIndex:q];
-                                    
-                                    BDBActions *agAction = [[BDBActions alloc]initWithText:[actionDic objectForKey:@"text"]
-                                                                                       url:[actionDic objectForKey:@"url"]
-                                                                                displayUrl:[actionDic objectForKey:@"displayUrl"]
-                                                                              moustacheUrl:[actionDic objectForKey:@"moustacheUrl"]];
-                                    
-                                    
-                                    [agenciesActions addObject:agAction];
-                                }
-                                
-    BDBTransitAgency *transitAgency = [[BDBTransitAgency alloc]initWithAgency:[[[dicHop objectForKey:@"agencies"]objectAtIndex:p]objectForKey:@"agency"]
-                                                                    frecuency:[[[[dicHop objectForKey:@"agencies"]objectAtIndex:p]objectForKey:@"frequency"]integerValue]
-                                                                     duration:[[[[dicHop objectForKey:@"agencies"]objectAtIndex:p]objectForKey:@"duration"]integerValue]
-                                                                      actions:agenciesActions];
-                                
-                                [hopAgencies addObject:transitAgency];
-                            }
-                            
-                            
-                            BDBTransitHop *hop = [[BDBTransitHop alloc]initWithSName:[dicHop objectForKey:@"sName"]
-                                                                                sPos:[dicHop objectForKey:@"sPos"]
-                                                                               tName:[dicHop objectForKey:@"tName"]
-                                                                                tPos:[dicHop objectForKey:@"tPos"]
-                                                                           frecuency:[[dicHop objectForKey:@"frecuency"]floatValue]
-                                                                            duration:[[dicHop objectForKey:@"duration"]floatValue]
-                                                                     indicativePrice:indicativePriceHop
-                                                                               lines:hopLines
-                                                  
-                                                                            agencies: agenciesActions];
-                            
-                            [hopsIti addObject:hop];
-                        }
-                        
-                        
-                        //LEGS
-                        
-                        BDBTransitLeg *transitLeg = [[BDBTransitLeg alloc]initWithUrl:[[[legsIti objectForKey:@"legs"]objectAtIndex:m]objectForKey:@"url"]
-                                                                                 host: [[[legsIti objectForKey:@"legs"]objectAtIndex:m]objectForKey:@"host"]
-                                                                           transitHop:hopsIti];
-                        
-                        
-                        [legs addObject:transitLeg];
-                    }
-                    
-                    BDBTransitItinerary *iti = [[BDBTransitItinerary alloc]initWithLegs:legs];
-                    
-                    [itinerariesSegment addObject:iti];
-                }
-                
-                BDBTransitSegment *transit = [[BDBTransitSegment alloc]initWithKind:kind
-                                                                            subKind:[seg objectForKey:@"subKind"]
-                                                                            isMajor:[[seg objectForKey:@"isMajor"]boolValue]
-                                                                         isImperial:[[seg objectForKey:@"isImperial"]boolValue]
-                                                                           distance:[[seg objectForKey:@"distance"]floatValue]
-                                                                           duration:[[seg objectForKey:@"duration"]floatValue]
-                                                                   transferDuration:[[seg objectForKey:@"transferDuration"]floatValue]
-                                                                              sName:[seg objectForKey:@"sName"] sPos:[seg objectForKey:@"sPos"]
-                                                                              tName:[seg objectForKey:@"tName"] tPos:[seg objectForKey:@"tPos"]
-                                                                    indicativePrice:priceSeg
-                                                                        itineraries:itinerariesSegment
-                                                                               path:[seg objectForKey:@"path"]
-                                                                              stops:stopsSegment];
-                
-                
-                [segments addObject:transit];
-                
-                
-                
-                
-                
-            //       F  L  I  G  H  T
-                
-                
-                
-                
-                
-            }else{
-                
-                
-                //ITINERARIOS
-                
-                NSMutableArray *legs = [[NSMutableArray alloc]init];
-                
-                for (int l=0; l<[[seg objectForKey:@"itineraries"]count]; l++) {
-                    
-                    NSDictionary *legsIti = [[seg objectForKey:@"itineraries"]objectAtIndex:l]; //Diccionario de itinerario
-                    
-                    for (int m=0; m<[[legsIti objectForKey:@"legs"]count]; m++) {
-                        
-                        NSMutableArray *flightHops;
-                        
-                        
-                        //INDICATIVE PRICES
-                        
-                        
-BDBIndicativePrice *indicativeFlightPrice = [[BDBIndicativePrice alloc]initWithPrice:[[[[[legsIti objectForKey:@"legs"]objectAtIndex:m]objectForKey:@"indicativePrice"]         objectForKey:@"price"]floatValue]
-                                                                            currency:[[[[legsIti objectForKey:@"legs"]objectAtIndex:m]objectForKey:@"indicativePrice"]objectForKey:@"currency"]
-                                                                      isFreeTransfer:[[[[[legsIti objectForKey:@"legs"]objectAtIndex:m]objectForKey:@"indicativePrice"]objectForKey:@"isFreeTransfer"]boolValue]
-                                                                         nativePrice:0.0f
-                                                                      nativeCurrency:nil];
-                        
-                        
-                        
-                        
-                        //HOPS
-                    
-                        
-                        for (int a=0; a<[[[[legsIti objectForKey:@"legs"]objectAtIndex:m]objectForKey:@"hops"]count]; a++) {
-                            
-                            NSDictionary *fDic = [[[[legsIti objectForKey:@"legs"]objectAtIndex:m]objectForKey:@"hops"]objectAtIndex:a];
+           
+                 NSMutableArray *transitStopsMutable = [[NSMutableArray alloc]init];
 
-                            NSMutableArray *codeShares;
-                            
-                            for (int b=0; b<[[fDic objectForKey:@"codeShares"]count]; b++) {
-                                
-    BDBFlightCodeShare *fCode = [[BDBFlightCodeShare alloc]initWithAirline:[[[fDic objectForKey:@"codeShares"]objectAtIndex:b]objectForKey:@"airline"]
-                                                                    flight:[[[fDic objectForKey:@"codeShares"]objectAtIndex:b]objectForKey:@"flight"]];
-                                
-                                [codeShares addObject:fCode];
-                                
-                                }
-                            
-                                BDBFlightHop *fHop = [[BDBFlightHop alloc]initWithSCode:[fDic objectForKey:@"sCode"]
-                                                                                  tCode:[fDic objectForKey:@"tCode"]
-                                                                              sTerminal:[fDic objectForKey:@"sTerminal"]
-                                                                              tTerminal:[fDic objectForKey:@"tTerminal"]
-                                                                                  sTime:[[fDic objectForKey:@"sTime"]floatValue]
-                                                                                  tTime:[[fDic objectForKey:@"tTime"]floatValue]
-                                                                                 flight:[fDic objectForKey:@"flight"]
-                                                                                airline:[fDic objectForKey:@"airline"]
-                                                                               duration:[[fDic objectForKey:@"duration"]floatValue]
-                                                                               aircraft:[fDic objectForKey:@"aircraft"]
-                                                                              codeShare:codeShares
-                                                                              dayChange:[[fDic objectForKey:@"dayChange"]integerValue]
-                                                                              iDuration:[[fDic objectForKey:@"IDuration"]floatValue]
-                                                                             iDayChange:[[fDic objectForKey:@"IDayChange"]integerValue]];
-                            
-                            
-                            
-                            [flightHops addObject:fHop];
-                        }
-                        
-                        
-                        
-                            
-                        
-                        
-                        //LEGS
-                        BDBFlightLeg *flightLeg = [[BDBFlightLeg alloc]initWithDays:[[[[legsIti objectForKey:@"legs"]objectAtIndex:m]objectForKey:@"days"]floatValue]
-                                                                               hops:flightHops
-                                                                   indicativePrices:indicativeFlightPrice];
-                        
-                        
-                        [legs addObject:flightLeg];
-                    }
+                //TRANSIT STOPS
+                
+                NSArray *transitStops = [obj objectForKey:@"stops"];
+//                NSMutableArray *transitStopsMutable = [[NSMutableArray alloc]init];
+                
+                [transitStops enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                     
-        BDBFlightItinerary *flightIti = [[BDBFlightItinerary alloc]initWithLegs:legs
-                                                                       isHidden:[[[[seg objectForKey:@"itineraries"]objectAtIndex:l]objectForKey:@"isHidden"]boolValue]
-                                                                       isReturn:[[[[seg objectForKey:@"itineraries"]objectAtIndex:l]objectForKey:@"isReturn"]boolValue]];
+                    BDBStop *transitStop = [[BDBStop alloc]initWithKind:[obj objectForKey:@"kind"]
+                                                                   name:[obj objectForKey:@"name"]
+                                                                    pos:[obj objectForKey:@"pos"]
+                                                                   code:[obj objectForKey:@"code"]
+                                                            countryCode:[obj objectForKey:@"countryCode"]
+                                                             regionCode:[obj objectForKey:@"regionCode"]
+                                                               timeZone:[obj objectForKey:@"timeZone"]];
                     
-                    [itinerariesSegment addObject:flightIti];
-                }
+                    [transitStopsMutable addObject:transitStop];
+                }];
+           
+                NSMutableArray *itinerariesMutable = [[NSMutableArray alloc]init];
+
+                //TRANSIT ITINERARIES
+                NSArray *itineraries = [obj objectForKey:@"itineraries"];
                 
-                BDBFlightSegment *flight = [[BDBFlightSegment alloc]initWithKind:kind
-                                                                         isMajor:[[seg objectForKey:@"isMajor"]boolValue]
-                                                                        distance:[[seg objectForKey:@"distance"]floatValue]
-                                                                        duration:[[seg objectForKey:@"duration"]floatValue]
-                                                                transferDuration:[[seg objectForKey:@"transferDuration"]floatValue]
-                                                                           sCode:[seg objectForKey:@"sCode"]
-                                                                           tCode:[seg objectForKey:@"tCode"]
-                                                                 indicativePrice:priceSeg
-                                                                     itineraries:itinerariesSegment];
+                //ARRAYS
+
                 
                 
+                NSMutableArray *transitLegsMutable = [[NSMutableArray alloc]init];
+                NSMutableArray *transitHopsMutable = [[NSMutableArray alloc]init];
+                NSMutableArray *linesMutable = [[NSMutableArray alloc]init];
+                NSMutableArray *agenciesMutable = [[NSMutableArray alloc]init];
+                NSMutableArray *transitActionsMutable = [[NSMutableArray alloc]init];
+
+                [itineraries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    
+                    BDBTransitItinerary *transitItinerary = [[BDBTransitItinerary alloc]initWithLegs:transitLegsMutable];
+                    
+                    [itinerariesMutable addObject:transitItinerary];
+                    //TRANSIT LEGS
+                    NSArray *transitLegs = [obj objectForKey:@"legs"];
+//                    NSMutableArray *transitLegsMutable = [[NSMutableArray alloc]init];
+                    
+                    [transitLegsMutable removeAllObjects];
+                    
+                    [transitLegs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                        
+                        BDBTransitLeg *transitLeg = [[BDBTransitLeg alloc]initWithUrl:[obj objectForKey:@"url"]
+                                                                                 host: [obj objectForKey:@"host"]
+                                                                           transitHop:transitHopsMutable];
+                        
+                        [transitLegsMutable addObject:transitLeg];
+                        
+                        //TRANSIT HOP
+                        NSArray *transitHop = [obj objectForKey:@"hops"];
+//                        NSMutableArray *transitHopsMutable = [[NSMutableArray alloc]init];
+                        [transitHopsMutable removeAllObjects];
+                        
+                        [transitHop enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+
+                            
+        BDBIndicativePrice *indicativePrice = [[BDBIndicativePrice alloc]initWithPrice:[[[obj objectForKey:@"indicativePrice"]objectForKey:@"price"]floatValue]
+                                                                              currency:[[obj objectForKey:@"indicativePrice"]objectForKey:@"currency"]
+                                                                        isFreeTransfer:[[[obj objectForKey:@"indicativePrice"]objectForKey:@"isFreeTransfer"]boolValue]
+                                                                           nativePrice:[[[obj objectForKey:@"indicativePrice"]objectForKey:@"nativePrice"]floatValue]
+                                                                        nativeCurrency:[[obj objectForKey:@"indicativePrice"]objectForKey:@"nativeCurrency"]];
+
+                            BDBTransitHop *tHop = [[BDBTransitHop alloc]initWithSName:[obj objectForKey:@"sName"]
+                                                                                 sPos:[obj objectForKey:@"sPos"]
+                                                                                tName:[obj objectForKey:@"tName"]
+                                                                                 tPos:[obj objectForKey:@"tPos"]
+                                                                            frecuency:[[obj objectForKey:@"frequency"]floatValue]
+                                                                             timeTrip:[[obj objectForKey:@"duration"]floatValue]
+                                                                      indicativePrice:indicativePrice
+                                                                                lines:linesMutable
+                                                                             agencies:agenciesMutable];
+                            
+                            
+                            [transitHopsMutable addObject:tHop];
+                            
+                                //TRANSIT LINES
+                                NSArray *lines = [obj objectForKey:@"lines"];
+//                                NSMutableArray *linesMutable = [[NSMutableArray alloc]init];
+                            
+                                [linesMutable removeAllObjects];
+
+                                [lines enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                    
+                                    BDBTransitLine *tLine = [[BDBTransitLine alloc]initWithName:[obj objectForKey:@"name"]
+                                                                                        vehicle:[obj objectForKey:@"vehicle"]
+                                                                                           code:[obj objectForKey:@"code"]
+                                                                                         agency:[obj objectForKey:@"agency"]
+                                                                                      frecuency:[[obj objectForKey:@"frequency"]floatValue]
+                                                                                       timeTrip:[[obj objectForKey:@"duration"]floatValue]
+                                                                                           days:[[obj objectForKey:@"days"]floatValue]];
+                                    
+                                    
+                                    
+                                    [linesMutable addObject:tLine];
+                                }];
+                            
+                                //TRANSIT AGENCIES
+                            NSArray *agencies = [obj objectForKey:@"agencies"];
+//                            NSMutableArray *agenciesMutable = [[NSMutableArray alloc]init];
+                            
+                            [agenciesMutable removeAllObjects];
+
+                            [agencies enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                
+                                BDBTransitAgency *tAgencie = [[BDBTransitAgency alloc]initWithAgency:[obj objectForKey:@"agency"]
+                                                                                           frecuency:[[obj objectForKey:@"frequency"]integerValue]
+                                                                                            timeTrip:[[obj objectForKey:@"duration"]integerValue]
+                                                                                             actions:transitActionsMutable];
+                                
+                                
+                                [agenciesMutable addObject:tAgencie];
+                                
+                                    //TRANSIT ACTIONS
+                                NSArray *transitActions = [obj objectForKey:@"actions"];
+//                                NSMutableArray *transitActionsMutable = [[NSMutableArray alloc]init];
+                                
+                                [transitActionsMutable removeAllObjects];
+                                
+                                [transitActions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                    
+                                    BDBActions *tAction = [[BDBActions alloc]initWithText:[obj objectForKey:@"text"]
+                                                                                      url:[obj objectForKey:@"url"]
+                                                                               displayUrl:[obj objectForKey:@"displayUrl"]
+                                                                             moustacheUrl:[obj objectForKey:@"moustacheUrl"]];
+                                    
+                                    [transitActionsMutable addObject:tAction];
+                                }];
+
+                            }];
+                            
+                            
+                            
+                        }];
+                   }];
+                }];
+           
+           
+                BDBIndicativePrice *indicativePrice = [[BDBIndicativePrice alloc]initWithPrice:[[[obj objectForKey:@"indicativePrice"]objectForKey:@"price"]floatValue]
+                                                                                      currency:[[obj objectForKey:@"indicativePrice"]objectForKey:@"currency"]
+                                                                                isFreeTransfer:[[[obj objectForKey:@"indicativePrice"]objectForKey:@"isFreeTransfer"]boolValue]
+                                                                                   nativePrice:[[[obj objectForKey:@"indicativePrice"]objectForKey:@"nativePrice"]floatValue]
+                                                                                nativeCurrency:[[obj objectForKey:@"indicativePrice"]objectForKey:@"nativeCurrency"]];
+           
+                BDBTransitSegment *transitSegment = [[BDBTransitSegment alloc]initWithKind:[obj objectForKey:@"kind"]
+                                                                                   subKind:[obj objectForKey:@"subKind"]
+                                                                                   isMajor:[[obj objectForKey:@"isMajor"]boolValue]
+                                                                                isImperial:[[obj objectForKey:@"isImperial"]boolValue]
+                                                                                  distance:[[obj objectForKey:@"distance"]floatValue]
+                                                                                  timeTrip:[[obj objectForKey:@"duration"]floatValue]
+                                                                          transferDuration:[[obj objectForKey:@"transferDuration"]floatValue]
+                                                                                     sName:[obj objectForKey:@"sName"]
+                                                                                      sPos:[obj objectForKey:@"sPos"]
+                                                                                     tName:[obj objectForKey:@"tName"]
+                                                                                      tPos:[obj objectForKey:@"tPos"]
+                                                                           indicativePrice:indicativePrice
+                                                                               itineraries: itinerariesMutable
+                                                                                      path:[obj objectForKey:@"path"]
+                                                                                     stops:transitStopsMutable];
+           
+           
                 
-                [segments addObject:flight];
-                
-                
-                
-                
-            }
-        }
+                [segmentsMutable addObject:transitSegment];
+            
+//            //FLIGHT SEGMENT
+           }else{
+               
+               
+               
+               //FLIGHT ITINERARIES
+               
+               NSArray *flightItineraries = [obj objectForKey:@"itineraries"];
+               NSMutableArray *flightItinerariesMutable = [[NSMutableArray alloc]init];
+               
+               [flightItineraries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                   
+                   
+                   //FLIGHT LEGS
+                   NSArray *flightLegs = [obj objectForKey:@"legs"];
+                   NSMutableArray *flightLegsMutable = [[NSMutableArray alloc]init];
+                   
+                   [flightLegs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                       
+                       
+                       //FLIGHT HOPS
+                       
+                       NSArray *flightHops = [obj objectForKey:@"hops"];
+                       NSMutableArray *flightHopsMutable = [[NSMutableArray alloc]init];
+                       
+                       [flightHops enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                           
+                           
+                           
+                           
+                           BDBFlightHop *flightHop = [[BDBFlightHop alloc]initWithSCode:[obj objectForKey:@"sCode"]
+                                                                                  tCode:[obj objectForKey:@"tCode"]
+                                                                              sTerminal:[obj objectForKey:@"sTerminal"]
+                                                                              tTerminal:[obj objectForKey:@"tTerminal"]
+                                                                                  sTime:[[obj objectForKey:@"sTime"]floatValue]
+                                                                                  tTime:[[obj objectForKey:@"tTime"]floatValue]
+                                                                                 flight:[obj objectForKey:@"flight"]
+                                                                                airline:[obj objectForKey:@"airline"]
+                                                                               timeTrip:[[obj objectForKey:@"duration"]floatValue]
+                                                                               aircraft:[obj objectForKey:@"aircraft"]
+                                                                              codeShare:nil
+                                                                              dayChange:[[obj objectForKey:@"dayChange"]integerValue]
+                                                                              iDuration:[[obj objectForKey:@"IDuration"]floatValue]
+                                                                             iDayChange:[[obj objectForKey:@"IDayChange"]integerValue]];
+                           
+                           [flightHopsMutable addObject:flightHop];
+                           
+                       }]; //END FLIGHT HOPS
+                       
+                       
+            BDBIndicativePrice *flightLegIndicativePrice = [[BDBIndicativePrice alloc]initWithPrice:[[[obj objectForKey:@"indicativePrice"]objectForKey:@"price"]floatValue]
+                                                                                           currency:[[obj objectForKey:@"indicativePrice"]objectForKey:@"currency"]
+                                                                                     isFreeTransfer:[[[obj objectForKey:@"indicativePrice"]objectForKey:@"isFreeTransfer"]boolValue]
+                                                                                        nativePrice:[[[obj objectForKey:@"indicativePrice"]objectForKey:@"nativePrice"]floatValue]
+                                                                                     nativeCurrency:[[obj objectForKey:@"indicativePrice"]objectForKey:@"nativeCurrency"]];
+                       
+                       
+                       BDBFlightLeg *flightLeg = [[BDBFlightLeg alloc]initWithDays:[[obj objectForKey:@"days"]floatValue]
+                                                                              hops:flightHopsMutable
+                                                                  indicativePrices:flightLegIndicativePrice];
+                       [flightLegsMutable addObject:flightLeg];
+                       
+                   }]; //END FLIGHT LEGS
+                   
+                   
+                   BDBFlightItinerary *flightItinerary = [[BDBFlightItinerary alloc]initWithLegs:flightLegsMutable
+                                                                                        isHidden:[[obj objectForKey:@"isHidden"]boolValue]
+                                                                                        isReturn:[[obj objectForKey:@"isReturn"]boolValue]];
+                   
+                   [flightItinerariesMutable addObject:flightItinerary];
+                   
+               }]; //END FLIGHT ITINERARIES
+               
+               //FLIGHT INDICATIVE PRICE
+               
+BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithPrice:[[[obj objectForKey:@"indicativePrice"]objectForKey:@"price"]floatValue]
+                                                                                           currency:[[obj objectForKey:@"indicativePrice"]objectForKey:@"currency"]
+                                                                                     isFreeTransfer:[[[obj objectForKey:@"indicativePrice" ]objectForKey:@"isFreeTransfer"]boolValue]
+                                                                                        nativePrice:[[[obj objectForKey:@"indicativePrice" ]objectForKey:@"nativePrice"]floatValue]
+                                                                                     nativeCurrency:[[obj objectForKey:@"indicativePrice" ]objectForKey:@"nativeCurrency"]];
+               
+               BDBFlightSegment *flightSegment = [[BDBFlightSegment alloc]initWithKind:[obj objectForKey:@"kind"]
+                                                                               isMajor:[[obj objectForKey:@"isMajor"]boolValue]
+                                                                              distance:[[obj objectForKey:@"distance"]floatValue]
+                                                                              timeTrip:[[obj objectForKey:@"duration"]floatValue]
+                                                                      transferDuration:[[obj objectForKey:@"transferDuration"]floatValue]
+                                                                                 sCode:[obj objectForKey:@"sCode"]
+                                                                                 tCode:[obj objectForKey:@"tCode"]
+                                                                       indicativePrice:indicativePriceFlight
+                                                                           itineraries:flightItinerariesMutable];
+               
+               [segmentsMutable addObject:flightSegment];
+               
+            }// END FLIGHT SEGMENT
+            
+           
+        }]; //END SEGMENTS
+        
+        //INDICATIVE PRICE
+        
+        BDBIndicativePrice *indicativePriceRoute = [[BDBIndicativePrice alloc]initWithPrice:[[[obj objectForKey:@"indicativePrice"]objectForKey:@"price"]floatValue]
+                                                                                   currency:[[obj objectForKey:@"indicativePrice"]objectForKey:@"currency"]
+                                                                             isFreeTransfer:[[[obj objectForKey:@"indicativePrice"]objectForKey:@"isFreeTransfer"]boolValue]
+                                                                                nativePrice:[[[obj objectForKey:@"indicativePrice"]objectForKey:@"nativePrice"]floatValue]
+                                                                             nativeCurrency:[[obj objectForKey:@"indicativePrice"]objectForKey:@"nativeCurrency"]];
         
         
-        //LOOP ROUTE
-        
-        BDBIndicativePrice *indicativePrice = [[BDBIndicativePrice alloc]initWithPrice:[[[dicRoute objectForKey:@"indicativePrice"]objectForKey:@"price"]floatValue]
-                                                                              currency:[[dicRoute objectForKey:@"indicativePrice"]objectForKey:@"currency"]
-                                                                        isFreeTransfer:[[[dicRoute objectForKey:@"indicativePrice"]objectForKey:@"isFreeTransfer"]boolValue]
-                                                                           nativePrice:0.0f
-                                                                        nativeCurrency:nil];
         
         
-        BDBRoute *route = [[BDBRoute alloc]initWithName:[dicRoute objectForKey:@"name"]
-                                               distance:[[dicRoute objectForKey:@"distance"]floatValue]
-                                               duration:[[dicRoute objectForKey:@"duration"]floatValue]
-                                                  stops: stopsForRoute
-                                               segments: segments
-                                        indicativePrice: indicativePrice];
+       BDBRoute *route = [[BDBRoute alloc]initWithName:[obj objectForKey:@"name"]
+                                              distance:[[obj objectForKey:@"distance"]floatValue]
+                                              timeTrip:[[obj objectForKey:@"duration"]floatValue]
+                                                 stops: stopsMutable
+                                              segments:segmentsMutable
+                                       indicativePrice:indicativePriceRoute];
         
         
+    
         
         [self.allRoutes.routes addObject:route];
-    }
+    
+    }]; //END ROUTES
     
     
 }
@@ -661,6 +678,8 @@ BDBIndicativePrice *indicativeFlightPrice = [[BDBIndicativePrice alloc]initWithP
         
         
             }
+ 
+ 
     
 }
 
@@ -865,7 +884,8 @@ BDBIndicativePrice *indicativeFlightPrice = [[BDBIndicativePrice alloc]initWithP
     
     if ([segue.identifier isEqualToString:@"routes"]) {
         BDBRoutesTableViewController *rVC = [segue destinationViewController];
-        rVC.routesTable = self.allRoutes.routes;
+        rVC.routesTableRoute = [[NSArray alloc]init];
+        rVC.routesTableRoute = self.allRoutes.routes;
     }
     
 }

@@ -13,7 +13,7 @@
 -(id)initWithKind:(NSString*)aKind
           isMajor:(BOOL)aIsMajor
          distance:(float)aDistance
-         duration:(float)aDuration
+         timeTrip:(float)aDuration
  transferDuration:(float)aTransferDuration
             sCode:(NSString*)aSCode
             tCode:(NSString*)aTCode
@@ -24,7 +24,7 @@
         _kind = aKind;
         _isMajor = aIsMajor;
         _distance = aDistance;
-        _duration = aDuration;
+        _timeTrip = aDuration;
         _transferDuration = aTransferDuration;
         _sCode = aSCode;
         _tCode = aTCode;
