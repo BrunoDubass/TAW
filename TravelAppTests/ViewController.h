@@ -51,7 +51,7 @@
 - (IBAction)originAutoComplete:(id)sender;
 - (IBAction)destinationAutoComplete:(id)sender;
 -(void)convertGPSStringToCLLocation2d:(NSString*)pos;
-
+-(void)convertGPSStringToCLLocation2dA:(NSString*)posA CLLocation2dB:(NSString*)posB;
 -(void)getDataFromJSON:(NSDictionary*)JSONDic;
 
 @end

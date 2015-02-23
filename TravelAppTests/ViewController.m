@@ -39,6 +39,13 @@
 @property (strong, nonatomic) NSMutableArray * destinationArray;
 @property (copy, nonatomic  ) NSString       * latitude;
 @property (copy, nonatomic  ) NSString       * longitude;
+
+@property (copy, nonatomic  ) NSString       * latitudeA;
+@property (copy, nonatomic  ) NSString       * longitudeA;
+@property (copy, nonatomic  ) NSString       * latitudeB;
+@property (copy, nonatomic  ) NSString       * longitudeB;
+
+
 @property (strong, nonatomic) id<MKAnnotation      > pointAnnotation1;
 @property (strong, nonatomic) id<MKAnnotation      > pointAnnotation2;
 @property (strong, nonatomic) NSMutableArray * routesENC;
@@ -520,6 +527,25 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
     self.longitude = [pos substringWithRange:NSMakeRange(comaPos+1, [pos length]-(comaPos+1))];
 }
 
+-(void)convertGPSStringToCLLocation2dA:(NSString*)posA CLLocation2dB:(NSString*)posB{
+    
+    NSRange comaA = [posA rangeOfString:@","];
+    int comaPosA = (int) comaA.location;
+    
+    self.latitudeA = [posA substringWithRange:NSMakeRange(0, comaPosA)];
+    self.longitudeA = [posA substringWithRange:NSMakeRange(comaPosA+1, [posA length]-(comaPosA+1))];
+    
+    NSRange comaB = [posB rangeOfString:@","];
+    int comaPosB = (int) comaB.location;
+    
+    self.latitudeB = [posB substringWithRange:NSMakeRange(0, comaPosB)];
+    self.longitudeB = [posB substringWithRange:NSMakeRange(comaPosB+1, [posB length]-(comaPosB+1))];
+
+    
+    
+}
+
+
 
 
 - (IBAction)search:(id)sender {
@@ -606,11 +632,13 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
  
                 }
                 
-                //[self.mapViewOrigin removeOverlay:self.segmentTest];
-                for (int x = 0; x<self.tempOverlays.count; x++) {
-                    [self.mapViewOrigin removeOverlay:[self.tempOverlays objectAtIndex:x]];
-                }
+                //BORRO ANTIGUOS OVERLAYS
+                
+                [self.mapViewOrigin removeOverlays:self.mapViewOrigin.overlays];
+                
                 [self.tempOverlays removeAllObjects];
+                
+                //CARGO NUEVOS OVERLAYS
                 
                 for (int i = 0; i<self.routesENC.count; i++) {
                     
@@ -624,6 +652,11 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
                         
                     }
                 }
+                
+                
+                [self.mapViewOrigin showAnnotations:@[self.pointAnnotation1, self.pointAnnotation2] animated:YES];
+                
+                
                 
                 NSLog(@"%lu", (unsigned long)[self.routesENC count]);
                 NSLog(@"%@", [[[[self.routesENC objectAtIndex:0]objectForKey:@"segments"]objectAtIndex:0]objectForKey:@"path"]);
