@@ -30,7 +30,7 @@
         _vehicle = aVehicle;
         _isMajor = aIsMajor;
         _isImperial = aIsImperial;
-        _distance = aDistance;
+        _distanceR = aDistance;
         _timeTrip = aDuration;
         _sName = aSName;
         _sPos = aSPos;

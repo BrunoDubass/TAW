@@ -20,7 +20,7 @@
     if (self = [super init]) {
         
         _name = aName;
-        _distance = aDistance;
+        _distanceR = aDistance;
         _timeTrip = aDuration;
         _stops = aStops;
         _segments = aSegments;

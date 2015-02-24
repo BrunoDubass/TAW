@@ -31,7 +31,7 @@
         _subKind = aSubKind;
         _isMajor = aIsMajor;
         _isImperial = aIsImperial;
-        _distance = aDistance;
+        _distanceR = aDistance;
         _timeTrip = aDuration;
         _transferDuration = aTransferDuration;
         _sName = aSName;

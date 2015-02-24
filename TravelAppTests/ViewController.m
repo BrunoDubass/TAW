@@ -32,6 +32,7 @@
 #import "BDBRoutesTableViewController.h"
 #import "BDBInfoViewController.h"
 #import "BDBRouteCollectionViewController.h"
+#import "BDBRouteViewController.h"
 
 
 
@@ -947,6 +948,7 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
         UITabBarController *tabbar = [segue destinationViewController];
         BDBInfoViewController *iVC1 = [tabbar.viewControllers objectAtIndex:0];
         BDBRouteCollectionViewController *iVC2 = [tabbar.viewControllers objectAtIndex:1];
+        BDBRouteViewController *iVC3 = [tabbar.viewControllers objectAtIndex:2];
         
         //iVC1.places = self.places;
         
@@ -959,6 +961,8 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
         
         
         iVC2.allRoutes = self.allRoutes;
+        
+        iVC3.allRoutes = self.allRoutes;
         
     }
     

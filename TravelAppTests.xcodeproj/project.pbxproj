@@ -42,6 +42,8 @@
 		14B1B00B1A9C773400F103B4 /* BDBRouteCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1B00A1A9C773400F103B4 /* BDBRouteCollectionViewController.m */; };
 		14B1B00E1A9C77CB00F103B4 /* BDBRouteCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1B00D1A9C77CB00F103B4 /* BDBRouteCollectionViewCell.m */; };
 		14B217C91A94984D00CCCE42 /* BDBSegmentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B217C81A94984D00CCCE42 /* BDBSegmentTableViewController.m */; };
+		14EF4FBA1A9CEBF0006B03F6 /* BDBRouteCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EF4FB91A9CEBF0006B03F6 /* BDBRouteCollectionView.m */; };
+		14EF4FBD1A9CECA7006B03F6 /* BDBRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EF4FBC1A9CECA7006B03F6 /* BDBRouteViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +123,10 @@
 		14B1B00D1A9C77CB00F103B4 /* BDBRouteCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBRouteCollectionViewCell.m; sourceTree = "<group>"; };
 		14B217C71A94984D00CCCE42 /* BDBSegmentTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBSegmentTableViewController.h; sourceTree = "<group>"; };
 		14B217C81A94984D00CCCE42 /* BDBSegmentTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBSegmentTableViewController.m; sourceTree = "<group>"; };
+		14EF4FB81A9CEBF0006B03F6 /* BDBRouteCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBRouteCollectionView.h; sourceTree = "<group>"; };
+		14EF4FB91A9CEBF0006B03F6 /* BDBRouteCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBRouteCollectionView.m; sourceTree = "<group>"; };
+		14EF4FBB1A9CECA7006B03F6 /* BDBRouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBRouteViewController.h; sourceTree = "<group>"; };
+		14EF4FBC1A9CECA7006B03F6 /* BDBRouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBRouteViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +256,12 @@
 		14074F6A1A76BB0800A771E8 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				14EF4FBB1A9CECA7006B03F6 /* BDBRouteViewController.h */,
+				14EF4FBC1A9CECA7006B03F6 /* BDBRouteViewController.m */,
+				14EF4FB81A9CEBF0006B03F6 /* BDBRouteCollectionView.h */,
+				14EF4FB91A9CEBF0006B03F6 /* BDBRouteCollectionView.m */,
+				14B1B00C1A9C77CB00F103B4 /* BDBRouteCollectionViewCell.h */,
+				14B1B00D1A9C77CB00F103B4 /* BDBRouteCollectionViewCell.m */,
 				14074F471A76BA5E00A771E8 /* ViewController.h */,
 				14074F481A76BA5E00A771E8 /* ViewController.m */,
 				141DA2331A93C303005240EA /* BDBRoutesTableViewController.h */,
@@ -260,8 +272,6 @@
 				14B1B0041A9BE95800F103B4 /* BDBInfoViewController.m */,
 				14B1B0091A9C773400F103B4 /* BDBRouteCollectionViewController.h */,
 				14B1B00A1A9C773400F103B4 /* BDBRouteCollectionViewController.m */,
-				14B1B00C1A9C77CB00F103B4 /* BDBRouteCollectionViewCell.h */,
-				14B1B00D1A9C77CB00F103B4 /* BDBRouteCollectionViewCell.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -393,6 +403,7 @@
 				144CCDFE1A92767000B3938D /* BDBTransitHop.m in Sources */,
 				141DA2351A93C303005240EA /* BDBRoutesTableViewController.m in Sources */,
 				144CCE041A92768C00B3938D /* BDBFlightSegment.m in Sources */,
+				14EF4FBA1A9CEBF0006B03F6 /* BDBRouteCollectionView.m in Sources */,
 				14B1B00E1A9C77CB00F103B4 /* BDBRouteCollectionViewCell.m in Sources */,
 				144CCE161A92793100B3938D /* BDBTransitAgency.m in Sources */,
 				144CCE131A92771A00B3938D /* BDBIndicativePrice.m in Sources */,
@@ -400,6 +411,7 @@
 				144CCDEF1A92761900B3938D /* BDBStop.m in Sources */,
 				14B1B00B1A9C773400F103B4 /* BDBRouteCollectionViewController.m in Sources */,
 				14074F461A76BA5E00A771E8 /* AppDelegate.m in Sources */,
+				14EF4FBD1A9CECA7006B03F6 /* BDBRouteViewController.m in Sources */,
 				144CCE191A92793F00B3938D /* BDBActions.m in Sources */,
 				14074F681A76BAF700A771E8 /* BDBTravelModel.m in Sources */,
 				14074F6D1A76BBB900A771E8 /* BDBTravelPlaces.m in Sources */,

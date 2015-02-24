@@ -1,5 +1,5 @@
 //
-//  BDBRouteCollectionViewController.h
+//  BDBRouteViewController.h
 //  TravelAppTests
 //
 //  Created by Bruno Domínguez on 24/02/15.
@@ -8,10 +8,8 @@
 
 @import UIKit;
 @class BDBAllRoutes;
-@class BDBRouteCollectionViewCell;
 
-
-@interface BDBRouteCollectionViewController : UICollectionViewController
+@interface BDBRouteViewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (strong, nonatomic)BDBAllRoutes *allRoutes;
 

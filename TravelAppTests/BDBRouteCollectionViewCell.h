@@ -12,6 +12,7 @@
 @interface BDBRouteCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet MKMapView *cellMapView;
+
 @property (weak, nonatomic) IBOutlet UILabel *routeLabel;
 
 @end

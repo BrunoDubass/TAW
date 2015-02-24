@@ -535,30 +535,35 @@
         <scene sceneID="l7B-Dh-FJu">
             <objects>
                 <collectionViewController id="1T0-RV-mUd" customClass="BDBRouteCollectionViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="WaN-kQ-uIT">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="WaN-kQ-uIT">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sea-gr-kcA">
-                            <size key="itemSize" width="323" height="218"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                        <inset key="contentInset" minX="0.0" minY="40" maxX="0.0" maxY="700"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hCO-40-c7G">
+                            <size key="itemSize" width="385" height="231"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
+                        <mapView key="backgroundView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="77j-Vn-BxO">
+                            <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        </mapView>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="Td1-99-XnD" customClass="BDBRouteCollectionViewCell">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="323" height="218"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="385" height="231"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="B3O-ir-VCO">
-                                            <rect key="frame" x="0.0" y="50" width="323" height="168"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="DbG-AS-hgP">
+                                            <rect key="frame" x="8" y="71" width="369" height="152"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         </mapView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Route 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cWp-UY-EFF">
-                                            <rect key="frame" x="8" y="8" width="185" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Route 1" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cWp-UY-EFF">
+                                            <rect key="frame" x="8" y="8" width="369" height="55"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -567,8 +572,8 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
-                                    <outlet property="cellMapView" destination="B3O-ir-VCO" id="WIH-gt-b4S"/>
-                                    <outlet property="routeLabel" destination="cWp-UY-EFF" id="bYG-qW-cv1"/>
+                                    <outlet property="cellMapView" destination="DbG-AS-hgP" id="Yq5-6X-dtx"/>
+                                    <outlet property="routeLabel" destination="cWp-UY-EFF" id="VHh-w0-fhb"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -582,6 +587,67 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pol-XX-s6J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2565" y="2501"/>
+        </scene>
+        <!--BDBRouteViewController-->
+        <scene sceneID="jw5-bV-4Hy">
+            <objects>
+                <viewController title="BDBRouteViewController" id="rNg-Kn-X6Z" customClass="BDBRouteViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fPM-JM-N59">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="IoQ-Bc-aoD" customClass="BDBRouteCollectionView">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="231"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <inset key="contentInset" minX="0.0" minY="65" maxX="0.0" maxY="0.0"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4AP-X3-KbC">
+                                    <size key="itemSize" width="278" height="157"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="bge-i7-8hW" customClass="BDBRouteCollectionViewCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="278" height="157"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gbt-3s-KvO">
+                                                    <rect key="frame" x="8" y="8" width="262" height="26"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <mapView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" id="hG0-qG-vVJ">
+                                                    <rect key="frame" x="0.0" y="39" width="278" height="118"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </mapView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <size key="customSize" width="278" height="157"/>
+                                        <connections>
+                                            <outlet property="cellMapView" destination="hG0-qG-vVJ" id="3vw-ev-yKV"/>
+                                            <outlet property="routeLabel" destination="gbt-3s-KvO" id="RQK-d0-EhB"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="rNg-Kn-X6Z" id="OrS-z4-G9H"/>
+                                    <outlet property="delegate" destination="rNg-Kn-X6Z" id="P6u-2k-pto"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="gFx-9t-EzT"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tv2-PQ-rnQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2565" y="3780"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="cGa-yU-1VO">
@@ -597,6 +663,7 @@
                     <connections>
                         <segue destination="4qy-av-e79" kind="relationship" relationship="viewControllers" id="3SZ-m3-bxb"/>
                         <segue destination="1T0-RV-mUd" kind="relationship" relationship="viewControllers" id="3nI-kb-37e"/>
+                        <segue destination="rNg-Kn-X6Z" kind="relationship" relationship="viewControllers" id="mdr-WA-LSk"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9xk-GR-MRS" userLabel="First Responder" sceneMemberID="firstResponder"/>

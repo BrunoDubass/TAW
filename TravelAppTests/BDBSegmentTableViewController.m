@@ -91,14 +91,14 @@
     
     if ([[seg kind]isEqualToString:@"walk"]||[[seg kind]isEqualToString:@"car"]) {
         
-        cell.textLabel.text = [NSString stringWithFormat:@"%.2f horas   %.2f km   %@   %@ - %@   Precio: %.2f eur", [seg timeTrip]/60, [seg distance], [seg vehicle], [seg sName], [seg tName], [[seg indicativePrice]price]];
+        cell.textLabel.text = [NSString stringWithFormat:@"%.2f horas   %.2f km   %@   %@ - %@   Precio: %.2f eur", [seg timeTrip]/60, [seg distanceR], [seg vehicle], [seg sName], [seg tName], [[seg indicativePrice]price]];
         return cell;
         
     }else if([[seg kind]isEqualToString:@"train"]||[[seg kind]isEqualToString:@"bus"]||[[seg kind]isEqualToString:@"ferry"]){
         
         //NSArray *stops = [[[self.routesTableSegment[self.index]segments]objectAtIndex:indexPath.section]stops];
         
-            cell.textLabel.text = [NSString stringWithFormat:@"%.2f horas   %.2f km   %@ - %@   Precio: %.2f eur", [seg timeTrip]/60, [seg distance], [seg sName], [seg tName], [[seg indicativePrice]price]];
+            cell.textLabel.text = [NSString stringWithFormat:@"%.2f horas   %.2f km   %@ - %@   Precio: %.2f eur", [seg timeTrip]/60, [seg distanceR], [seg sName], [seg tName], [[seg indicativePrice]price]];
             
       
         return cell;
@@ -106,7 +106,7 @@
     }else{
         
         
-        cell.textLabel.text = [NSString stringWithFormat:@"%.2f horas   %.2f km   %@ - %@   Precio: %.2f eur", [seg timeTrip]/60, [seg distance], [seg sCode], [seg tCode], [[seg indicativePrice]price]];
+        cell.textLabel.text = [NSString stringWithFormat:@"%.2f horas   %.2f km   %@ - %@   Precio: %.2f eur", [seg timeTrip]/60, [seg distanceR], [seg sCode], [seg tCode], [[seg indicativePrice]price]];
         
         return cell;
     }

@@ -60,7 +60,7 @@
     BDBRoute *route = self.routesTableRoute[indexPath.row];
     
     cell.textLabel.text = [route name];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f horas - %.3f kilómetros - %.2f eur",(route.timeTrip/60), route.distance, [[route indicativePrice]price]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f horas - %.3f kilómetros - %.2f eur",(route.timeTrip/60), route.distanceR, [[route indicativePrice]price]];
     
     // Configure the cell...
     

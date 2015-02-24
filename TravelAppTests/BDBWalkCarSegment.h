@@ -16,7 +16,7 @@
 @property (copy, nonatomic)NSString *vehicle;
 @property (nonatomic)BOOL isMajor;
 @property (nonatomic)BOOL isImperial;
-@property (nonatomic)float distance;
+@property (nonatomic)float distanceR;
 @property (nonatomic)float timeTrip;
 @property (copy, nonatomic)NSString *sName;
 @property (copy, nonatomic)NSString *sPos;

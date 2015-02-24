@@ -13,7 +13,7 @@
 
 @property (copy, nonatomic)NSString *kind;
 @property (nonatomic)BOOL isMajor;
-@property (nonatomic)float distance;
+@property (nonatomic)float distanceR;
 @property (nonatomic)float timeTrip;
 @property (nonatomic)float transferDuration;
 @property (copy, nonatomic)NSString *sCode;

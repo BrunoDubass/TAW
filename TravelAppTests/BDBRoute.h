@@ -12,7 +12,7 @@
 @interface BDBRoute : NSObject
 
 @property (copy, nonatomic)NSString *name;
-@property (nonatomic)float distance;
+@property (nonatomic)float distanceR;
 @property (nonatomic)float timeTrip;
 @property (strong, nonatomic)NSArray *stops;
 @property (strong, nonatomic)NSArray *segments;

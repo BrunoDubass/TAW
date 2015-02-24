@@ -23,7 +23,7 @@
     if (self = [super init]) {
         _kind = aKind;
         _isMajor = aIsMajor;
-        _distance = aDistance;
+        _distanceR = aDistance;
         _timeTrip = aDuration;
         _transferDuration = aTransferDuration;
         _sCode = aSCode;
