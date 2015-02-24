@@ -30,6 +30,10 @@
 #import "BDBTravelModel.h"
 #import "BDBWalkCarSegment.h"
 #import "BDBRoutesTableViewController.h"
+#import "BDBInfoViewController.h"
+#import "BDBRouteCollectionViewController.h"
+
+
 
 
 
@@ -52,6 +56,8 @@
 @property (strong, nonatomic) NSMutableArray * routesDEC;
 @property (strong, nonatomic) MKPolyline     * segmentTest;
 @property (strong, nonatomic) NSMutableArray * tempOverlays;
+
+@property (nonatomic)BOOL segueOk;
 
 
 
@@ -449,6 +455,9 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
     self.mapViewOrigin.delegate = self;
     
     self.tempOverlays = [NSMutableArray new];
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -549,6 +558,8 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
 
 
 - (IBAction)search:(id)sender {
+    
+    self.segueOk = NO;
     
     if ([self.originSearch.text  isEqual: @""] || [self.destinationSearch.text  isEqual: @""]) {
         
@@ -681,7 +692,7 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
                 [self getDataFromJSON:jsonDictionary];
                 
                
-                
+                self.segueOk = YES;
                 
                 
                 
@@ -789,7 +800,8 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
     self.destinationCountryCode.text = [[self.places.places objectAtIndex:1]countryCode];
     self.destinationRegionCode.text  = [[self.places.places objectAtIndex:1]regionCode];
     self.destinationTimeZone.text    = [[self.places.places objectAtIndex:1]timeZ];
-
+    
+    
     
 }
 
@@ -857,7 +869,8 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
         
         if (!([self.originSearch.text isEqualToString:@""]||[self.destinationSearch.text isEqualToString:@""])) {
             [self search:nil];
-        }
+            [self performSegueWithIdentifier:@"tab" sender:self];
+                    }
         self.originTableView.hidden = YES;
         return [textField resignFirstResponder];
 
@@ -865,6 +878,8 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
     }else{
         if (!([self.originSearch.text isEqualToString:@""]||[self.destinationSearch.text isEqualToString:@""])) {
             [self search:nil];
+            [self performSegueWithIdentifier:@"tab" sender:self];
+            
         }
         self.destinationTableView.hidden = YES;
         return [textField resignFirstResponder];
@@ -880,6 +895,9 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
         
         if (!([self.originSearch.text isEqualToString:@""]||[self.destinationSearch.text isEqualToString:@""])) {
             [self search:nil];
+            
+            
+
         }
         self.originTableView.hidden = YES;
         return YES;
@@ -888,6 +906,8 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
     }else{
         if (!([self.originSearch.text isEqualToString:@""]||[self.destinationSearch.text isEqualToString:@""])) {
             [self search:nil];
+            
+
         }
         self.destinationTableView.hidden = YES;
         return YES;
@@ -913,16 +933,46 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
     return polyline;
 }
 
+-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
+    
+    if ([identifier isEqualToString:@"tab"]&& self.segueOk == NO) {
+        return NO;
+    }else
+        return YES;
+}
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
-    if ([segue.identifier isEqualToString:@"routes"]) {
-        BDBRoutesTableViewController *rVC = [segue destinationViewController];
-        rVC.routesTableRoute = [[NSArray alloc]init];
-        rVC.routesTableRoute = self.allRoutes.routes;
+    if ([segue.identifier isEqualToString:@"tab"]) {
+        UITabBarController *tabbar = [segue destinationViewController];
+        BDBInfoViewController *iVC1 = [tabbar.viewControllers objectAtIndex:0];
+        BDBRouteCollectionViewController *iVC2 = [tabbar.viewControllers objectAtIndex:1];
+        
+        //iVC1.places = self.places;
+        
+        iVC1.longName = [[self.places.places objectAtIndex:1]longName];
+        iVC1.kind = [[self.places.places objectAtIndex:1]kind];
+        iVC1.pos = [[self.places.places objectAtIndex:1]pos];
+        iVC1.countryCode = [[self.places.places objectAtIndex:1]countryCode];
+        iVC1.regionCode = [[self.places.places objectAtIndex:1]regionCode];
+        iVC1.timeZone = [[self.places.places objectAtIndex:1]timeZ];
+        
+        
+        iVC2.allRoutes = self.allRoutes;
+        
     }
+    
+    
+//    if ([segue.identifier isEqualToString:@"routes"]) {
+//        BDBRoutesTableViewController *rVC = [segue destinationViewController];
+//        rVC.routesTableRoute = [[NSArray alloc]init];
+//        rVC.routesTableRoute = self.allRoutes.routes;
+//    }
+    
+    
     
 }
 
-             
+
 
 @end
