@@ -18,7 +18,8 @@
             sCode:(NSString*)aSCode
             tCode:(NSString*)aTCode
   indicativePrice:(BDBIndicativePrice*)aIndicativePrice
-      itineraries:(NSArray*)aItineraries{
+      itineraries:(NSArray*)aItineraries
+            index:(NSUInteger)aIndex{
     
     if (self = [super init]) {
         _kind = aKind;
@@ -30,6 +31,7 @@
         _tCode = aTCode;
         _indicativePrice = aIndicativePrice;
         _itineraries = aItineraries;
+        _index = aIndex;
     }
     return self;
 }

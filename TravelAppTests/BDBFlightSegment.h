@@ -20,6 +20,7 @@
 @property (copy, nonatomic)NSString *tCode;
 @property (strong, nonatomic)BDBIndicativePrice *indicativePrice;
 @property (strong, nonatomic)NSArray *itineraries;
+@property (nonatomic)NSUInteger index;
 
 -(id)initWithKind:(NSString*)aKind
           isMajor:(BOOL)aIsMajor
@@ -29,6 +30,7 @@
             sCode:(NSString*)aSCode
             tCode:(NSString*)aTCode
   indicativePrice:(BDBIndicativePrice*)aIndicativePrice
-      itineraries:(NSArray*)aItineraries;
+      itineraries:(NSArray*)aItineraries
+            index:(NSUInteger)aIndex;
 
 @end

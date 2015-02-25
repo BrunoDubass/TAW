@@ -395,7 +395,8 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
                                                                                  sCode:[obj objectForKey:@"sCode"]
                                                                                  tCode:[obj objectForKey:@"tCode"]
                                                                        indicativePrice:indicativePriceFlight
-                                                                           itineraries:flightItinerariesMutable];
+                                                                           itineraries:flightItinerariesMutable
+                                                                                 index:idx];
                
                [segmentsMutable addObject:flightSegment];
                
@@ -666,6 +667,7 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
                             [self.tempOverlays addObject:[aux objectForKey:@"path"]];
                             [segmentsArray addObject:[self polylineWithEncodedString:[aux objectForKey:@"path"]]];
                         }
+                        
                         
                     }
                    [self.routesArray addObject:segmentsArray];
