@@ -58,6 +58,8 @@
 @property (strong, nonatomic) MKPolyline     * segmentTest;
 @property (strong, nonatomic) NSMutableArray * tempOverlays;
 
+@property (strong, nonatomic) NSMutableArray *routesArray;
+
 @property (nonatomic)BOOL segueOk;
 
 
@@ -651,18 +653,23 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
                 [self.tempOverlays removeAllObjects];
                 
                 //CARGO NUEVOS OVERLAYS
-                
+                self.routesArray = [[NSMutableArray alloc]init];
                 for (int i = 0; i<self.routesENC.count; i++) {
                     
                     NSDictionary* aux;
+                    
+                    NSMutableArray *segmentsArray = [[NSMutableArray alloc]init];
                     for (int j = 0; j<[[[self.routesENC objectAtIndex:i]objectForKey:@"segments"]count]; j++) {
                         aux = [[[self.routesENC objectAtIndex:i]objectForKey:@"segments"]objectAtIndex:j];
                         [self.mapViewOrigin addOverlay:[self polylineWithEncodedString:[aux objectForKey:@"path"]]];
                         if([aux objectForKey:@"path"] != nil){
                             [self.tempOverlays addObject:[aux objectForKey:@"path"]];
+                            [segmentsArray addObject:[self polylineWithEncodedString:[aux objectForKey:@"path"]]];
                         }
                         
                     }
+                   [self.routesArray addObject:segmentsArray];
+                    
                 }
                 
                 
@@ -963,6 +970,10 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
         iVC2.allRoutes = self.allRoutes;
         
         iVC3.allRoutes = self.allRoutes;
+        iVC3.pointAnnotation1 = self.pointAnnotation1;
+        iVC3.pointAnnotation2 = self.pointAnnotation2;
+        
+        iVC3.routesArray = self.routesArray;
         
     }
     

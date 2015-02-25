@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BDBRouteCollectionView : UICollectionView<UICollectionViewDelegate, UICollectionViewDataSource>
+@interface BDBRouteCollectionView : UICollectionView
 
 
 
