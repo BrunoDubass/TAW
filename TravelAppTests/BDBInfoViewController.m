@@ -70,6 +70,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    //[self applyMapViewMemoryFix];
+}
+
 /*
 #pragma mark - Navigation
 
@@ -107,6 +112,30 @@
         polyline.lineWidth = 3.0;
     }
     return polyline;
+}
+
+- (void)applyMapViewMemoryFix{
+    
+    switch (self.infoMapView.mapType) {
+        case MKMapTypeHybrid:
+        {
+            self.infoMapView.mapType = MKMapTypeStandard;
+        }
+            
+            break;
+        case MKMapTypeStandard:
+        {
+            self.infoMapView.mapType = MKMapTypeHybrid;
+        }
+            
+            break;
+        default:
+            break;
+    }
+    self.infoMapView.showsUserLocation = NO;
+    self.infoMapView.delegate = nil;
+    [self.infoMapView removeFromSuperview];
+    self.infoMapView = nil;
 }
 
 

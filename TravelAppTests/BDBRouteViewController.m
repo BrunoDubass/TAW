@@ -11,10 +11,24 @@
 #import "BDBRouteCollectionViewCell.h"
 #import "BDBIndicativePrice.h"
 #import "BDBRoute.h"
+#import "BDBFlightSegment.h"
+#import "BDBStop.h"
+#import "BDBRoute.h"
+#import "BDBTransitSegment.h"
+#import "BDBWalkCarSegment.h"
+#import "BDBAnnotation.h"
+#import "BDBSegmentViewController.h"
 
 @interface BDBRouteViewController ()
 
 @property (strong, nonatomic)NSArray *path;
+
+@property (copy, nonatomic  ) NSString       * latitudeA;
+@property (copy, nonatomic  ) NSString       * longitudeA;
+@property (copy, nonatomic  ) NSString       * latitudeB;
+@property (copy, nonatomic  ) NSString       * longitudeB;
+
+@property (nonatomic)NSUInteger segmentIndex;
 
 @end
 
@@ -26,6 +40,10 @@
 
 static NSString * const reuseIdentifier = @"Cell";
 
+
+
+#pragma mark - LIFECYCLE
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -35,7 +53,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [super viewWillAppear:animated];
     
     [self setMapRouteAtIndexPath:0];
-    
+    self.segmentIndex = 0;
     
 }
 
@@ -44,15 +62,25 @@ static NSString * const reuseIdentifier = @"Cell";
     // Dispose of any resources that can be recreated.
 }
 
-/*
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    //[self applyMapViewMemoryFix];
+}
+
+
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    BDBSegmentViewController *sVC = [segue destinationViewController];    
+    sVC.path = [[self.allRoutes.routes objectAtIndex:self.segmentIndex]segments];
+    sVC.allRoutes = self.allRoutes;
+    sVC.segmentIndex = self.segmentIndex;
+    
 }
-*/
+
 
 #pragma mark - COLLECTION VIEW DATA SOURCE
 
@@ -66,10 +94,13 @@ static NSString * const reuseIdentifier = @"Cell";
     return self.allRoutes.routes.count;
 }
 
+
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     BDBRouteCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    self.path = [self.routesArray objectAtIndex:indexPath.row];
+    
+    self.path = [[self.allRoutes.routes objectAtIndex:indexPath.row]segments];
     [cell.cellMapView removeAnnotations:cell.cellMapView.annotations];
     [cell.cellMapView removeOverlays:cell.cellMapView.overlays];
     
@@ -80,12 +111,43 @@ static NSString * const reuseIdentifier = @"Cell";
     [cell.cellMapView addAnnotation:self.pointAnnotation1];
     [cell.cellMapView addAnnotation:self.pointAnnotation2];
     
-    for (MKPolyline *obj in self.path) {
-        [cell.cellMapView addOverlay:obj];
-    }
-
+    [self.path enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        if ([obj isKindOfClass:[BDBFlightSegment class]]) {
+            
+            BDBRoute *r = [self.allRoutes.routes objectAtIndex:indexPath.row];
+            BDBStop *s1 = [r.stops objectAtIndex:[obj index]];
+            BDBStop *s2 = [r.stops objectAtIndex:[obj index]+1];
+            
+            [self convertGPSStringToCLLocation2dA:s1.pos CLLocation2dB:s2.pos];
+       
+            
+            CLLocationCoordinate2D loc1 = CLLocationCoordinate2DMake(self.latitudeA.doubleValue, self.longitudeA.doubleValue);
+            CLLocationCoordinate2D loc2 = CLLocationCoordinate2DMake(self.latitudeB.doubleValue, self.longitudeB.doubleValue);
+            
+            
+            CLLocationCoordinate2D locArray[2] = {loc1, loc2};
+            
+            MKPolyline *poli = [MKPolyline polylineWithCoordinates: locArray count:2];
+            
+            [cell.cellMapView addOverlay:poli];
+            
+        }else{
+            
+            BDBWalkCarSegment *segmentObject;
+            if ([obj isKindOfClass:[BDBWalkCarSegment class]]) {
+                segmentObject = obj;
+            }else{
+                segmentObject = obj;
+            }
+            
+            [cell.cellMapView addOverlay:[self polylineWithEncodedString:segmentObject.path]];
+            
+            
+        }
+    }];
     
-    //[cell.cellMapView showAnnotations:@[self.pointAnnotation1, self.pointAnnotation2] animated:YES];
+
     
     
     
@@ -101,6 +163,82 @@ static NSString * const reuseIdentifier = @"Cell";
     
     
     return cell;
+}
+
+
+
+-(void)convertGPSStringToCLLocation2dA:(NSString*)posA CLLocation2dB:(NSString*)posB{
+    
+    NSRange comaA = [posA rangeOfString:@","];
+    int comaPosA = (int) comaA.location;
+    
+    self.latitudeA = [posA substringWithRange:NSMakeRange(0, comaPosA)];
+    self.longitudeA = [posA substringWithRange:NSMakeRange(comaPosA+1, [posA length]-(comaPosA+1))];
+    
+    NSRange comaB = [posB rangeOfString:@","];
+    int comaPosB = (int) comaB.location;
+    
+    self.latitudeB = [posB substringWithRange:NSMakeRange(0, comaPosB)];
+    self.longitudeB = [posB substringWithRange:NSMakeRange(comaPosB+1, [posB length]-(comaPosB+1))];
+    
+}
+
+
+
+- (MKPolyline *)polylineWithEncodedString:(NSString *)encodedString {
+    const char *bytes = [encodedString UTF8String];
+    NSUInteger length = [encodedString lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+    NSUInteger idx = 0;
+    
+    NSUInteger count = length / 4;
+    CLLocationCoordinate2D *coords = calloc(count, sizeof(CLLocationCoordinate2D));
+    NSUInteger coordIdx = 0;
+    
+    float latitude = 0;
+    float longitude = 0;
+    while (idx < length) {
+        char byte = 0;
+        int res = 0;
+        char shift = 0;
+        
+        do {
+            byte = bytes[idx++] - 63;
+            res |= (byte & 0x1F) << shift;
+            shift += 5;
+        } while (byte >= 0x20);
+        
+        float deltaLat = ((res & 1) ? ~(res >> 1) : (res >> 1));
+        latitude += deltaLat;
+        
+        shift = 0;
+        res = 0;
+        
+        do {
+            byte = bytes[idx++] - 0x3F;
+            res |= (byte & 0x1F) << shift;
+            shift += 5;
+        } while (byte >= 0x20);
+        
+        float deltaLon = ((res & 1) ? ~(res >> 1) : (res >> 1));
+        longitude += deltaLon;
+        
+        float finalLat = latitude * 1E-5;
+        float finalLon = longitude * 1E-5;
+        
+        CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(finalLat, finalLon);
+        coords[coordIdx++] = coord;
+        
+        if (coordIdx == count) {
+            NSUInteger newCount = count + 10;
+            coords = realloc(coords, newCount * sizeof(CLLocationCoordinate2D));
+            count = newCount;
+        }
+    }
+    
+    MKPolyline *polyline = [MKPolyline polylineWithCoordinates:coords count:coordIdx];
+    free(coords);
+    
+    return polyline;
 }
 
 
@@ -122,11 +260,15 @@ static NSString * const reuseIdentifier = @"Cell";
     return polyline;
 }
 
+
+
 #pragma mark - COLLECTION VIEW DELEGATE
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     [self setMapRouteAtIndexPath:indexPath.row];
+    self.segmentIndex = indexPath.row;
+    
     
 }
 
@@ -146,16 +288,71 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.mapView removeAnnotations:self.mapView.annotations];
     [self.mapView removeOverlays:self.mapView.overlays];
     
+    BDBRoute *r = [self.allRoutes.routes objectAtIndex:index];
+    
+    
+//    [self.mapView removeAnnotations:self.mapView.annotations];
+//    [self.mapView removeOverlays:self.mapView.overlays];
+    
     self.mapView.zoomEnabled = YES;
     
-    [self.mapView addAnnotation:self.pointAnnotation1];
-    [self.mapView addAnnotation:self.pointAnnotation2];
+//    [self.mapView addAnnotation:self.pointAnnotation1];
+//    [self.mapView addAnnotation:self.pointAnnotation2];
     
-    self.path = [self.routesArray objectAtIndex:index];
+    self.path = [[self.allRoutes.routes objectAtIndex:index]segments];
     
-    for (MKPolyline *obj in self.path) {
-        [self.mapView addOverlay:obj];
-    }
+    NSMutableArray *stops = [[NSMutableArray alloc]init];
+    
+    [r.stops enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        [self convertGPSStringToCLLocation2dA:[obj pos] CLLocation2dB:nil];
+        
+        self.pointAnnotation = [[BDBAnnotation alloc]initWithName:[obj name] coordinate:CLLocationCoordinate2DMake(self.latitudeA.doubleValue, self.longitudeA.doubleValue)];
+        [stops addObject:self.pointAnnotation];
+        
+    }];
+    
+    [self.mapView addAnnotations:stops];
+    
+    [self.path enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        if ([obj isKindOfClass:[BDBFlightSegment class]]) {
+            
+            
+            BDBStop *s1 = [r.stops objectAtIndex:[obj index]];
+            BDBStop *s2 = [r.stops objectAtIndex:[obj index]+1];
+            
+            [self convertGPSStringToCLLocation2dA:s1.pos CLLocation2dB:s2.pos];
+            
+            
+            CLLocationCoordinate2D loc1 = CLLocationCoordinate2DMake(self.latitudeA.doubleValue, self.longitudeA.doubleValue);
+            CLLocationCoordinate2D loc2 = CLLocationCoordinate2DMake(self.latitudeB.doubleValue, self.longitudeB.doubleValue);
+            
+            
+            CLLocationCoordinate2D locArray[2] = {loc1, loc2};
+            
+            MKPolyline *poli = [MKPolyline polylineWithCoordinates: locArray count:2];
+            
+            [self.mapView addOverlay:poli];
+            
+        }else{
+            
+            BDBWalkCarSegment *segmentObject;
+            
+            if ([obj isKindOfClass:[BDBWalkCarSegment class]]) {
+                segmentObject = obj;
+            }else{
+                segmentObject = obj;
+            }
+            
+            [self.mapView addOverlay:[self polylineWithEncodedString:segmentObject.path]];
+            
+            
+        }
+    
+    }];
+    
+    self.infoMapLabel.text = [NSString stringWithFormat:@"%@ - %.2f km - %.2f min - %.2f eur",r.name, r.distanceR, r.timeTrip, r.indicativePrice.price];
     
     
     MKMapRect zoomRect = MKMapRectNull;
@@ -166,6 +363,30 @@ static NSString * const reuseIdentifier = @"Cell";
         zoomRect = MKMapRectUnion(zoomRect, pointRect);
     }
     [self.mapView setVisibleMapRect:zoomRect edgePadding:UIEdgeInsetsMake(20, 20, 20, 20) animated:YES];
+}
+
+- (void)applyMapViewMemoryFix{
+    
+    switch (self.mapView.mapType) {
+        case MKMapTypeHybrid:
+        {
+            self.mapView.mapType = MKMapTypeStandard;
+        }
+            
+            break;
+        case MKMapTypeStandard:
+        {
+            self.mapView.mapType = MKMapTypeHybrid;
+        }
+            
+            break;
+        default:
+            break;
+    }
+    self.mapView.showsUserLocation = NO;
+    self.mapView.delegate = nil;
+    [self.mapView removeFromSuperview];
+    self.mapView = nil;
 }
 
 @end

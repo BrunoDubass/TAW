@@ -638,58 +638,6 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
 
                 
                 
-                //ROUTES ENCODED
-                
-                
-                for (int i = 0; i<[[jsonDictionary objectForKey:@"routes"]count]; i++) {
-                    
-                    [self.routesENC addObject:[[jsonDictionary objectForKey:@"routes"]objectAtIndex:i]];
- 
-                }
-                
-                //BORRO ANTIGUOS OVERLAYS
-                
-                [self.mapViewOrigin removeOverlays:self.mapViewOrigin.overlays];
-                
-                [self.tempOverlays removeAllObjects];
-                
-                //CARGO NUEVOS OVERLAYS
-                self.routesArray = [[NSMutableArray alloc]init];
-                for (int i = 0; i<self.routesENC.count; i++) {
-                    
-                    NSDictionary* aux;
-                    
-                    NSMutableArray *segmentsArray = [[NSMutableArray alloc]init];
-                    for (int j = 0; j<[[[self.routesENC objectAtIndex:i]objectForKey:@"segments"]count]; j++) {
-                        aux = [[[self.routesENC objectAtIndex:i]objectForKey:@"segments"]objectAtIndex:j];
-                        [self.mapViewOrigin addOverlay:[self polylineWithEncodedString:[aux objectForKey:@"path"]]];
-                        if([aux objectForKey:@"path"] != nil){
-                            [self.tempOverlays addObject:[aux objectForKey:@"path"]];
-                            [segmentsArray addObject:[self polylineWithEncodedString:[aux objectForKey:@"path"]]];
-                        }
-                        
-                        
-                    }
-                   [self.routesArray addObject:segmentsArray];
-                    
-                }
-                
-                
-                [self.mapViewOrigin showAnnotations:@[self.pointAnnotation1, self.pointAnnotation2] animated:YES];
-                
-                
-                
-                NSLog(@"%lu", (unsigned long)[self.routesENC count]);
-                NSLog(@"%@", [[[[self.routesENC objectAtIndex:0]objectForKey:@"segments"]objectAtIndex:0]objectForKey:@"path"]);
-                
-                
-                
-               
-                
-                
-
-                
-                
                 [self showResults];
                 self.originSearch.text =@"";
                 self.destinationSearch.text = @"";
@@ -701,11 +649,7 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
                 
                 [self getDataFromJSON:jsonDictionary];
                 
-               
-                self.segueOk = YES;
-                
-                
-                
+  
                 
             }else{
                 
@@ -956,8 +900,8 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
     if ([segue.identifier isEqualToString:@"tab"]) {
         UITabBarController *tabbar = [segue destinationViewController];
         BDBInfoViewController *iVC1 = [tabbar.viewControllers objectAtIndex:0];
-        BDBRouteCollectionViewController *iVC2 = [tabbar.viewControllers objectAtIndex:1];
-        BDBRouteViewController *iVC3 = [tabbar.viewControllers objectAtIndex:2];
+        BDBRouteViewController *iVC2 = [tabbar.viewControllers objectAtIndex:1];
+        
         
         //iVC1.places = self.places;
         
@@ -967,17 +911,13 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
         iVC1.countryCode = [[self.places.places objectAtIndex:1]countryCode];
         iVC1.regionCode = [[self.places.places objectAtIndex:1]regionCode];
         iVC1.timeZone = [[self.places.places objectAtIndex:1]timeZ];
-        
+
         
         iVC2.allRoutes = self.allRoutes;
+        iVC2.pointAnnotation1 = self.pointAnnotation1;
+        iVC2.pointAnnotation2 = self.pointAnnotation2;
         
-        iVC3.allRoutes = self.allRoutes;
-        iVC3.pointAnnotation1 = self.pointAnnotation1;
-        iVC3.pointAnnotation2 = self.pointAnnotation2;
-        
-        iVC3.routesArray = self.routesArray;
-        
-    }
+         }
     
     
 //    if ([segue.identifier isEqualToString:@"routes"]) {
