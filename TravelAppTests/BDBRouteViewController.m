@@ -18,6 +18,7 @@
 #import "BDBWalkCarSegment.h"
 #import "BDBAnnotation.h"
 #import "BDBSegmentViewController.h"
+#import "BDBAirports.h"
 
 @interface BDBRouteViewController ()
 
@@ -78,6 +79,10 @@ static NSString * const reuseIdentifier = @"Cell";
     sVC.path = [[self.allRoutes.routes objectAtIndex:self.segmentIndex]segments];
     sVC.allRoutes = self.allRoutes;
     sVC.segmentIndex = self.segmentIndex;
+    sVC.agencies = self.agencies;
+    sVC.airlines = self.airlines;
+    sVC.airports = self.airports;
+    sVC.aircrafts = self.aircrafts;
     
 }
 
@@ -270,6 +275,30 @@ static NSString * const reuseIdentifier = @"Cell";
     self.segmentIndex = indexPath.row;
     
     
+    UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath:indexPath];
+    //set color with animation
+    [UIView animateWithDuration:0.1
+                          delay:0
+                        options:(UIViewAnimationOptionAllowUserInteraction)
+                     animations:^{
+                         [cell setBackgroundColor:[UIColor colorWithRed:182/255.0f green:220/255.0f blue:254/255.0f alpha:0.3]];
+                     }
+                     completion:nil];
+    
+    
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath:indexPath];
+    //set color with animation
+    [UIView animateWithDuration:0.1
+                          delay:0
+                        options:(UIViewAnimationOptionAllowUserInteraction)
+                     animations:^{
+                         [cell setBackgroundColor:[UIColor clearColor]];
+                     }
+                     completion:nil ];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
@@ -290,14 +319,9 @@ static NSString * const reuseIdentifier = @"Cell";
     
     BDBRoute *r = [self.allRoutes.routes objectAtIndex:index];
     
-    
-//    [self.mapView removeAnnotations:self.mapView.annotations];
-//    [self.mapView removeOverlays:self.mapView.overlays];
-    
+
     self.mapView.zoomEnabled = YES;
     
-//    [self.mapView addAnnotation:self.pointAnnotation1];
-//    [self.mapView addAnnotation:self.pointAnnotation2];
     
     self.path = [[self.allRoutes.routes objectAtIndex:index]segments];
     
@@ -317,6 +341,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.path enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
         if ([obj isKindOfClass:[BDBFlightSegment class]]) {
+            
             
             
             BDBStop *s1 = [r.stops objectAtIndex:[obj index]];

@@ -37,7 +37,19 @@
 		14775D961A83E82C00CF9246 /* BDBAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 14775D951A83E82C00CF9246 /* BDBAnnotation.m */; };
 		14775E041A845F0000CF9246 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14775E031A845F0000CF9246 /* MapKit.framework */; };
 		14775E061A845F0900CF9246 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14775E051A845F0900CF9246 /* CoreLocation.framework */; };
+		1495CF911AA783BC007C5231 /* BDBTicketsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1495CF901AA783BC007C5231 /* BDBTicketsTableViewController.m */; };
+		1495CF941AA78411007C5231 /* BDBTicketsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1495CF931AA78411007C5231 /* BDBTicketsTableViewCell.m */; };
+		1495CF9D1AA7A6FD007C5231 /* BDBAgenciesAndAirlines.m in Sources */ = {isa = PBXBuildFile; fileRef = 1495CF9C1AA7A6FD007C5231 /* BDBAgenciesAndAirlines.m */; };
+		1495CFA01AA7A85C007C5231 /* BDBAgencies.m in Sources */ = {isa = PBXBuildFile; fileRef = 1495CF9F1AA7A85C007C5231 /* BDBAgencies.m */; };
+		1495CFA31AA7A877007C5231 /* BDBAirlines.m in Sources */ = {isa = PBXBuildFile; fileRef = 1495CFA21AA7A877007C5231 /* BDBAirlines.m */; };
+		1495CFA61AA7CB7D007C5231 /* BDBTransitTicketData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1495CFA51AA7CB7D007C5231 /* BDBTransitTicketData.m */; };
+		1495CFA91AA7CB9B007C5231 /* BDBFlightTicketData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1495CFA81AA7CB9B007C5231 /* BDBFlightTicketData.m */; };
+		1495CFAC1AA80605007C5231 /* BDBAirports.m in Sources */ = {isa = PBXBuildFile; fileRef = 1495CFAB1AA80605007C5231 /* BDBAirports.m */; };
+		1495CFAF1AA88F1E007C5231 /* BDBFlightsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1495CFAE1AA88F1E007C5231 /* BDBFlightsTableViewController.m */; };
+		1495CFB21AA8A169007C5231 /* BDBFlightsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1495CFB11AA8A169007C5231 /* BDBFlightsTableViewCell.m */; };
+		1495CFB81AA8CF7C007C5231 /* BDBAircrafts.m in Sources */ = {isa = PBXBuildFile; fileRef = 1495CFB71AA8CF7C007C5231 /* BDBAircrafts.m */; };
 		1496038D1AA546A500A9E846 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1496038C1AA546A500A9E846 /* Main.storyboard */; };
+		149603901AA6306300A9E846 /* BDBStopsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1496038F1AA6306300A9E846 /* BDBStopsTableViewController.m */; };
 		14B1B0051A9BE95800F103B4 /* BDBInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1B0041A9BE95800F103B4 /* BDBInfoViewController.m */; };
 		14B1B00B1A9C773400F103B4 /* BDBRouteCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1B00A1A9C773400F103B4 /* BDBRouteCollectionViewController.m */; };
 		14B1B00E1A9C77CB00F103B4 /* BDBRouteCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1B00D1A9C77CB00F103B4 /* BDBRouteCollectionViewCell.m */; };
@@ -116,7 +128,31 @@
 		14775D951A83E82C00CF9246 /* BDBAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBAnnotation.m; sourceTree = "<group>"; };
 		14775E031A845F0000CF9246 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		14775E051A845F0900CF9246 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		1495CF8F1AA783BC007C5231 /* BDBTicketsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBTicketsTableViewController.h; sourceTree = "<group>"; };
+		1495CF901AA783BC007C5231 /* BDBTicketsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBTicketsTableViewController.m; sourceTree = "<group>"; };
+		1495CF921AA78411007C5231 /* BDBTicketsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBTicketsTableViewCell.h; sourceTree = "<group>"; };
+		1495CF931AA78411007C5231 /* BDBTicketsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBTicketsTableViewCell.m; sourceTree = "<group>"; };
+		1495CF9B1AA7A6FD007C5231 /* BDBAgenciesAndAirlines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBAgenciesAndAirlines.h; sourceTree = "<group>"; };
+		1495CF9C1AA7A6FD007C5231 /* BDBAgenciesAndAirlines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBAgenciesAndAirlines.m; sourceTree = "<group>"; };
+		1495CF9E1AA7A85C007C5231 /* BDBAgencies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BDBAgencies.h; path = ../BDBAgencies.h; sourceTree = "<group>"; };
+		1495CF9F1AA7A85C007C5231 /* BDBAgencies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BDBAgencies.m; path = ../BDBAgencies.m; sourceTree = "<group>"; };
+		1495CFA11AA7A877007C5231 /* BDBAirlines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBAirlines.h; sourceTree = "<group>"; };
+		1495CFA21AA7A877007C5231 /* BDBAirlines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBAirlines.m; sourceTree = "<group>"; };
+		1495CFA41AA7CB7D007C5231 /* BDBTransitTicketData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBTransitTicketData.h; sourceTree = "<group>"; };
+		1495CFA51AA7CB7D007C5231 /* BDBTransitTicketData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBTransitTicketData.m; sourceTree = "<group>"; };
+		1495CFA71AA7CB9B007C5231 /* BDBFlightTicketData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBFlightTicketData.h; sourceTree = "<group>"; };
+		1495CFA81AA7CB9B007C5231 /* BDBFlightTicketData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBFlightTicketData.m; sourceTree = "<group>"; };
+		1495CFAA1AA80605007C5231 /* BDBAirports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBAirports.h; sourceTree = "<group>"; };
+		1495CFAB1AA80605007C5231 /* BDBAirports.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBAirports.m; sourceTree = "<group>"; };
+		1495CFAD1AA88F1E007C5231 /* BDBFlightsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBFlightsTableViewController.h; sourceTree = "<group>"; };
+		1495CFAE1AA88F1E007C5231 /* BDBFlightsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBFlightsTableViewController.m; sourceTree = "<group>"; };
+		1495CFB01AA8A169007C5231 /* BDBFlightsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBFlightsTableViewCell.h; sourceTree = "<group>"; };
+		1495CFB11AA8A169007C5231 /* BDBFlightsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBFlightsTableViewCell.m; sourceTree = "<group>"; };
+		1495CFB61AA8CF7C007C5231 /* BDBAircrafts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBAircrafts.h; sourceTree = "<group>"; };
+		1495CFB71AA8CF7C007C5231 /* BDBAircrafts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBAircrafts.m; sourceTree = "<group>"; };
 		1496038C1AA546A500A9E846 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		1496038E1AA6306300A9E846 /* BDBStopsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBStopsTableViewController.h; sourceTree = "<group>"; };
+		1496038F1AA6306300A9E846 /* BDBStopsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBStopsTableViewController.m; sourceTree = "<group>"; };
 		14B1B0031A9BE95800F103B4 /* BDBInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBInfoViewController.h; sourceTree = "<group>"; };
 		14B1B0041A9BE95800F103B4 /* BDBInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBInfoViewController.m; sourceTree = "<group>"; };
 		14B1B0091A9C773400F103B4 /* BDBRouteCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBRouteCollectionViewController.h; sourceTree = "<group>"; };
@@ -221,6 +257,16 @@
 			children = (
 				144CCE1A1A927C6600B3938D /* BDBAllRoutes.h */,
 				144CCE1B1A927C6600B3938D /* BDBAllRoutes.m */,
+				1495CF9B1AA7A6FD007C5231 /* BDBAgenciesAndAirlines.h */,
+				1495CF9C1AA7A6FD007C5231 /* BDBAgenciesAndAirlines.m */,
+				1495CF9E1AA7A85C007C5231 /* BDBAgencies.h */,
+				1495CF9F1AA7A85C007C5231 /* BDBAgencies.m */,
+				1495CFA11AA7A877007C5231 /* BDBAirlines.h */,
+				1495CFA21AA7A877007C5231 /* BDBAirlines.m */,
+				1495CFAA1AA80605007C5231 /* BDBAirports.h */,
+				1495CFAB1AA80605007C5231 /* BDBAirports.m */,
+				1495CFB61AA8CF7C007C5231 /* BDBAircrafts.h */,
+				1495CFB71AA8CF7C007C5231 /* BDBAircrafts.m */,
 				144CCDE91A9275F200B3938D /* OLD_MODEL */,
 				144CCDEA1A92760B00B3938D /* BDBRoute.h */,
 				144CCDEB1A92760B00B3938D /* BDBRoute.m */,
@@ -254,6 +300,10 @@
 				144CCE151A92793100B3938D /* BDBTransitAgency.m */,
 				144CCE171A92793F00B3938D /* BDBActions.h */,
 				144CCE181A92793F00B3938D /* BDBActions.m */,
+				1495CFA41AA7CB7D007C5231 /* BDBTransitTicketData.h */,
+				1495CFA51AA7CB7D007C5231 /* BDBTransitTicketData.m */,
+				1495CFA71AA7CB9B007C5231 /* BDBFlightTicketData.h */,
+				1495CFA81AA7CB9B007C5231 /* BDBFlightTicketData.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -271,6 +321,16 @@
 				14C293F81A9F417300CD5886 /* BDBSegmentViewController.m */,
 				14C293FA1A9F576F00CD5886 /* BDBSegmentCollectionViewCell.h */,
 				14C293FB1A9F576F00CD5886 /* BDBSegmentCollectionViewCell.m */,
+				1496038E1AA6306300A9E846 /* BDBStopsTableViewController.h */,
+				1496038F1AA6306300A9E846 /* BDBStopsTableViewController.m */,
+				1495CFAD1AA88F1E007C5231 /* BDBFlightsTableViewController.h */,
+				1495CFAE1AA88F1E007C5231 /* BDBFlightsTableViewController.m */,
+				1495CFB01AA8A169007C5231 /* BDBFlightsTableViewCell.h */,
+				1495CFB11AA8A169007C5231 /* BDBFlightsTableViewCell.m */,
+				1495CF8F1AA783BC007C5231 /* BDBTicketsTableViewController.h */,
+				1495CF901AA783BC007C5231 /* BDBTicketsTableViewController.m */,
+				1495CF921AA78411007C5231 /* BDBTicketsTableViewCell.h */,
+				1495CF931AA78411007C5231 /* BDBTicketsTableViewCell.m */,
 				14074F471A76BA5E00A771E8 /* ViewController.h */,
 				14074F481A76BA5E00A771E8 /* ViewController.m */,
 				141DA2331A93C303005240EA /* BDBRoutesTableViewController.h */,
@@ -401,27 +461,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				144CCDF81A92765300B3938D /* BDBTransitItinerary.m in Sources */,
+				1495CFA01AA7A85C007C5231 /* BDBAgencies.m in Sources */,
 				14074F491A76BA5E00A771E8 /* ViewController.m in Sources */,
 				144CCE0D1A9276ED00B3938D /* BDBFlightHop.m in Sources */,
 				144CCE0A1A9276AD00B3938D /* BDBFlightLeg.m in Sources */,
+				1495CFA61AA7CB7D007C5231 /* BDBTransitTicketData.m in Sources */,
 				144CCE1C1A927C6600B3938D /* BDBAllRoutes.m in Sources */,
 				144CCE101A9276F900B3938D /* BDBFlightCodeShare.m in Sources */,
 				144CCE011A92767E00B3938D /* BDBTransitLine.m in Sources */,
 				14775D961A83E82C00CF9246 /* BDBAnnotation.m in Sources */,
 				144CCDFB1A92766100B3938D /* BDBTransitLeg.m in Sources */,
+				1495CFB21AA8A169007C5231 /* BDBFlightsTableViewCell.m in Sources */,
 				14B1B0051A9BE95800F103B4 /* BDBInfoViewController.m in Sources */,
+				1495CF9D1AA7A6FD007C5231 /* BDBAgenciesAndAirlines.m in Sources */,
 				144CCDFE1A92767000B3938D /* BDBTransitHop.m in Sources */,
 				141DA2351A93C303005240EA /* BDBRoutesTableViewController.m in Sources */,
 				144CCE041A92768C00B3938D /* BDBFlightSegment.m in Sources */,
+				1495CF941AA78411007C5231 /* BDBTicketsTableViewCell.m in Sources */,
 				14EF4FBA1A9CEBF0006B03F6 /* BDBRouteCollectionView.m in Sources */,
 				14B1B00E1A9C77CB00F103B4 /* BDBRouteCollectionViewCell.m in Sources */,
+				1495CFAC1AA80605007C5231 /* BDBAirports.m in Sources */,
 				144CCE161A92793100B3938D /* BDBTransitAgency.m in Sources */,
+				1495CFA91AA7CB9B007C5231 /* BDBFlightTicketData.m in Sources */,
+				1495CFA31AA7A877007C5231 /* BDBAirlines.m in Sources */,
+				1495CF911AA783BC007C5231 /* BDBTicketsTableViewController.m in Sources */,
 				144CCE131A92771A00B3938D /* BDBIndicativePrice.m in Sources */,
 				14B217C91A94984D00CCCE42 /* BDBSegmentTableViewController.m in Sources */,
 				144CCDEF1A92761900B3938D /* BDBStop.m in Sources */,
+				1495CFB81AA8CF7C007C5231 /* BDBAircrafts.m in Sources */,
 				14B1B00B1A9C773400F103B4 /* BDBRouteCollectionViewController.m in Sources */,
 				14074F461A76BA5E00A771E8 /* AppDelegate.m in Sources */,
 				14C293F91A9F417300CD5886 /* BDBSegmentViewController.m in Sources */,
+				1495CFAF1AA88F1E007C5231 /* BDBFlightsTableViewController.m in Sources */,
 				14EF4FBD1A9CECA7006B03F6 /* BDBRouteViewController.m in Sources */,
 				144CCE191A92793F00B3938D /* BDBActions.m in Sources */,
 				14074F681A76BAF700A771E8 /* BDBTravelModel.m in Sources */,
@@ -429,6 +500,7 @@
 				14074F431A76BA5E00A771E8 /* main.m in Sources */,
 				14C293FC1A9F576F00CD5886 /* BDBSegmentCollectionViewCell.m in Sources */,
 				144CCE071A92769F00B3938D /* BDBFlightItinerary.m in Sources */,
+				149603901AA6306300A9E846 /* BDBStopsTableViewController.m in Sources */,
 				144CCDF21A92762600B3938D /* BDBWalkCarSegment.m in Sources */,
 				144CCDF51A92763800B3938D /* BDBTransitSegment.m in Sources */,
 				144CCDEC1A92760B00B3938D /* BDBRoute.m in Sources */,

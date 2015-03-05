@@ -20,6 +20,11 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UILabel *infoMapLabel;
 
+@property (strong, nonatomic)NSArray *agencies;
+@property (strong, nonatomic)NSArray *airlines;
+@property (strong, nonatomic)NSArray *airports;
+@property (strong, nonatomic) NSArray *aircrafts;
+
 -(void)setMapRouteAtIndexPath:(NSUInteger)index;
 
 @end

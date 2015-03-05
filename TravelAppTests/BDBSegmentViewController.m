@@ -16,10 +16,16 @@
 #import "BDBWalkCarSegment.h"
 #import "BDBAnnotation.h"
 #import "BDBSegmentCollectionViewCell.h"
+#import "BDBStopsTableViewController.h"
+#import "BDBTicketsTableViewController.h"
+#import "BDBAirports.h"
+#import "BDBFlightsTableViewController.h"
 
 @interface BDBSegmentViewController ()
 
 @property (strong, nonatomic)NSArray *segmentArray;
+
+@property (nonatomic)NSUInteger stopsIndex; //1 segment from segment's array
 
 @property (copy, nonatomic  ) NSString       * latitudeA;
 @property (copy, nonatomic  ) NSString       * longitudeA;
@@ -87,6 +93,7 @@ static NSString * const reuseIdentifier2 = @"segmentCell";
     segCell.distanceOfSegment.text = [NSString stringWithFormat:@"%.2f km", [[self.path objectAtIndex:indexPath.row]distanceR]];
     
     segCell.priceOfSegment.text = [NSString stringWithFormat:@"%.2f €", [[[self.path objectAtIndex:indexPath.row]indicativePrice]price]];
+    segCell.timeTripLabel.text = [NSString stringWithFormat:@"%.2f h", [[self.path objectAtIndex:indexPath.row]timeTrip]/60];
     
     return segCell;
 }
@@ -189,7 +196,34 @@ static NSString * const reuseIdentifier2 = @"segmentCell";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     [self setMapSegmentAtIndexPath:indexPath.row];
+    self.stopsIndex = indexPath.row;
     
+    
+    UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath:indexPath];
+    //set color with animation
+    [UIView animateWithDuration:0.1
+                          delay:0
+                        options:(UIViewAnimationOptionAllowUserInteraction)
+                     animations:^{
+                         [cell setBackgroundColor:[UIColor colorWithRed:182/255.0f green:220/255.0f blue:254/255.0f alpha:0.3]];
+                     }
+                     completion:nil];
+
+    
+    
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+        UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath:indexPath];
+        //set color with animation
+        [UIView animateWithDuration:0.1
+                              delay:0
+                            options:(UIViewAnimationOptionAllowUserInteraction)
+                         animations:^{
+                             [cell setBackgroundColor:[UIColor clearColor]];
+                         }
+                         completion:nil ];
     
 }
 
@@ -199,10 +233,31 @@ static NSString * const reuseIdentifier2 = @"segmentCell";
     
 }
 
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+-(void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+//    UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath:indexPath];
+//    //set color with animation
+//    [UIView animateWithDuration:0.1
+//                          delay:0
+//                        options:(UIViewAnimationOptionAllowUserInteraction)
+//                     animations:^{
+//                         [cell setBackgroundColor:[UIColor colorWithRed:232/255.0f green:232/255.0f blue:232/255.0f alpha:0.5]];
+//                     }
+//                     completion:nil];
 }
 
+//-(void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//    UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath:indexPath];
+//    //set color with animation
+//    [UIView animateWithDuration:0.1
+//                          delay:0
+//                        options:(UIViewAnimationOptionAllowUserInteraction)
+//                     animations:^{
+//                         [cell setBackgroundColor:[UIColor clearColor]];
+//                     }
+//                     completion:nil ];
+//}
 
 
 -(void)setMapSegmentAtIndexPath:(NSUInteger)index{
@@ -248,6 +303,7 @@ static NSString * const reuseIdentifier2 = @"segmentCell";
     
         
         if ([[self.r.segments objectAtIndex:index] isKindOfClass:[BDBFlightSegment class]]) {
+            
             
             
             BDBStop *s1 = [self.r.stops objectAtIndex:index];
@@ -310,15 +366,64 @@ static NSString * const reuseIdentifier2 = @"segmentCell";
 
 
 
-/*
+
  #pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
+     
+     if ([segue.identifier isEqualToString:@"segueStops"]) {
+         BDBStopsTableViewController *tVC = [segue destinationViewController];
+         tVC.stopsIndex = self.stopsIndex;
+         tVC.r = self.r;
+     }
+     if ([segue.identifier isEqualToString:@"tickets"]) {
+         BDBTicketsTableViewController *tiVC = [segue destinationViewController];
+         tiVC.r = self.r;
+         tiVC.segmentIndex = self.stopsIndex;
+         tiVC.agencies = self.agencies;
+         tiVC.airlines = self.airlines;
+         tiVC.airports = self.airports;
+     }
+     if ([segue.identifier isEqualToString:@"flightSegue"]) {
+         BDBFlightsTableViewController *fVC = [segue destinationViewController];
+         fVC.r = self.r;
+         fVC.segmentIndex = self.stopsIndex;
+         fVC.agencies = self.agencies;
+         fVC.airlines = self.airlines;
+         fVC.airports = self.airports;
+         fVC.aircrafts = self.aircrafts;
+         
+     }
  }
- */
+
+#pragma mark - TABLEVIEW DELEGATE & DATA SOURCE
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return 4;
+}
+
+
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString* cellId = @"cell";
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    
+    
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    
+}
 
 
 @end

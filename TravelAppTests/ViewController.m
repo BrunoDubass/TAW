@@ -33,6 +33,10 @@
 #import "BDBInfoViewController.h"
 #import "BDBRouteCollectionViewController.h"
 #import "BDBRouteViewController.h"
+#import "BDBAgencies.h"
+#import "BDBAirlines.h"
+#import "BDBAirports.h"
+#import "BDBAircrafts.h"
 
 
 
@@ -60,6 +64,11 @@
 
 @property (strong, nonatomic) NSMutableArray *routesArray;
 
+@property (strong, nonatomic) NSArray *agencies;
+@property (strong, nonatomic) NSArray *airlines;
+@property (strong, nonatomic) NSArray *airports;
+@property (strong, nonatomic) NSArray *aircrafts;
+
 @property (nonatomic)BOOL segueOk;
 
 
@@ -75,6 +84,85 @@
     [self.allRoutes.routes removeAllObjects];
     
     
+    
+    
+    
+    //AIRCRAFTS
+    
+    NSArray *aircraftsArray = [JSONDic objectForKey:@"aircrafts"];
+    NSMutableArray *aircraftsMutable = [[NSMutableArray alloc]init];
+    [aircraftsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        BDBAircrafts *aircraft = [[BDBAircrafts alloc]initWithCode:[obj objectForKey:@"code"]
+                                                      manufacturer:[obj objectForKey:@"manufacturer"]
+                                                             model:[obj objectForKey:@"model"]];
+        
+        [aircraftsMutable addObject:aircraft];
+    }];
+    
+    self.aircrafts = aircraftsMutable;
+
+    
+    
+    
+    
+    
+    
+    //AIRPORTS
+    
+    NSArray *airportsArray = [JSONDic objectForKey:@"airports"];
+    NSMutableArray *airportsMutable = [[NSMutableArray alloc]init];
+    [airportsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        BDBAirports *airport = [[BDBAirports alloc]initWithCode:[obj objectForKey:@"code"]
+                                                           name:[obj objectForKey:@"name"]
+                                                            pos:[obj objectForKey:@"pos"]
+                                                    countryCode:[obj objectForKey:@"countryCode"]
+                                                       timeZone:[obj objectForKey:@"timeZone"]];
+        
+        
+        [airportsMutable addObject:airport];
+    }];
+    
+    self.airports = airportsMutable;
+    
+    
+    //AGENCIES
+    NSArray *agenciesArray = [JSONDic objectForKey:@"agencies"];
+    NSMutableArray *agenciesMutable = [[NSMutableArray alloc]init];
+    [agenciesArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        BDBAgencies *agencie = [[BDBAgencies alloc]initWithCode:[obj objectForKey:@"code"]
+                                                           name:[obj objectForKey:@"name"]
+                                                            url:[obj objectForKey:@"url"]
+                                                       iconPath:[obj objectForKey:@"iconPath"]
+                                                       iconSize:[[obj objectForKey:@"iconSize"]floatValue]
+                                                     iconOffset:[[obj objectForKey:@"iconOffset"]floatValue]];
+        
+        
+        [agenciesMutable addObject:agencie];
+    }];
+    
+    self.agencies = agenciesMutable;
+    
+    //AIRLINES
+    NSArray *airlinesArray = [JSONDic objectForKey:@"airlines"];
+    NSMutableArray *airlinesMutable = [[NSMutableArray alloc]init];
+    [airlinesArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        BDBAirlines *airline = [[BDBAirlines alloc]initWithCode:[obj objectForKey:@"code"]
+                                                           name:[obj objectForKey:@"name"]
+                                                            url:[obj objectForKey:@"url"]
+                                                       iconPath:[obj objectForKey:@"iconPath"]
+                                                       iconSize:[[obj objectForKey:@"iconSize"]floatValue]
+                                                     iconOffset:[[obj objectForKey:@"iconOffset"]floatValue]];
+        
+        
+        [airlinesMutable addObject:airline];
+    }];
+    
+    self.airlines = airlinesMutable;
+
     
     //ROUTES
     NSArray *route = [JSONDic objectForKey:@"routes"];
@@ -916,6 +1004,10 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
         iVC2.allRoutes = self.allRoutes;
         iVC2.pointAnnotation1 = self.pointAnnotation1;
         iVC2.pointAnnotation2 = self.pointAnnotation2;
+        iVC2.agencies = self.agencies;
+        iVC2.airlines = self.airlines;
+        iVC2.airports = self.airports;
+        iVC2.aircrafts = self.aircrafts;
         
          }
     

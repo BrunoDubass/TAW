@@ -23,8 +23,13 @@
 @property (strong, nonatomic) id<MKAnnotation      > pointAnnotation2;
 @property (strong, nonatomic)NSArray *path;
 
-@property (nonatomic)NSUInteger segmentIndex;
+@property (strong, nonatomic)NSArray *agencies;
+@property (strong, nonatomic)NSArray *airlines;
+@property (strong, nonatomic)NSArray *airports;
+@property (strong, nonatomic) NSArray *aircrafts;
 
--(void)setMapRouteAtIndexPath:(NSUInteger)index;
+@property (nonatomic)NSUInteger segmentIndex; //1 route from route's array
+
+-(void)setMapSegmentAtIndexPath:(NSUInteger)index;
 
 @end

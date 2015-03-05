@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *segmentFromTo;
 @property (weak, nonatomic) IBOutlet UILabel *priceOfSegment;
 @property (weak, nonatomic) IBOutlet UILabel *segmentFromTo2;
+@property (weak, nonatomic) IBOutlet UILabel *timeTripLabel;
 
 
 @end
