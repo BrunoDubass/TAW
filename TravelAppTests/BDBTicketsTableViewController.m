@@ -42,8 +42,17 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:YES];
+    
+    self.title = @"TICKETS";
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    
+    
     
 }
 

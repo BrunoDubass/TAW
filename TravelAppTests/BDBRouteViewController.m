@@ -53,6 +53,8 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
+    self.tabBarController.title = @"SELECT ROUTE";
+    
     [self setMapRouteAtIndexPath:0];
     self.segmentIndex = 0;
     

@@ -35,6 +35,8 @@
     
     [super viewWillAppear:YES];
     
+    self.tabBarController.title = @"SELECT ROUTE";
+    
     
     
     self.longNameLabel.text = self.longName;

@@ -33,6 +33,13 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:YES];
+    
+    self.title = @"FLIGHTS";
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
@@ -71,7 +78,7 @@
         
         return [NSString stringWithFormat:@"Flight %u - %@ (%@) - %@ (%@)", section+1, [self codeAirport:[[self.r.segments objectAtIndex:self.segmentIndex]sCode]], [[self.r.segments objectAtIndex:self.segmentIndex]sCode],[self codeAirport:[[self.r.segments objectAtIndex:self.segmentIndex]tCode]],[[self.r.segments objectAtIndex:self.segmentIndex]tCode]];
     }else{
-        return @"No flights";
+        return @"No Flights Available";
     }
 }
 
@@ -89,7 +96,7 @@
     cell.tTerminalLabel.text = [fh tTerminal];
     cell.sTimeLabel.text = [NSString stringWithFormat:@"%@", [fh sTime]];
     cell.tTimeLabel.text = [NSString stringWithFormat:@"%@", [fh tTime]];
-    cell.timeTripLabel.text = [NSString stringWithFormat:@"%u : %u", (int)[fh timeTrip]/60, (int)[fh timeTrip]%60];
+    cell.timeTripLabel.text = [NSString stringWithFormat:@"%u.%u h", (int)[fh timeTrip]/60, (int)[fh timeTrip]%60];
     cell.flightLabel.text = [fh flight];
     cell.airlineLabel.text = [[self codeAirline:fh.airline]name];
     cell.aircraftLabel.text = [self codeAircraft:[fh aircraft]];

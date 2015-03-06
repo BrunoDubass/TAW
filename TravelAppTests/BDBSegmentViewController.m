@@ -53,6 +53,9 @@ static NSString * const reuseIdentifier2 = @"segmentCell";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    self.title = @"SELECT SEGMENT";
+    
     self.r = [self.allRoutes.routes objectAtIndex:self.segmentIndex];
     self.routeInfo.text = [NSString stringWithFormat:@"%@  -  %@ - %@     -     %.2f    -    %.2f", self.r.name, [[self.r.stops objectAtIndex:0]name], [[self.r.stops objectAtIndex:self.r.stops.count-1]name], self.r.distanceR, self.r.indicativePrice.price];
     
@@ -94,7 +97,7 @@ static NSString * const reuseIdentifier2 = @"segmentCell";
     segCell.distanceOfSegment.text = [NSString stringWithFormat:@"%.2f km", [[self.path objectAtIndex:indexPath.row]distanceR]];
     
     segCell.priceOfSegment.text = [NSString stringWithFormat:@"%.2f €", [[[self.path objectAtIndex:indexPath.row]indicativePrice]price]];
-    segCell.timeTripLabel.text = [NSString stringWithFormat:@"%.2f h", [[self.path objectAtIndex:indexPath.row]timeTrip]/60];
+    segCell.timeTripLabel.text = [NSString stringWithFormat:@"%u.%u h", (int)[[self.path objectAtIndex:indexPath.row]timeTrip]/60, (int)[[self.path objectAtIndex:indexPath.row]timeTrip]%60];
     
     return segCell;
 }

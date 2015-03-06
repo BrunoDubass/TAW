@@ -95,6 +95,8 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
+    self.title = @"SELECT ORIGIN AND DESTINATION";
+    
     [super viewWillAppear:animated];
     
     self.originTableView.scrollEnabled = YES;
