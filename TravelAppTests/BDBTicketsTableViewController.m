@@ -33,22 +33,23 @@
 
 @implementation BDBTicketsTableViewController
 
+
+
+#pragma mark - LIFECYCLE
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
-#pragma mark - Table view data source
+
+
+#pragma mark - TABLE VIEW DELEGATE & DATA SOURCE
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
@@ -82,17 +83,55 @@
         return n;
     }else{
         
-        [[segment itineraries] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            [[obj legs]enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                [[obj hops]enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                                                n+=1;
-               }];
-            }];
-        }];
-        return n;
+        return 0;
     }
     
 }
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    BDBTicketsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ticketCell" forIndexPath:indexPath];
+    
+    
+    
+    // Configure the cell...
+    id segment = [self.r.segments objectAtIndex:self.segmentIndex];
+    
+    
+    if ([segment isKindOfClass:[BDBTransitSegment class]]) {
+        
+        NSArray *tTD = [self transitTicketData];
+        BDBTransitTicketData *tD = [tTD objectAtIndex:indexPath.row];
+        
+        cell.sName.text = tD.sName;
+        cell.tName.text = tD.tName;
+        cell.vehicle.text = tD.vehicle;
+        cell.timeTrip.text = [NSString stringWithFormat:@"%u:%u", (int)tD.timeTrip/60, (int)tD.timeTrip%60];
+        cell.agency.text = [[self codeAgency:tD.agency]name];
+        //cell.frequency.text = [NSString stringWithFormat:@"%.ui", tD.frequency];
+        [cell.ticketButton setTitle:[NSString stringWithFormat:@"%@",tD.url] forState:UIControlStateNormal];
+        
+        
+    }
+    
+    
+    return cell;
+}
+
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if ([[self.r.segments objectAtIndex:self.segmentIndex] isKindOfClass:[BDBTransitSegment class]]){
+        return @"Tickets Available";
+    }else{
+        return @"No Tickets Available";
+    }
+    
+}
+
+
+
+
+
+#pragma mark - UTILS
 
 
 -(NSArray *)transitTicketData{
@@ -167,73 +206,17 @@
 }
 
 
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    BDBTicketsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ticketCell" forIndexPath:indexPath];
-
+-(BDBAgencies*)codeAgency:(NSString*)code{
     
-    
-    // Configure the cell...
-    id segment = [self.r.segments objectAtIndex:self.segmentIndex];
-    
-    
-    if ([segment isKindOfClass:[BDBTransitSegment class]]) {
-        
-        NSArray *tTD = [self transitTicketData];
-        BDBTransitTicketData *tD = [tTD objectAtIndex:indexPath.row];
-        
-        cell.sName.text = tD.sName;
-        cell.tName.text = tD.tName;
-        cell.vehicle.text = tD.vehicle;
-        cell.timeTrip.text = [NSString stringWithFormat:@"%u:%u", (int)tD.timeTrip/60, (int)tD.timeTrip%60];
-        cell.agency.text = [[self codeAgency:tD.agency]name];
-        //cell.frequency.text = [NSString stringWithFormat:@"%.ui", tD.frequency];
-        [cell.ticketButton setTitle:[NSString stringWithFormat:@"%@",tD.url] forState:UIControlStateNormal];
-  
-        
+    for (BDBAgencies *ag in self.agencies) {
+        if ([code isEqualToString:ag.code]) {
+            return ag;
+        }
     }
     
-    
-    return cell;
+    return nil;
 }
 
-
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 
 #pragma mark - Navigation
@@ -253,16 +236,6 @@
 }
 
 
--(BDBAgencies*)codeAgency:(NSString*)code{
-    
-    for (BDBAgencies *ag in self.agencies) {
-        if ([code isEqualToString:ag.code]) {
-            return ag;
-        }
-    }
-    
-    return nil;
-}
 
 
 @end

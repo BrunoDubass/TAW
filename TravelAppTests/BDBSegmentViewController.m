@@ -43,6 +43,9 @@
 
 static NSString * const reuseIdentifier2 = @"segmentCell";
 
+
+#pragma mark - LIFECYCLE
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -54,8 +57,6 @@ static NSString * const reuseIdentifier2 = @"segmentCell";
     self.routeInfo.text = [NSString stringWithFormat:@"%@  -  %@ - %@     -     %.2f    -    %.2f", self.r.name, [[self.r.stops objectAtIndex:0]name], [[self.r.stops objectAtIndex:self.r.stops.count-1]name], self.r.distanceR, self.r.indicativePrice.price];
     
     [self setMapSegmentAtIndexPath:0];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,7 +68,7 @@ static NSString * const reuseIdentifier2 = @"segmentCell";
 
 
 
-#pragma mark - COLLECTION VIEW DATA SOURCE
+#pragma mark - COLLECTION VIEW DELEGATE & DATA SOURCE
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
@@ -97,6 +98,48 @@ static NSString * const reuseIdentifier2 = @"segmentCell";
     
     return segCell;
 }
+
+
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    [self setMapSegmentAtIndexPath:indexPath.row];
+    self.stopsIndex = indexPath.row;
+    
+    
+    UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath:indexPath];
+    //set color with animation
+    [UIView animateWithDuration:0.1
+                          delay:0
+                        options:(UIViewAnimationOptionAllowUserInteraction)
+                     animations:^{
+                         [cell setBackgroundColor:[UIColor colorWithRed:182/255.0f green:220/255.0f blue:254/255.0f alpha:0.3]];
+                     }
+                     completion:nil];
+    
+    
+    
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath:indexPath];
+    //set color with animation
+    [UIView animateWithDuration:0.1
+                          delay:0
+                        options:(UIViewAnimationOptionAllowUserInteraction)
+                     animations:^{
+                         [cell setBackgroundColor:[UIColor clearColor]];
+                     }
+                     completion:nil ];
+    
+}
+
+
+
+
+
+#pragma mark - CONVERSIONS
 
 -(void)convertGPSStringToCLLocation2dA:(NSString*)posA CLLocation2dB:(NSString*)posB{
     
@@ -191,74 +234,10 @@ static NSString * const reuseIdentifier2 = @"segmentCell";
     return polyline;
 }
 
-#pragma mark - COLLECTION VIEW DELEGATE
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    [self setMapSegmentAtIndexPath:indexPath.row];
-    self.stopsIndex = indexPath.row;
-    
-    
-    UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath:indexPath];
-    //set color with animation
-    [UIView animateWithDuration:0.1
-                          delay:0
-                        options:(UIViewAnimationOptionAllowUserInteraction)
-                     animations:^{
-                         [cell setBackgroundColor:[UIColor colorWithRed:182/255.0f green:220/255.0f blue:254/255.0f alpha:0.3]];
-                     }
-                     completion:nil];
 
-    
-    
-}
 
--(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-        UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath:indexPath];
-        //set color with animation
-        [UIView animateWithDuration:0.1
-                              delay:0
-                            options:(UIViewAnimationOptionAllowUserInteraction)
-                         animations:^{
-                             [cell setBackgroundColor:[UIColor clearColor]];
-                         }
-                         completion:nil ];
-    
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-    
-    
-    
-}
-
--(void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-//    UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath:indexPath];
-//    //set color with animation
-//    [UIView animateWithDuration:0.1
-//                          delay:0
-//                        options:(UIViewAnimationOptionAllowUserInteraction)
-//                     animations:^{
-//                         [cell setBackgroundColor:[UIColor colorWithRed:232/255.0f green:232/255.0f blue:232/255.0f alpha:0.5]];
-//                     }
-//                     completion:nil];
-}
-
-//-(void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath{
-//    
-//    UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath:indexPath];
-//    //set color with animation
-//    [UIView animateWithDuration:0.1
-//                          delay:0
-//                        options:(UIViewAnimationOptionAllowUserInteraction)
-//                     animations:^{
-//                         [cell setBackgroundColor:[UIColor clearColor]];
-//                     }
-//                     completion:nil ];
-//}
-
+#pragma mark - MAP SEGMENT
 
 -(void)setMapSegmentAtIndexPath:(NSUInteger)index{
     
@@ -350,8 +329,6 @@ static NSString * const reuseIdentifier2 = @"segmentCell";
         
     
     
-//    self.infoMapLabel.text = [NSString stringWithFormat:@"%@ - %.2f km - %.2f min - %.2f eur",r.name, r.distanceR, r.timeTrip, r.indicativePrice.price];
-    
     
     MKMapRect zoomRect = MKMapRectNull;
     for (id <MKAnnotation> annotation in self.mapViewSegment.annotations)
@@ -367,39 +344,6 @@ static NSString * const reuseIdentifier2 = @"segmentCell";
 
 
 
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
-     
-     if ([segue.identifier isEqualToString:@"segueStops"]) {
-         BDBStopsTableViewController *tVC = [segue destinationViewController];
-         tVC.stopsIndex = self.stopsIndex;
-         tVC.r = self.r;
-     }
-     if ([segue.identifier isEqualToString:@"tickets"]) {
-         BDBTicketsTableViewController *tiVC = [segue destinationViewController];
-         tiVC.r = self.r;
-         tiVC.segmentIndex = self.stopsIndex;
-         tiVC.agencies = self.agencies;
-         tiVC.airlines = self.airlines;
-         tiVC.airports = self.airports;
-     }
-     if ([segue.identifier isEqualToString:@"flightSegue"]) {
-//         UINavigationController *navController = (UINavigationController*)[segue destinationViewController];
-//         BDBFlightsTableViewController *fVC = (BDBFlightsTableViewController *)[navController topViewController];
-         BDBFlightsTableViewController *fVC = [segue destinationViewController];
-         fVC.r = self.r;
-         fVC.segmentIndex = self.stopsIndex;
-         fVC.agencies = self.agencies;
-         fVC.airlines = self.airlines;
-         fVC.airports = self.airports;
-         fVC.aircrafts = self.aircrafts;
-         
-     }
- }
 
 #pragma mark - TABLEVIEW DELEGATE & DATA SOURCE
 
@@ -426,6 +370,43 @@ static NSString * const reuseIdentifier2 = @"segmentCell";
     
     
 }
+
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    
+    if ([segue.identifier isEqualToString:@"segueStops"]) {
+        BDBStopsTableViewController *tVC = [segue destinationViewController];
+        tVC.stopsIndex = self.stopsIndex;
+        tVC.r = self.r;
+    }
+    if ([segue.identifier isEqualToString:@"tickets"]) {
+        BDBTicketsTableViewController *tiVC = [segue destinationViewController];
+        tiVC.r = self.r;
+        tiVC.segmentIndex = self.stopsIndex;
+        tiVC.agencies = self.agencies;
+        tiVC.airlines = self.airlines;
+        tiVC.airports = self.airports;
+    }
+    if ([segue.identifier isEqualToString:@"flightSegue"]) {
+        //         UINavigationController *navController = (UINavigationController*)[segue destinationViewController];
+        //         BDBFlightsTableViewController *fVC = (BDBFlightsTableViewController *)[navController topViewController];
+        BDBFlightsTableViewController *fVC = [segue destinationViewController];
+        fVC.r = self.r;
+        fVC.segmentIndex = self.stopsIndex;
+        fVC.agencies = self.agencies;
+        fVC.airlines = self.airlines;
+        fVC.airports = self.airports;
+        fVC.aircrafts = self.aircrafts;
+        
+    }
+}
+
+
 
 
 @end

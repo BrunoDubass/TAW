@@ -79,6 +79,49 @@
 
 @implementation ViewController
 
+
+
+
+#pragma mark - LIFECYCLE
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.allRoutes = [[BDBAllRoutes alloc]init];
+    self.routesENC = [[NSMutableArray alloc]init];
+    self.routesDEC = [[NSMutableArray alloc]init];
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
+    self.originTableView.scrollEnabled = YES;
+    self.originTableView.hidden = YES;
+    
+    self.destinationTableView.scrollEnabled = YES;
+    self.destinationTableView.hidden = YES;
+    
+    self.originSearch.delegate = self;
+    self.destinationSearch.delegate = self;
+    
+    //self.tempOverlays = [NSMutableArray new];
+    
+    
+    
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    
+}
+
+
+#pragma mark - DATA FROM JSON
+
+
+
 -(void)getDataFromJSON:(NSDictionary*)JSONDic{
     
     [self.allRoutes.routes removeAllObjects];
@@ -230,7 +273,7 @@
                 //TRANSIT STOPS
                 
                 NSArray *transitStops = [obj objectForKey:@"stops"];
-//                NSMutableArray *transitStopsMutable = [[NSMutableArray alloc]init];
+
                 
                 [transitStops enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                     
@@ -265,9 +308,10 @@
                     BDBTransitItinerary *transitItinerary = [[BDBTransitItinerary alloc]initWithLegs:transitLegsMutable];
                     
                     [itinerariesMutable addObject:transitItinerary];
+                    
                     //TRANSIT LEGS
                     NSArray *transitLegs = [obj objectForKey:@"legs"];
-//                    NSMutableArray *transitLegsMutable = [[NSMutableArray alloc]init];
+
                     
                     [transitLegsMutable removeAllObjects];
                     
@@ -281,7 +325,7 @@
                         
                         //TRANSIT HOP
                         NSArray *transitHop = [obj objectForKey:@"hops"];
-//                        NSMutableArray *transitHopsMutable = [[NSMutableArray alloc]init];
+                        
                         [transitHopsMutable removeAllObjects];
                         
                         [transitHop enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -308,7 +352,6 @@
                             
                                 //TRANSIT LINES
                                 NSArray *lines = [obj objectForKey:@"lines"];
-//                                NSMutableArray *linesMutable = [[NSMutableArray alloc]init];
                             
                                 [linesMutable removeAllObjects];
 
@@ -329,7 +372,6 @@
                             
                                 //TRANSIT AGENCIES
                             NSArray *agencies = [obj objectForKey:@"agencies"];
-//                            NSMutableArray *agenciesMutable = [[NSMutableArray alloc]init];
                             
                             [agenciesMutable removeAllObjects];
 
@@ -345,7 +387,6 @@
                                 
                                     //TRANSIT ACTIONS
                                 NSArray *transitActions = [obj objectForKey:@"actions"];
-//                                NSMutableArray *transitActionsMutable = [[NSMutableArray alloc]init];
                                 
                                 [transitActionsMutable removeAllObjects];
                                 
@@ -394,7 +435,7 @@
                 
                 [segmentsMutable addObject:transitSegment];
             
-//            //FLIGHT SEGMENT
+            //FLIGHT SEGMENT
            }else{
                
                
@@ -521,41 +562,6 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
     
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.allRoutes = [[BDBAllRoutes alloc]init];
-    self.routesENC = [[NSMutableArray alloc]init];
-    self.routesDEC = [[NSMutableArray alloc]init];
-    
-    
-    
-    // Do any additional setup after loading the view, typically from a nib.
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    
-    self.originTableView.scrollEnabled = YES;
-    self.originTableView.hidden = YES;
-    
-    self.destinationTableView.scrollEnabled = YES;
-    self.destinationTableView.hidden = YES;
-    
-    self.originSearch.delegate = self;
-    self.destinationSearch.delegate = self;
-    self.mapViewOrigin.delegate = self;
-    
-    self.tempOverlays = [NSMutableArray new];
-    
-    
-    
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - CONVERSIONS
 
@@ -617,6 +623,8 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
     return polyline;
 }
 
+
+
 //GPSSTRING TO CLLOCATION2D
 
 -(void)convertGPSStringToCLLocation2d:(NSString*)pos{
@@ -627,6 +635,8 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
     self.latitude = [pos substringWithRange:NSMakeRange(0, comaPos)];
     self.longitude = [pos substringWithRange:NSMakeRange(comaPos+1, [pos length]-(comaPos+1))];
 }
+
+//GPSSTRING TO 2 CLLOCATION2D
 
 -(void)convertGPSStringToCLLocation2dA:(NSString*)posA CLLocation2dB:(NSString*)posB{
     
@@ -647,6 +657,7 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
 }
 
 
+#pragma mark - SEARCH
 
 
 - (IBAction)search:(id)sender {
@@ -693,42 +704,31 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
                 }
                 
                 [self.routesENC removeAllObjects];
-                [self.mapViewOrigin removeAnnotation:self.pointAnnotation1];
-                [self.mapViewOrigin removeAnnotation:self.pointAnnotation2];
+
                 
                 //ORIGIN
                 
                 [self convertGPSStringToCLLocation2d:[[self.places.places objectAtIndex:0]pos]];
                 
-                NSLog(@"%f", self.latitude.floatValue);
-                NSLog(@"%f", self.longitude.floatValue);
+                
                 
                 self.pointAnnotation1 = [[BDBAnnotation alloc]initWithName:[[self.places.places objectAtIndex:0]longName]
                                                                 coordinate:CLLocationCoordinate2DMake([self.latitude floatValue], [self.longitude floatValue])];
 
-                
-                [self.mapViewOrigin addAnnotation:self.pointAnnotation1];
-                
                 
                 
                 
                 //DESTINY
                 
                 [self convertGPSStringToCLLocation2d:[[self.places.places objectAtIndex:1]pos]];
-                NSLog(@"%f", self.latitude.floatValue);
-                NSLog(@"%f", self.longitude.floatValue);
+                
                 
                 self.pointAnnotation2 = [[BDBAnnotation alloc]initWithName:[[self.places.places objectAtIndex:1]longName]
                                                                 coordinate:CLLocationCoordinate2DMake([self.latitude floatValue], [self.longitude floatValue])];
                 
-                [self.mapViewOrigin addAnnotation:self.pointAnnotation2];
-                
 
-                
-                
-                [self showResults];
-                self.originSearch.text =@"";
-                self.destinationSearch.text = @"";
+//                self.originSearch.text =@"";
+//                self.destinationSearch.text = @"";
                 
                 
                 
@@ -737,7 +737,7 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
                 
                 [self getDataFromJSON:jsonDictionary];
                 
-  
+                self.segueOk = YES;
                 
             }else{
                 
@@ -768,6 +768,9 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
  
     
 }
+
+
+#pragma mark - AUTOCOMPLETE
 
 - (IBAction)originAutoComplete:(id)sender {
     
@@ -825,38 +828,15 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
 }
 
 
--(void)showResults{
-    
-    self.originKind.text             = [[self.places.places objectAtIndex:0]kind];
-    self.originName.text             = [[self.places.places objectAtIndex:0]name];
-    self.originLongName.text         = [[self.places.places objectAtIndex:0]longName];
-    self.originPosition.text         = [[self.places.places objectAtIndex:0]pos];
-    self.originCountryCode.text      = [[self.places.places objectAtIndex:0]countryCode];
-    self.originRegionCode.text       = [[self.places.places objectAtIndex:0]regionCode];
-    self.originTimeZone.text         = [[self.places.places objectAtIndex:0]timeZ];
-
-    self.destinationKind.text        = [[self.places.places objectAtIndex:1]kind];
-    self.destinationName.text        = [[self.places.places objectAtIndex:1]name];
-    self.destinationLongName.text    = [[self.places.places objectAtIndex:1]longName];
-    self.destinationPosition.text    = [[self.places.places objectAtIndex:1]pos];
-    self.destinationCountryCode.text = [[self.places.places objectAtIndex:1]countryCode];
-    self.destinationRegionCode.text  = [[self.places.places objectAtIndex:1]regionCode];
-    self.destinationTimeZone.text    = [[self.places.places objectAtIndex:1]timeZ];
-    
-    
-    
-}
-
 
 
 #pragma mark - TABLEVIEW DELEGATE & DATA SOURCE
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    if (tableView == self.originTableView) {
-        return 1;
-    }else{
-        return 1;
-    }
+    
+    return 1;
+    
+
     
 }
 
@@ -872,7 +852,9 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
 
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     static NSString* cellId = @"cell";
+    
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
@@ -882,8 +864,6 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
     }else{
         cell.textLabel.text = [self.destinationArray objectAtIndex:indexPath.row];
     }
-    
-    NSLog(@"%@", cell);
     
     return cell;
 }
@@ -902,6 +882,8 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
     
     
 }
+
+
 
 #pragma mark - UITEXTFIELD DELEGATE
 
@@ -983,6 +965,10 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
         return YES;
 }
 
+
+
+#pragma mark - NAVIGATION
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     if ([segue.identifier isEqualToString:@"tab"]) {
@@ -991,7 +977,7 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
         BDBRouteViewController *iVC2 = [tabbar.viewControllers objectAtIndex:1];
         
         
-        //iVC1.places = self.places;
+        
         
         iVC1.longName = [[self.places.places objectAtIndex:1]longName];
         iVC1.kind = [[self.places.places objectAtIndex:1]kind];
@@ -1011,17 +997,12 @@ BDBIndicativePrice *indicativePriceFlight = [[BDBIndicativePrice alloc]initWithP
         
          }
     
+   
     
-//    if ([segue.identifier isEqualToString:@"routes"]) {
-//        BDBRoutesTableViewController *rVC = [segue destinationViewController];
-//        rVC.routesTableRoute = [[NSArray alloc]init];
-//        rVC.routesTableRoute = self.allRoutes.routes;
-//    }
     
     
     
 }
-
 
 
 @end

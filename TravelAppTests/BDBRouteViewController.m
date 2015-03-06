@@ -70,24 +70,9 @@ static NSString * const reuseIdentifier = @"Cell";
 
 
 
-#pragma mark - Navigation
 
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    BDBSegmentViewController *sVC = [segue destinationViewController];    
-    sVC.path = [[self.allRoutes.routes objectAtIndex:self.segmentIndex]segments];
-    sVC.allRoutes = self.allRoutes;
-    sVC.segmentIndex = self.segmentIndex;
-    sVC.agencies = self.agencies;
-    sVC.airlines = self.airlines;
-    sVC.airports = self.airports;
-    sVC.aircrafts = self.aircrafts;
-    
-}
-
-
-#pragma mark - COLLECTION VIEW DATA SOURCE
+#pragma mark - COLLECTION VIEW DATA SOURCE & DELEGATE
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
@@ -171,24 +156,43 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 
-
--(void)convertGPSStringToCLLocation2dA:(NSString*)posA CLLocation2dB:(NSString*)posB{
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSRange comaA = [posA rangeOfString:@","];
-    int comaPosA = (int) comaA.location;
+    [self setMapRouteAtIndexPath:indexPath.row];
+    self.segmentIndex = indexPath.row;
     
-    self.latitudeA = [posA substringWithRange:NSMakeRange(0, comaPosA)];
-    self.longitudeA = [posA substringWithRange:NSMakeRange(comaPosA+1, [posA length]-(comaPosA+1))];
     
-    NSRange comaB = [posB rangeOfString:@","];
-    int comaPosB = (int) comaB.location;
+    UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath:indexPath];
+    //set color with animation
+    [UIView animateWithDuration:0.1
+                          delay:0
+                        options:(UIViewAnimationOptionAllowUserInteraction)
+                     animations:^{
+                         [cell setBackgroundColor:[UIColor colorWithRed:182/255.0f green:220/255.0f blue:254/255.0f alpha:0.3]];
+                     }
+                     completion:nil];
     
-    self.latitudeB = [posB substringWithRange:NSMakeRange(0, comaPosB)];
-    self.longitudeB = [posB substringWithRange:NSMakeRange(comaPosB+1, [posB length]-(comaPosB+1))];
     
 }
 
+-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath:indexPath];
+    //set color with animation
+    [UIView animateWithDuration:0.1
+                          delay:0
+                        options:(UIViewAnimationOptionAllowUserInteraction)
+                     animations:^{
+                         [cell setBackgroundColor:[UIColor clearColor]];
+                     }
+                     completion:nil ];
+}
 
+
+
+
+
+#pragma mark - CONVERSIONS
 
 - (MKPolyline *)polylineWithEncodedString:(NSString *)encodedString {
     const char *bytes = [encodedString UTF8String];
@@ -247,6 +251,23 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 
+-(void)convertGPSStringToCLLocation2dA:(NSString*)posA CLLocation2dB:(NSString*)posB{
+    
+    NSRange comaA = [posA rangeOfString:@","];
+    int comaPosA = (int) comaA.location;
+    
+    self.latitudeA = [posA substringWithRange:NSMakeRange(0, comaPosA)];
+    self.longitudeA = [posA substringWithRange:NSMakeRange(comaPosA+1, [posA length]-(comaPosA+1))];
+    
+    NSRange comaB = [posB rangeOfString:@","];
+    int comaPosB = (int) comaB.location;
+    
+    self.latitudeB = [posB substringWithRange:NSMakeRange(0, comaPosB)];
+    self.longitudeB = [posB substringWithRange:NSMakeRange(comaPosB+1, [posB length]-(comaPosB+1))];
+    
+}
+
+
 
 #pragma mark - MAP DELEGATE
 
@@ -267,49 +288,10 @@ static NSString * const reuseIdentifier = @"Cell";
 
 
 
-#pragma mark - COLLECTION VIEW DELEGATE
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    [self setMapRouteAtIndexPath:indexPath.row];
-    self.segmentIndex = indexPath.row;
-    
-    
-    UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath:indexPath];
-    //set color with animation
-    [UIView animateWithDuration:0.1
-                          delay:0
-                        options:(UIViewAnimationOptionAllowUserInteraction)
-                     animations:^{
-                         [cell setBackgroundColor:[UIColor colorWithRed:182/255.0f green:220/255.0f blue:254/255.0f alpha:0.3]];
-                     }
-                     completion:nil];
-    
-    
-}
 
--(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    UICollectionViewCell* cell = [collectionView cellForItemAtIndexPath:indexPath];
-    //set color with animation
-    [UIView animateWithDuration:0.1
-                          delay:0
-                        options:(UIViewAnimationOptionAllowUserInteraction)
-                     animations:^{
-                         [cell setBackgroundColor:[UIColor clearColor]];
-                     }
-                     completion:nil ];
-}
+#pragma mark - MAP ROUTE
 
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-    
-    
-    
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
 
 
 -(void)setMapRouteAtIndexPath:(NSUInteger)index{
@@ -390,28 +372,23 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.mapView setVisibleMapRect:zoomRect edgePadding:UIEdgeInsetsMake(20, 20, 20, 20) animated:YES];
 }
 
-- (void)applyMapViewMemoryFix{
+
+#pragma mark - Navigation
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    switch (self.mapView.mapType) {
-        case MKMapTypeHybrid:
-        {
-            self.mapView.mapType = MKMapTypeStandard;
-        }
-            
-            break;
-        case MKMapTypeStandard:
-        {
-            self.mapView.mapType = MKMapTypeHybrid;
-        }
-            
-            break;
-        default:
-            break;
-    }
-    self.mapView.showsUserLocation = NO;
-    self.mapView.delegate = nil;
-    [self.mapView removeFromSuperview];
-    self.mapView = nil;
+    BDBSegmentViewController *sVC = [segue destinationViewController];
+    sVC.path = [[self.allRoutes.routes objectAtIndex:self.segmentIndex]segments];
+    sVC.allRoutes = self.allRoutes;
+    sVC.segmentIndex = self.segmentIndex;
+    sVC.agencies = self.agencies;
+    sVC.airlines = self.airlines;
+    sVC.airports = self.airports;
+    sVC.aircrafts = self.aircrafts;
+    
 }
+
+
 
 @end

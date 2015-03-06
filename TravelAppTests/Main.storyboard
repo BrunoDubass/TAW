@@ -95,14 +95,14 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="593-8F-TgF">
-                                <rect key="frame" x="322" y="868" width="125" height="30"/>
+                                <rect key="frame" x="627" y="82" width="125" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Search">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="search:" destination="FcG-Gn-VUF" eventType="touchUpInside" id="UVQ-kw-3TM"/>
-                                    <segue destination="t4a-Tp-Y2A" kind="push" identifier="tab" id="Sil-lu-Lmh"/>
+                                    <segue destination="t4a-Tp-Y2A" kind="push" identifier="tab" id="HXk-LW-GSM"/>
                                 </connections>
                             </button>
                         </subviews>
