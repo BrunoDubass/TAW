@@ -48,6 +48,8 @@
 		1495CFAF1AA88F1E007C5231 /* BDBFlightsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1495CFAE1AA88F1E007C5231 /* BDBFlightsTableViewController.m */; };
 		1495CFB21AA8A169007C5231 /* BDBFlightsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1495CFB11AA8A169007C5231 /* BDBFlightsTableViewCell.m */; };
 		1495CFB81AA8CF7C007C5231 /* BDBAircrafts.m in Sources */ = {isa = PBXBuildFile; fileRef = 1495CFB71AA8CF7C007C5231 /* BDBAircrafts.m */; };
+		1495CFBA1AA8F276007C5231 /* airlinesD3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1495CFB91AA8F276007C5231 /* airlinesD3.gif */; };
+		1495CFC01AA90744007C5231 /* BDBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1495CFBF1AA90744007C5231 /* BDBWebViewController.m */; };
 		1496038D1AA546A500A9E846 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1496038C1AA546A500A9E846 /* Main.storyboard */; };
 		149603901AA6306300A9E846 /* BDBStopsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1496038F1AA6306300A9E846 /* BDBStopsTableViewController.m */; };
 		14B1B0051A9BE95800F103B4 /* BDBInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1B0041A9BE95800F103B4 /* BDBInfoViewController.m */; };
@@ -150,6 +152,9 @@
 		1495CFB11AA8A169007C5231 /* BDBFlightsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBFlightsTableViewCell.m; sourceTree = "<group>"; };
 		1495CFB61AA8CF7C007C5231 /* BDBAircrafts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBAircrafts.h; sourceTree = "<group>"; };
 		1495CFB71AA8CF7C007C5231 /* BDBAircrafts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBAircrafts.m; sourceTree = "<group>"; };
+		1495CFB91AA8F276007C5231 /* airlinesD3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = airlinesD3.gif; sourceTree = "<group>"; };
+		1495CFBE1AA90744007C5231 /* BDBWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBWebViewController.h; sourceTree = "<group>"; };
+		1495CFBF1AA90744007C5231 /* BDBWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBWebViewController.m; sourceTree = "<group>"; };
 		1496038C1AA546A500A9E846 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		1496038E1AA6306300A9E846 /* BDBStopsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDBStopsTableViewController.h; sourceTree = "<group>"; };
 		1496038F1AA6306300A9E846 /* BDBStopsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDBStopsTableViewController.m; sourceTree = "<group>"; };
@@ -311,6 +316,7 @@
 		14074F6A1A76BB0800A771E8 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1495CFB91AA8F276007C5231 /* airlinesD3.gif */,
 				14EF4FBB1A9CECA7006B03F6 /* BDBRouteViewController.h */,
 				14EF4FBC1A9CECA7006B03F6 /* BDBRouteViewController.m */,
 				14EF4FB81A9CEBF0006B03F6 /* BDBRouteCollectionView.h */,
@@ -341,6 +347,8 @@
 				14B1B0041A9BE95800F103B4 /* BDBInfoViewController.m */,
 				14B1B0091A9C773400F103B4 /* BDBRouteCollectionViewController.h */,
 				14B1B00A1A9C773400F103B4 /* BDBRouteCollectionViewController.m */,
+				1495CFBE1AA90744007C5231 /* BDBWebViewController.h */,
+				1495CFBF1AA90744007C5231 /* BDBWebViewController.m */,
 				1496038C1AA546A500A9E846 /* Main.storyboard */,
 			);
 			name = Controllers;
@@ -441,6 +449,7 @@
 			files = (
 				14074F6F1A76F15700A771E8 /* Entitlements.plist in Resources */,
 				14074F511A76BA5E00A771E8 /* LaunchScreen.xib in Resources */,
+				1495CFBA1AA8F276007C5231 /* airlinesD3.gif in Resources */,
 				14074F4E1A76BA5E00A771E8 /* Images.xcassets in Resources */,
 				1496038D1AA546A500A9E846 /* Main.storyboard in Resources */,
 			);
@@ -486,6 +495,7 @@
 				1495CFA31AA7A877007C5231 /* BDBAirlines.m in Sources */,
 				1495CF911AA783BC007C5231 /* BDBTicketsTableViewController.m in Sources */,
 				144CCE131A92771A00B3938D /* BDBIndicativePrice.m in Sources */,
+				1495CFC01AA90744007C5231 /* BDBWebViewController.m in Sources */,
 				14B217C91A94984D00CCCE42 /* BDBSegmentTableViewController.m in Sources */,
 				144CCDEF1A92761900B3938D /* BDBStop.m in Sources */,
 				1495CFB81AA8CF7C007C5231 /* BDBAircrafts.m in Sources */,

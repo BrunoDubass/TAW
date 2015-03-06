@@ -19,5 +19,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *flightLabel;
 @property (weak, nonatomic) IBOutlet UILabel *airlineLabel;
 @property (weak, nonatomic) IBOutlet UILabel *aircraftLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *logoFlight;
+
+@property (weak, nonatomic) IBOutlet UIButton *webUrlButton;
 
 @end

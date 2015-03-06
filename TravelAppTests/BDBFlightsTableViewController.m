@@ -17,6 +17,7 @@
 #import "BDBAirlines.h"
 #import "BDBAgencies.h"
 #import "BDBAircrafts.h"
+#import "BDBWebViewController.h"
 
 @interface BDBFlightsTableViewController ()
 
@@ -83,16 +84,24 @@
     // Configure the cell...
     BDBFlightHop *fh = [[[[[[[self.r.segments objectAtIndex:self.segmentIndex]itineraries]objectAtIndex:indexPath.section]legs]objectAtIndex:0]hops]objectAtIndex:indexPath.row];
     
+    
+    
+    
+    
+    
     cell.sCodeLabel.text = [self codeAirport:[fh sCode]];
     cell.tCodeLabel.text = [self codeAirport:[fh tCode]];
     cell.sTerminalLabel.text = [fh sTerminal];
     cell.tTerminalLabel.text = [fh tTerminal];
-    cell.sTimeLabel.text = [NSString stringWithFormat:@"%.2f", [fh sTime]];
-    cell.tTimeLabel.text = [NSString stringWithFormat:@"%.2f", [fh tTime]];
-    cell.timeTripLabel.text = [NSString stringWithFormat:@"%.2f hours", [fh tTime]/60];
+    cell.sTimeLabel.text = [NSString stringWithFormat:@"%@", [fh sTime]];
+    cell.tTimeLabel.text = [NSString stringWithFormat:@"%@", [fh tTime]];
+    cell.timeTripLabel.text = [NSString stringWithFormat:@"%u : %u", (int)[fh timeTrip]/60, (int)[fh timeTrip]%60];
     cell.flightLabel.text = [fh flight];
-    cell.airlineLabel.text = [self codeAirline:fh.airline];
+    cell.airlineLabel.text = [[self codeAirline:fh.airline]name];
     cell.aircraftLabel.text = [self codeAircraft:[fh aircraft]];
+    cell.logoFlight.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.rome2rio.com%@",[[self codeAirline:fh.airline]iconPath]]]]];
+    [cell.webUrlButton setTitle:[[self codeAirline:fh.airline]url] forState:UIControlStateNormal];
+    
     
     return cell;
 }
@@ -132,15 +141,23 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    if ([segue.identifier isEqualToString:@"webSegue"]) {
+        BDBWebViewController *wVC = [segue destinationViewController];
+        NSURL *url = [NSURL URLWithString:[[sender titleLabel]text]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        wVC.request = request;
+    }
+   
 }
-*/
+
 
 -(NSString*)codeAirport:(NSString*)code{
     
@@ -153,27 +170,17 @@
     return @"No Airport Match";
 }
 
--(NSString*)codeAirline:(NSString*)code{
+-(BDBAirlines*)codeAirline:(NSString*)code{
     
     for (BDBAirlines *al in self.airlines) {
         if ([code isEqualToString:al.code]) {
-            return al.name;
+            return al;
         }
     }
     
-    return @"No Airline Match";
+    return nil;
 }
 
--(NSString*)codeAgency:(NSString*)code{
-    
-    for (BDBAgencies *ag in self.agencies) {
-        if ([code isEqualToString:ag.code]) {
-            return ag.name;
-        }
-    }
-    
-    return @"No Agency Match";
-}
 
 -(NSString*)codeAircraft:(NSString*)code{
     

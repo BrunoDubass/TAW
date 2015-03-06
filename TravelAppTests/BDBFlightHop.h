@@ -15,8 +15,8 @@
 @property (copy, nonatomic)NSString *tCode;
 @property (copy, nonatomic)NSString *sTerminal;
 @property (copy, nonatomic)NSString *tTerminal;
-@property (nonatomic)float sTime;
-@property (nonatomic)float tTime;
+@property (copy, nonatomic)NSString *sTime;
+@property (copy, nonatomic)NSString *tTime;
 @property (copy, nonatomic)NSString *flight;
 @property (copy, nonatomic)NSString *airline;
 @property (nonatomic)float timeTrip;
@@ -30,8 +30,8 @@
              tCode:(NSString*)aTCode
          sTerminal:(NSString*)aSTerminal
          tTerminal:(NSString*)aTTerminal
-             sTime:(float)aSTime
-             tTime:(float)aTTime
+             sTime:(NSString*)aSTime
+             tTime:(NSString*)aTTime
             flight:(NSString*)aFlight
            airline:(NSString*)aAirline
           timeTrip:(float)aDuration

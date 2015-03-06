@@ -16,5 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *sName;
 @property (weak, nonatomic) IBOutlet UILabel *tName;
 - (IBAction)ticket:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *ticketButton;
 
 @end

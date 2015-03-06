@@ -24,6 +24,8 @@
 #import "BDBActions.h"
 #import "BDBAgenciesAndAirlines.h"
 #import "BDBAirports.h"
+#import "BDBAgencies.h"
+#import "BDBWebViewController.h"
 
 @interface BDBTicketsTableViewController ()
 
@@ -164,9 +166,8 @@
     
 }
 
-//-(NSArray *)flightTicketData{
-//    
-//}
+
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     BDBTicketsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ticketCell" forIndexPath:indexPath];
@@ -185,9 +186,10 @@
         cell.sName.text = tD.sName;
         cell.tName.text = tD.tName;
         cell.vehicle.text = tD.vehicle;
-        cell.timeTrip.text = [NSString stringWithFormat:@"%.2f", tD.timeTrip];
-        cell.agency.text = tD.agency;
-        cell.frequency.text = [NSString stringWithFormat:@"%.ui", tD.frequency];
+        cell.timeTrip.text = [NSString stringWithFormat:@"%u:%u", (int)tD.timeTrip/60, (int)tD.timeTrip%60];
+        cell.agency.text = [[self codeAgency:tD.agency]name];
+        //cell.frequency.text = [NSString stringWithFormat:@"%.ui", tD.frequency];
+        [cell.ticketButton setTitle:[NSString stringWithFormat:@"%@",tD.url] forState:UIControlStateNormal];
   
         
     }
@@ -195,6 +197,8 @@
     
     return cell;
 }
+
+
 
 
 /*
@@ -231,14 +235,34 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    if ([segue.identifier isEqualToString:@"webTicket"]) {
+        BDBWebViewController *wVC = [segue destinationViewController];
+        NSURL *url = [NSURL URLWithString:[[sender titleLabel]text]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        wVC.request = request;
+        
+    }
 }
-*/
+
+
+-(BDBAgencies*)codeAgency:(NSString*)code{
+    
+    for (BDBAgencies *ag in self.agencies) {
+        if ([code isEqualToString:ag.code]) {
+            return ag;
+        }
+    }
+    
+    return nil;
+}
+
 
 @end

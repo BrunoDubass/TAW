@@ -14,8 +14,8 @@
              tCode:(NSString*)aTCode
          sTerminal:(NSString*)aSTerminal
          tTerminal:(NSString*)aTTerminal
-             sTime:(float)aSTime
-             tTime:(float)aTTime
+             sTime:(NSString*)aSTime
+             tTime:(NSString*)aTTime
             flight:(NSString*)aFlight
            airline:(NSString*)aAirline
           timeTrip:(float)aDuration

@@ -388,6 +388,8 @@ static NSString * const reuseIdentifier2 = @"segmentCell";
          tiVC.airports = self.airports;
      }
      if ([segue.identifier isEqualToString:@"flightSegue"]) {
+//         UINavigationController *navController = (UINavigationController*)[segue destinationViewController];
+//         BDBFlightsTableViewController *fVC = (BDBFlightsTableViewController *)[navController topViewController];
          BDBFlightsTableViewController *fVC = [segue destinationViewController];
          fVC.r = self.r;
          fVC.segmentIndex = self.stopsIndex;
