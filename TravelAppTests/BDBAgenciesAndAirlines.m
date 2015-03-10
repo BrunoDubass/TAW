@@ -15,7 +15,7 @@
               url:(NSString*)aUrl
          iconPath:(NSString*)aIconPath
          iconSize:(float)aIconSize
-       iconOffset:(float)aIconOffset{
+       iconOffset:(NSString*)aIconOffset{
     
     if (self = [super init]) {
         _code = aCode;

@@ -15,13 +15,13 @@
 @property (copy, nonatomic)NSString * url;
 @property (copy, nonatomic)NSString * iconPath;
 @property (nonatomic)float iconSize;
-@property (nonatomic)float iconOffset;
+@property (nonatomic)NSString *iconOffset;
 
 -(id)initWithCode:(NSString*)aCode
              name:(NSString*)aName
               url:(NSString*)aUrl
          iconPath:(NSString*)aIconPath
-         iconSize:(float)aIconSize
+         iconSize:(NSString*)aIconSize
        iconOffset:(float)aIconOffset;
 
 @end

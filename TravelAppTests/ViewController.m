@@ -181,7 +181,7 @@
                                                            name:[obj objectForKey:@"name"]
                                                             url:[obj objectForKey:@"url"]
                                                        iconPath:[obj objectForKey:@"iconPath"]
-                                                       iconSize:[[obj objectForKey:@"iconSize"]floatValue]
+                                                       iconSize:[obj objectForKey:@"iconSize"]
                                                      iconOffset:[[obj objectForKey:@"iconOffset"]floatValue]];
         
         
@@ -199,7 +199,7 @@
                                                            name:[obj objectForKey:@"name"]
                                                             url:[obj objectForKey:@"url"]
                                                        iconPath:[obj objectForKey:@"iconPath"]
-                                                       iconSize:[[obj objectForKey:@"iconSize"]floatValue]
+                                                       iconSize:[obj objectForKey:@"iconSize"]
                                                      iconOffset:[[obj objectForKey:@"iconOffset"]floatValue]];
         
         

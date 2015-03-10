@@ -21,6 +21,10 @@
 
 @interface BDBFlightsTableViewController ()
 
+@property (nonatomic)CGPoint offset;
+@property (nonatomic)CGSize size;
+@property (strong, nonatomic)UIImage *logo;
+
 @end
 
 @implementation BDBFlightsTableViewController
@@ -88,7 +92,9 @@
     
     // Configure the cell...
     BDBFlightHop *fh = [[[[[[[self.r.segments objectAtIndex:self.segmentIndex]itineraries]objectAtIndex:indexPath.section]legs]objectAtIndex:0]hops]objectAtIndex:indexPath.row];
-  
+    [self setIconOffset:[[self codeAirline:fh.airline]iconOffset]];
+    UIImage *logoImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.rome2rio.com%@",[[self codeAirline:fh.airline]iconPath]]]]];
+    
     
     cell.sCodeLabel.text = [self codeAirport:[fh sCode]];
     cell.tCodeLabel.text = [self codeAirport:[fh tCode]];
@@ -100,7 +106,7 @@
     cell.flightLabel.text = [fh flight];
     cell.airlineLabel.text = [[self codeAirline:fh.airline]name];
     cell.aircraftLabel.text = [self codeAircraft:[fh aircraft]];
-    cell.logoFlight.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.rome2rio.com%@",[[self codeAirline:fh.airline]iconPath]]]]];
+    cell.logoFlight.image = [self getSprite:logoImage];
     [cell.webUrlButton setTitle:[[self codeAirline:fh.airline]url] forState:UIControlStateNormal];
     
     
@@ -163,6 +169,44 @@
     return @"No Aircraft Match";
 }
 
+
+-(UIImage *) getSprite:(UIImage *)image
+{
+//    if (self.sprite == nil)
+//    {
+
+  
+        CGRect rect = CGRectMake(self.offset.x, self.offset.y, self.size.width, self.size.height);
+        
+        CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], rect);
+        
+        self.logo = [UIImage imageWithCGImage:imageRef];
+        
+        CGImageRelease(imageRef);
+//    }
+    
+    return self.logo;
+}
+
+
+-(void)setIconOffset:(NSString*)iconOff{
+    
+    float x,y;
+    NSString *string = iconOff;
+    if ([string length] > 0)
+    {
+        NSScanner *scanner = [NSScanner scannerWithString:iconOff];
+        [scanner setCharactersToBeSkipped: [NSCharacterSet characterSetWithCharactersInString:@","]];
+        [scanner scanFloat:&x];
+        [scanner scanFloat:&y];
+    }
+    else //default icon offset
+    {
+        x = 0;
+        y = 0;
+    }
+    self.offset = CGPointMake(x, y);
+}
 
 
 
