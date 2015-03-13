@@ -120,7 +120,9 @@ static NSString * const reuseIdentifier = @"Cell";
             
             CLLocationCoordinate2D locArray[2] = {loc1, loc2};
             
-            MKPolyline *poli = [MKPolyline polylineWithCoordinates: locArray count:2];
+            MKGeodesicPolyline *poli = [MKGeodesicPolyline polylineWithCoordinates: locArray count:2];
+            
+            //MKPolyline *poli = [MKPolyline polylineWithCoordinates: locArray count:2];
             
             [cell.cellMapView addOverlay:poli];
             
@@ -340,7 +342,9 @@ static NSString * const reuseIdentifier = @"Cell";
             
             CLLocationCoordinate2D locArray[2] = {loc1, loc2};
             
-            MKPolyline *poli = [MKPolyline polylineWithCoordinates: locArray count:2];
+            MKGeodesicPolyline *poli = [MKGeodesicPolyline polylineWithCoordinates: locArray count:2];
+            
+            //MKPolyline *poli = [MKPolyline polylineWithCoordinates: locArray count:2];
             
             [self.mapView addOverlay:poli];
             

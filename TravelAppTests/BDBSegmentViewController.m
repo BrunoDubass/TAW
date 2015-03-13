@@ -301,7 +301,9 @@ static NSString * const reuseIdentifier2 = @"segmentCell";
             
             CLLocationCoordinate2D locArray[2] = {loc1, loc2};
             
-            MKPolyline *poli = [MKPolyline polylineWithCoordinates: locArray count:2];
+            MKGeodesicPolyline *poli = [MKGeodesicPolyline polylineWithCoordinates:locArray count:2];
+            
+            //MKPolyline *poli = [MKPolyline polylineWithCoordinates: locArray count:2];
             
             self.pointAnnotation1 = [[BDBAnnotation alloc]initWithName:[[self.r.stops objectAtIndex:index]name] coordinate:CLLocationCoordinate2DMake(self.latitudeA.doubleValue, self.longitudeA.doubleValue)];
             

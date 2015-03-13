@@ -18,8 +18,15 @@
 #import "BDBAgencies.h"
 #import "BDBAircrafts.h"
 #import "BDBWebViewController.h"
+#import "BDBIndicativePrice.h"
+#import "BDBAgenciesAndAirlines.h"
 
-@interface BDBFlightsTableViewController ()
+@interface BDBFlightsTableViewController (){
+    
+    NSInteger indexSel;
+    NSIndexPath *oldIndexSel;
+    __block NSInteger yOffset;
+}
 
 @property (nonatomic)CGPoint offset;
 @property (nonatomic)CGSize size;
@@ -40,6 +47,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:YES];
+    indexSel = -1;
     
     self.title = @"FLIGHTS";
 }
@@ -53,34 +61,23 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    if ([[self.r.segments objectAtIndex:self.segmentIndex] isKindOfClass:[BDBFlightSegment class]]) {
-        return [[[self.r.segments objectAtIndex:self.segmentIndex]itineraries]count];
-    }else{
-        return 1;
-    }
-    
+           return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    __block NSInteger n = 0;
-    
     if ([[self.r.segments objectAtIndex:self.segmentIndex] isKindOfClass:[BDBFlightSegment class]]){
-    BDBFlightSegment *fS = [self.r.segments objectAtIndex:self.segmentIndex];
-    [[[[fS itineraries]objectAtIndex:section]legs]enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [[obj hops]enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            n+=1;
-        }];
-    }];
+        return [[[self.r.segments objectAtIndex:self.segmentIndex]itineraries]count];
+    }else{
+        return 0;
     }
-    return n;
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     
     if ([[self.r.segments objectAtIndex:self.segmentIndex] isKindOfClass:[BDBFlightSegment class]]){
         
-        return [NSString stringWithFormat:@"Flight %u - %@ (%@) - %@ (%@)", section+1, [self codeAirport:[[self.r.segments objectAtIndex:self.segmentIndex]sCode]], [[self.r.segments objectAtIndex:self.segmentIndex]sCode],[self codeAirport:[[self.r.segments objectAtIndex:self.segmentIndex]tCode]],[[self.r.segments objectAtIndex:self.segmentIndex]tCode]];
+        return @"Flights Available";
     }else{
         return @"No Flights Available";
     }
@@ -88,32 +85,179 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    BDBFlightsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"flightsCell" forIndexPath:indexPath];
     
-    // Configure the cell...
-    BDBFlightHop *fh = [[[[[[[self.r.segments objectAtIndex:self.segmentIndex]itineraries]objectAtIndex:indexPath.section]legs]objectAtIndex:0]hops]objectAtIndex:indexPath.row];
-    [self setIconOffset:[[self codeAirline:fh.airline]iconOffset]];
-    UIImage *logoImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.rome2rio.com%@",[[self codeAirline:fh.airline]iconPath]]]]];
+
+//      BDBFlightsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"flightsCell" forIndexPath:indexPath];
+    
+        BDBFlightsTableViewCell *cell = [[BDBFlightsTableViewCell alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 37)];
     
     
-    cell.sCodeLabel.text = [self codeAirport:[fh sCode]];
-    cell.tCodeLabel.text = [self codeAirport:[fh tCode]];
-    cell.sTerminalLabel.text = [fh sTerminal];
-    cell.tTerminalLabel.text = [fh tTerminal];
-    cell.sTimeLabel.text = [NSString stringWithFormat:@"%@", [fh sTime]];
-    cell.tTimeLabel.text = [NSString stringWithFormat:@"%@", [fh tTime]];
-    cell.timeTripLabel.text = [NSString stringWithFormat:@"%u.%u h", (int)[fh timeTrip]/60, (int)[fh timeTrip]%60];
-    cell.flightLabel.text = [fh flight];
-    cell.airlineLabel.text = [[self codeAirline:fh.airline]name];
-    cell.aircraftLabel.text = [self codeAircraft:[fh aircraft]];
-    cell.logoFlight.image = [self getSprite:logoImage];
-    [cell.webUrlButton setTitle:[[self codeAirline:fh.airline]url] forState:UIControlStateNormal];
+    
+    
+//    BDBFlightSegment *fITI = [self.r.segments objectAtIndex:self.segmentIndex];
+    BDBFlightItinerary *fI = [[[self.r.segments objectAtIndex:self.segmentIndex]itineraries]objectAtIndex:indexPath.row];
+//    BDBFlightLeg *flightLeg = [[[fITI.itineraries objectAtIndex:indexPath.row]legs]objectAtIndex:0];
+//    NSArray *hops = [[[fI legs]objectAtIndex:0]hops];
+    
+    
+    //[[cell subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    if (fI) {
+        cell = [self configFlightCell:fI flightCell:cell];
+    }
+    
     
     
     return cell;
 }
 
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    //Tap expanded cell
+    
+    if (indexSel == indexPath.row) {
+        indexSel = -1;
+        [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+    //Tap another cell
+    }else if(indexSel != -1){
+        oldIndexSel = [NSIndexPath indexPathForRow:indexSel inSection:0];
+        indexSel = indexPath.row;
+        [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:oldIndexSel,indexPath, nil] withRowAnimation:UITableViewRowAnimationFade];
+        
+        
+        //No cell expanded
+    }else{
+        indexSel = indexPath.row;
+        [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+
+    
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexSel == indexPath.row) {
+        return yOffset+8;
+    }
+    return 37;
+}
+
+-(BDBFlightsTableViewCell*)configFlightCell:(BDBFlightItinerary*)flightIti flightCell:(BDBFlightsTableViewCell*)cell{
+    
+    
+    BDBFlightSegment *fS = [self.r.segments objectAtIndex:self.segmentIndex];
+    BDBFlightLeg *flightLeg = [[flightIti legs]objectAtIndex:0];
+    NSArray *hops = [[[flightIti legs]objectAtIndex:0]hops];
+    
+    yOffset = 8;
+    
+//    for (UIView *subView in cell.viewForBaselineLayout.subviews)
+//    {
+//        [subView removeFromSuperview];
+//        
+//    }
+    
+//    [[cell subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    
+    
+    UILabel *from = [[UILabel alloc]initWithFrame:CGRectMake(8, yOffset, 68, 21)];
+    UILabel *to = [[UILabel alloc]initWithFrame:CGRectMake(89, yOffset, 68, 21)];
+    UILabel *distance = [[UILabel alloc]initWithFrame:CGRectMake(160, yOffset, 119, 21)];
+    UILabel *duration = [[UILabel alloc]initWithFrame:CGRectMake(287, yOffset, 84, 21)];
+    UILabel *price = [[UILabel alloc]initWithFrame:CGRectMake(379, yOffset, 70, 21)];
+    UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(457, yOffset, 23, 27)];
+    UIButton *buy = [[UIButton alloc]initWithFrame:CGRectMake(496, yOffset, 73, 30)];
+    
+    [cell.contentView addSubview:from];
+    [cell.contentView addSubview:to];
+    [cell.contentView addSubview:distance];
+    [cell.contentView addSubview:duration];
+    [cell.contentView addSubview:price];
+    [cell.contentView addSubview:image];
+    [cell.contentView addSubview:buy];
+    
+        
+    from.text = fS.sCode;
+    to.text = fS.tCode;
+    distance.text = [NSString stringWithFormat:@"%.2f km", fS.distanceR];
+    duration.text = [NSString stringWithFormat:@"%2u:%2u", (int)fS.timeTrip/60, (int)fS.timeTrip%60];
+    price.text = [NSString stringWithFormat:@"%.2f €", [flightLeg.indicativePrice price]];
+    
+    buy.titleLabel.text = @"buy";
+    
+    yOffset+=37;
+    
+    
+    
+    // Configure the cell...
+    [hops enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        
+        UILabel *sCode = [[UILabel alloc]initWithFrame:CGRectMake(8, yOffset, 184, 21)];
+        UILabel *sTerminal = [[UILabel alloc]initWithFrame:CGRectMake(200, yOffset, 10, 21)];
+        UILabel *sTer = [[UILabel alloc]initWithFrame:CGRectMake(218, yOffset, 29, 21)];
+        UILabel *departureTime = [[UILabel alloc]initWithFrame:CGRectMake(255, yOffset, 37, 21)];
+        UILabel *sTime = [[UILabel alloc]initWithFrame:CGRectMake(300, yOffset, 50, 21)];
+        UILabel *airline = [[UILabel alloc]initWithFrame:CGRectMake(358, yOffset, 220, 21)];
+        
+        [cell.contentView addSubview:sCode];
+        [cell.contentView addSubview:sTerminal];
+        [cell.contentView addSubview:sTer];
+        [cell.contentView addSubview:departureTime];
+        [cell.contentView addSubview:sTime];
+        [cell.contentView addSubview:airline];
+        
+        yOffset+=29;
+        
+        UILabel *tCode = [[UILabel alloc]initWithFrame:CGRectMake(8, yOffset, 184, 21)];
+        UILabel *tTerminal = [[UILabel alloc]initWithFrame:CGRectMake(200, yOffset, 10, 21)];
+        UILabel *tTer = [[UILabel alloc]initWithFrame:CGRectMake(218, yOffset, 29, 21)];
+        UILabel *arrivalTime = [[UILabel alloc]initWithFrame:CGRectMake(255, yOffset, 37, 21)];
+        UILabel *tTime = [[UILabel alloc]initWithFrame:CGRectMake(300, yOffset, 50, 21)];
+        UILabel *aircraft = [[UILabel alloc]initWithFrame:CGRectMake(358, yOffset, 220, 21)];
+        
+        [cell.contentView addSubview:tCode];
+        [cell.contentView addSubview:tTerminal];
+        [cell.contentView addSubview:tTer];
+        [cell.contentView addSubview:arrivalTime];
+        [cell.contentView addSubview:tTime];
+        [cell.contentView addSubview:aircraft];
+        
+        yOffset+=39;
+        
+        sCode.text = [self codeAirport:[obj sCode]];
+        sTerminal.text = @"T";
+        sTer.text = [obj sTerminal];
+        departureTime.text = @"Dep";
+        sTime.text = [obj sTime];
+        BDBAirlines *a = [self codeAirline:[obj airline]];
+        airline.text = a.name;
+        tCode.text = [self codeAirport:[obj tCode]];
+        tTerminal.text = @"T";
+        tTer.text = [obj tTerminal];
+        arrivalTime.text = @"Arr";
+        tTime.text = [obj tTime];
+        aircraft.text = [self codeAircraft:[obj aircraft]];
+        
+        
+        
+        if (idx != hops.count-1) {
+            
+            if (idx == 0) {
+                
+            }else{
+                
+            }
+        }
+        
+    }];
+    
+    cell.clipsToBounds = YES;
+    return cell;
+}
 
 #pragma mark - Navigation
 
