@@ -219,7 +219,7 @@
             
             yOffset+=60;
        }
-        
+        BDBAirlines *a = [self codeAirline:[obj airline]];
         
         UILabel *sCode = [[UILabel alloc]initWithFrame:CGRectMake(8, yOffset, 184, 21)];
         UILabel *sTerminal = [[UILabel alloc]initWithFrame:CGRectMake(200, yOffset, 10, 21)];
@@ -227,6 +227,14 @@
         UILabel *departureTime = [[UILabel alloc]initWithFrame:CGRectMake(255, yOffset, 37, 21)];
         UILabel *sTime = [[UILabel alloc]initWithFrame:CGRectMake(300, yOffset, 50, 21)];
         UILabel *airline = [[UILabel alloc]initWithFrame:CGRectMake(358, yOffset, 220, 21)];
+        
+        UIButton *buy = [[UIButton alloc]initWithFrame:CGRectMake(580, yOffset, 150, 21)];
+        buy.titleLabel.textAlignment = NSTextAlignmentLeft;
+        buy.titleLabel.adjustsFontSizeToFitWidth = YES;
+        [buy setTitle:a.url forState:UIControlStateNormal];
+        [cell.contentView addSubview:buy];
+        
+        
         
         [cell.contentView addSubview:sCode];
         [cell.contentView addSubview:sTerminal];
@@ -244,6 +252,10 @@
         UILabel *tTime = [[UILabel alloc]initWithFrame:CGRectMake(300, yOffset, 50, 21)];
         UILabel *aircraft = [[UILabel alloc]initWithFrame:CGRectMake(358, yOffset, 220, 21)];
         
+        UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(650, yOffset, 23, 27)];
+        UIImage *img = [[UIImage alloc]initWithContentsOfFile:a.iconPath];
+        [cell.contentView addSubview:imgView];
+        
         [cell.contentView addSubview:tCode];
         [cell.contentView addSubview:tTerminal];
         [cell.contentView addSubview:tTer];
@@ -258,7 +270,7 @@
         sTer.text = [obj sTerminal];
         departureTime.text = @"Dep";
         sTime.text = [obj sTime];
-        BDBAirlines *a = [self codeAirline:[obj airline]];
+        
         airline.text = a.name;
         tCode.text = [self codeAirport:[obj tCode]];
         tTerminal.text = @"T";
