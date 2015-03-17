@@ -479,8 +479,8 @@
                                                                                aircraft:[obj objectForKey:@"aircraft"]
                                                                               codeShare:nil
                                                                               dayChange:[[obj objectForKey:@"dayChange"]integerValue]
-                                                                              iDuration:[[obj objectForKey:@"IDuration"]floatValue]
-                                                                             iDayChange:[[obj objectForKey:@"IDayChange"]integerValue]];
+                                                                              iDuration:[[obj objectForKey:@"lDuration"]floatValue]
+                                                                             iDayChange:[[obj objectForKey:@"lDayChange"]integerValue]];
                            
                            [flightHopsMutable addObject:flightHop];
                            

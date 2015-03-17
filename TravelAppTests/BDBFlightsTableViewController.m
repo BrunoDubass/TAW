@@ -86,27 +86,36 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    BDBFlightsTableViewCell *cell = [[BDBFlightsTableViewCell alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 37)];
 
-//      BDBFlightsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"flightsCell" forIndexPath:indexPath];
-    
-        BDBFlightsTableViewCell *cell = [[BDBFlightsTableViewCell alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 37)];
-    
-    
-    
-    
-//    BDBFlightSegment *fITI = [self.r.segments objectAtIndex:self.segmentIndex];
     BDBFlightItinerary *fI = [[[self.r.segments objectAtIndex:self.segmentIndex]itineraries]objectAtIndex:indexPath.row];
-//    BDBFlightLeg *flightLeg = [[[fITI.itineraries objectAtIndex:indexPath.row]legs]objectAtIndex:0];
-//    NSArray *hops = [[[fI legs]objectAtIndex:0]hops];
-    
-    
-    //[[cell subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+
     
     [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
     if (fI) {
         cell = [self configFlightCell:fI flightCell:cell];
     }
     
+    if (indexSel == indexPath.row){
+        cell.backgroundColor = [UIColor colorWithHue:0.572 saturation:0.63 brightness:0.67 alpha:1];
+        for (UILabel* a in cell.contentView.subviews) {
+            if ([a isKindOfClass:[UILabel class]]) {
+                a.textColor = [UIColor colorWithHue:0.494 saturation:0.11 brightness:0.91 alpha:1];
+            }
+            
+        }
+
+    }else{
+        cell.backgroundColor = [UIColor colorWithHue:0.55 saturation:0.20 brightness:0.73 alpha:1];
+        for (UILabel* a in cell.contentView.subviews) {
+            if ([a isKindOfClass:[UILabel class]]) {
+                a.textColor = [UIColor colorWithHue:0.494 saturation:0.11 brightness:0.91 alpha:1];
+            }
+            
+        }
+
+    }
     
     
     return cell;
@@ -114,6 +123,7 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     
     //Tap expanded cell
     
@@ -132,10 +142,13 @@
     }else{
         indexSel = indexPath.row;
         [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
+        
+          }
 
     
 }
+
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexSel == indexPath.row) {
@@ -152,15 +165,6 @@
     NSArray *hops = [[[flightIti legs]objectAtIndex:0]hops];
     
     yOffset = 8;
-    
-//    for (UIView *subView in cell.viewForBaselineLayout.subviews)
-//    {
-//        [subView removeFromSuperview];
-//        
-//    }
-    
-//    [[cell subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
     
     
     UILabel *from = [[UILabel alloc]initWithFrame:CGRectMake(8, yOffset, 68, 21)];
@@ -194,6 +198,27 @@
     
     // Configure the cell...
     [hops enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        if ([obj iDuration] > 0) {
+        
+            yOffset+=16;
+            
+            UILabel *escalaLabel = [[UILabel alloc]initWithFrame:CGRectMake(58, yOffset, 180, 21)];
+            UILabel *iDuration = [[UILabel alloc]initWithFrame:CGRectMake(242, yOffset, 80, 21)];
+            escalaLabel.textAlignment = NSTextAlignmentCenter;
+            escalaLabel.backgroundColor = [UIColor colorWithHue:0.55 saturation:0.20 brightness:0.73 alpha:1];
+            iDuration.textAlignment = NSTextAlignmentCenter;
+            iDuration.backgroundColor = [UIColor colorWithHue:0.636 saturation:0.09 brightness:0.50 alpha:1];
+            
+            [cell.contentView addSubview:escalaLabel];
+            [cell.contentView addSubview:iDuration];
+            
+            
+            escalaLabel.text = @"Transit Time";
+            iDuration.text = [NSString stringWithFormat:@"%u:%02u h",(int)[obj iDuration]/60,(int)[obj iDuration]%60];
+            
+            yOffset+=60;
+       }
         
         
         UILabel *sCode = [[UILabel alloc]initWithFrame:CGRectMake(8, yOffset, 184, 21)];
@@ -241,19 +266,9 @@
         arrivalTime.text = @"Arr";
         tTime.text = [obj tTime];
         aircraft.text = [self codeAircraft:[obj aircraft]];
+ 
         
-        
-        
-        if (idx != hops.count-1) {
-            
-            if (idx == 0) {
-                
-            }else{
-                
-            }
-        }
-        
-    }];
+        }];
     
     cell.clipsToBounds = YES;
     return cell;

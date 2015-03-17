@@ -57,7 +57,7 @@ static NSString * const reuseIdentifier2 = @"segmentCell";
     self.title = @"SELECT SEGMENT";
     
     self.r = [self.allRoutes.routes objectAtIndex:self.segmentIndex];
-    self.routeInfo.text = [NSString stringWithFormat:@"%@  -  %@ - %@     -     %.2f    -    %.2f", self.r.name, [[self.r.stops objectAtIndex:0]name], [[self.r.stops objectAtIndex:self.r.stops.count-1]name], self.r.distanceR, self.r.indicativePrice.price];
+    self.routeInfo.text = [NSString stringWithFormat:@"%@  -  %@ - %@     -     %.2f km   -    %.02f €", self.r.name, [[self.r.stops objectAtIndex:0]name], [[self.r.stops objectAtIndex:self.r.stops.count-1]name], self.r.distanceR, self.r.indicativePrice.price];
     
     [self setMapSegmentAtIndexPath:0];
 }
@@ -228,10 +228,10 @@ static NSString * const reuseIdentifier2 = @"segmentCell";
     MKPolylineRenderer *polyline = [[MKPolylineRenderer alloc] initWithOverlay:overlay];
     
     if (contador %2 == 0) {
-        polyline.strokeColor = [UIColor redColor];
+        polyline.strokeColor = [UIColor colorWithHue:0.752 saturation:0.63 brightness:0.67 alpha:1];
         polyline.lineWidth = 3.0;
     }else{
-        polyline.strokeColor = [UIColor blueColor];
+        polyline.strokeColor = [UIColor colorWithHue:0.636 saturation:0.09 brightness:0.50 alpha:1];
         polyline.lineWidth = 3.0;
     }
     return polyline;

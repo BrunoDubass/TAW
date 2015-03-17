@@ -281,10 +281,10 @@ static NSString * const reuseIdentifier = @"Cell";
     MKPolylineRenderer *polyline = [[MKPolylineRenderer alloc] initWithOverlay:overlay];
     
     if (contador %2 == 0) {
-        polyline.strokeColor = [UIColor redColor];
+        polyline.strokeColor = [UIColor colorWithHue:0.752 saturation:0.63 brightness:0.67 alpha:1];
         polyline.lineWidth = 3.0;
     }else{
-        polyline.strokeColor = [UIColor blueColor];
+        polyline.strokeColor = [UIColor colorWithHue:0.636 saturation:0.09 brightness:0.50 alpha:1];
         polyline.lineWidth = 3.0;
     }
     return polyline;
